@@ -6,6 +6,9 @@ import { UserdisplayComponent } from './userdisplay/userdisplay.component';
 import { UseraddComponent } from './useradd/useradd.component';
 import {AppRoutingModule} from './app-routing/app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
+import {FormsModule} from '@angular/forms';
+import {ReactiveFormsModule} from '@angular/forms';
+import {MatFormFieldModule} from '@angular/material/form-field';
 
 
 
@@ -20,7 +23,10 @@ import {AlienServiceService} from './services/alien-service.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MatFormFieldModule
     
   ],
   providers: [AlienServiceService],
