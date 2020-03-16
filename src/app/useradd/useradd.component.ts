@@ -15,8 +15,10 @@ import {FormBuilder,FormGroup} from '@angular/forms';
 export class UseraddComponent implements OnInit {
 
   alien:alien;
+  alien_property:alien;
   alien_add_form:FormGroup;
-  constructor(private http_service:HttpClient,private alien_service:AlienServiceService,private fb:FormBuilder) 
+  constructor(private http_service:HttpClient,private alien_service:AlienServiceService,
+    private fb:FormBuilder,private route:ActivatedRoute, private router:Router) 
   {
       this.createForm();
   }
@@ -26,9 +28,15 @@ export class UseraddComponent implements OnInit {
 
   }
 
-  public onAddingAlien()
+  onAddingAlien()
   {
-    
+    this.alien_property=this.alien_add_form.value;
+    this.alien_service.save(this.alien_property).subscribe((result)=>this.go_to_all_aliens())
+  }
+
+  go_to_all_aliens()
+  {
+    this.router.navigate(['/userdisplay']);
   }
 
   createForm()

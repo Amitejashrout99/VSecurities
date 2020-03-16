@@ -1,0 +1,60 @@
+
+
+<body>
+    <mat-toolbar color="primary">
+        <mat-toolbar-row>
+            <span id="banner_text">Welcome to VshareSecurities</span>
+        </mat-toolbar-row>
+    </mat-toolbar>
+
+
+    <div id="login-div" fxLayoutAlign.gt-md="space-around center"
+    fxLayoutGap="10px"
+    fxLayout="row"
+     fxLayout.sm="column"
+     fxLayout.xs="column">
+        <button (click)='openLogInForm()' mat-raised-button class="sign_in_button text-floral-white">Sign In</button>
+        <button (click)='openSignUpForm()' mat-raised-button class="sign_up_button text-floral-white">Sign Up</button>
+    </div>
+    
+
+    <!--<div id="login-div">
+        <mat-card id="login-card">
+            <mat-toolbar color="primary">
+                <span><h3 id="login_banner">Sign In</h3></span>
+            </mat-toolbar>
+            <mat-card-header id="header-style">
+                <mat-card-title style="color: grey;">Enter your account information</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <p id="welcome_banner">Hope you are having a great day :))</p>
+                <form novalidate [formGroup]="user_login_form">
+
+                        <mat-form-field class="half-width">
+                            <input matInput formControlName="username" placeholder="Your Username" type="text">
+                            <mat-error *ngIf="formErrors.username">
+                                {{formErrors.username}}
+                            </mat-error>
+                        </mat-form-field>
+                        <br>
+                        <mat-form-field class="half-width">
+                            <input matInput formControlName="password" placeholder="Your Password" type="password">
+                            <mat-error *ngIf="formErrors.password">
+                                {{formErrors.password}}
+                            </mat-error>
+                        </mat-form-field>
+
+                </form>
+
+            </mat-card-content>
+            <mat-card-actions>
+                <button type="submit" [disabled]='!user_login_form.valid' (click)='onAttemptingToLogIn()' mat-button class="background-primary text-floral-white">Login</button>
+            </mat-card-actions>
+            
+        </mat-card>
+    
+    </div>-->
+</body>
+    
+    
