@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserdisplayComponent } from './userdisplay.component';
+import { StockLibraryNavbarComponent } from './stock-library-navbar.component';
 
-describe('UserdisplayComponent', () => {
-  let component: UserdisplayComponent;
-  let fixture: ComponentFixture<UserdisplayComponent>;
+describe('StockLibraryNavbarComponent', () => {
+  let component: StockLibraryNavbarComponent;
+  let fixture: ComponentFixture<StockLibraryNavbarComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserdisplayComponent ]
+      declarations: [ StockLibraryNavbarComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserdisplayComponent);
+    fixture = TestBed.createComponent(StockLibraryNavbarComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

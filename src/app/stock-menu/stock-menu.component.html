@@ -1,0 +1,55 @@
+<div class="container" 
+    fxLayout="column"
+    fxLayoutGap="10px">
+
+    <div fxFlex>
+        <div>
+            <h3>All Stocks</h3>
+            <hr>
+        </div>
+    </div>
+    
+    
+    
+    <div fxFlex *ngIf="stocks">
+            
+        <mat-grid-list cols="2" rowHeight="400px">
+
+                <mat-grid-tile  *ngFor="let stock of stocks"
+                appHighlight>
+                      <mat-card fxFlex>
+                        <mat-card-header>
+                          <div mat-card-avatar></div>
+                          <mat-card-title>
+                            <h3>{{stock.stock_name | uppercase}}</h3>
+                          </mat-card-title>
+                        </mat-card-header>
+                        <img mat-card-image height="200px" width="200px" src="/assets/images/stock_card_cover.jpg" alt={{stock.stock_name}}>
+                        <mat-card-content>
+                          <p>Total Quantity: {{stock.stock_quantity}}</p>
+                          <p>Price per Share: {{stock.stock_value}} ₹</p>
+                          <button [routerLink]="['/BuyStock', stock.stock_id]" class="buy_button_class" mat-button><i class="fa fa-shopping-cart" aria-hidden="true"></i> Buy</button>
+                          <button (click)="addToWatchList(stock.stock_id)"  class="watchlist_button_class"mat-button>Add to Your Stock Watchlist</button>
+                        </mat-card-content>
+                      </mat-card>                
+                </mat-grid-tile>
+
+
+
+            </mat-grid-list>
+    </div>
+
+    <div fxFlex [hidden]="stocks || error_message_faced">
+
+        <mat-spinner>
+            
+        </mat-spinner>
+        <h4>Loading ...... Please Wait...</h4>
+
+    </div>  
+    <div *ngIf="error_message_faced">
+
+        <h2>Error</h2>
+        <h4>{{error_message_faced}}</h4>
+
+    </div>

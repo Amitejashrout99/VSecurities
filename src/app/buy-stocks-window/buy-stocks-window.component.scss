@@ -1,0 +1,55 @@
+
+
+$lt-gray: #ddd;
+$background-dark: #512DA8;
+$background-light: #9575CD;
+$background-pale: #D1C4E9;
+
+
+
+
+.container
+{
+    background-image: url(/assets/images/stock_dashboard_image.jpg);
+    height: 100%;
+  
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+h3{
+    color:black;
+    font-size:larger;
+    z-index: 2;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.pay_button
+{
+    width:200px;
+    border-radius: 10px;
+    background-color: $background-dark;
+    z-index: 2;
+    text-align: center;
+}
+.pay_button_text
+{
+    color: whitesmoke;
+    font-family: 'Times New Roman', Times, serif;
+    z-index: 2;
+}
+.add_to_cart_button
+{
+    border-radius: 10px;
+    background-color: $background-light;
+    z-index: 2;
+    text-align: center;
+}
+.add_to_cart_button_text
+{
+    color: whitesmoke;
+    font-family: 'Times New Roman', Times, serif;
+    z-index: 2;
+}

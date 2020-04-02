@@ -1,1 +1,10 @@
-<p>dashboard works!</p>
+<mat-drawer-container class="example-container">
+    <mat-drawer #maindrawer mode="side">
+        <app-sidenavbar></app-sidenavbar>
+    </mat-drawer>
+    <mat-drawer-content>
+        <button mat-button mat-dialog-close style="z-index: 2;" (click)='maindrawer.toggle()' (click)="checkOpenClose()"><i class="fa fa-bars fa-lg" *ngIf="!open_state" aria-hidden="true"></i><i class="fa fa-times fa-lg" *ngIf="open_state" aria-hidden="true"></i></button>
+        
+        <router-outlet name="side"></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>

@@ -1,0 +1,30 @@
+
+        <mat-list>
+            
+            <div class="profile-card">
+                <div class="header">
+                    <h2>{{welcome_message}}</h2>
+                    <h4>example@email.com</h4>
+                </div>
+                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+            </div>
+            <mat-divider></mat-divider>
+
+            <h2 matSubheader>Stocks</h2>
+            <mat-divider></mat-divider>
+            <a mat-list-item  [routerLink]="['/dashboard', {outlets: {'side': ['trading']}}]"  routerLinkActive='active'>Overview</a>
+            <a mat-list-item [routerLink]="['/dashboard', {outlets: {'side': ['allStocks']}}]"  routerLinkActive='active'>View all Stocks</a>
+            <a mat-list-item [routerLink]="['/dashboard', {outlets: {'side': ['sellYourStocks']}}]"  routerLinkActive='active' >Sell Your Stocks</a>
+            
+            
+
+            <mat-divider></mat-divider>
+
+            <h2 matSubheader>Portfolio:</h2>
+            <mat-divider></mat-divider>
+
+            <a mat-list-item >View Portfolio</a>
+            <a mat-list-item >Create Portfolio</a>
+            <a mat-list-item >Delete Portfolio</a>
+
+        </mat-list>

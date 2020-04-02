@@ -1,0 +1,35 @@
+<mat-toolbar color="primary">
+    <span class="flex-spacer"></span>
+    <h2>Your Watchlisted Stocks</h2>
+    <span class="flex-spacer"></span>
+  <button mat-button mat-dialog-close><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+</mat-toolbar>
+
+
+<mat-accordion style="margin-top: 20px;">
+
+    <mat-expansion-panel *ngFor="let watchlisted_stock of watchlisted_stocks">
+      <mat-expansion-panel-header class="right-aligned-header">
+        <mat-panel-title>
+          {{watchlisted_stock.stock_name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          One of the many Stocks that you have your eyes on
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <h2>Watchlist Id (Important for further Transactions): {{watchlisted_stock.watchlist_id}}</h2>
+      <h2>Quantity of Stocks available now:{{watchlisted_stock.stock_quantity}}</h2>
+      <h2>Buying Price of Stock now: {{watchlisted_stock.stock_value}} <i class="fa fa-inr fa-lg" aria-hidden="true"></i></h2>
+      <h2>Selling price of stock_now :{{watchlisted_stock.stock_present_price}} <i class="fa fa-inr fa-lg" aria-hidden="true"></i></h2>           
+      <mat-action-row>
+        <button mat-raised-button color="primary"><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Buy Now</button>
+        <button mat-raised-button color="primary">Remove from Watchlist</button>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+
+
+
+
+</mat-accordion>

@@ -5,6 +5,8 @@ import {users} from '../shared/users';
 import {HttpClient,HttpHeaders} from '@angular/common/http';
 import {UserloginserviceService} from '../services/userloginservice.service';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {shopping_cart} from '../shared/shoppingCart';
+
 
 @Component({
   selector: 'app-signin',
@@ -19,6 +21,7 @@ export class SigninComponent implements OnInit {
   user_data_received:users=null;
   user_name:string;
   public data:any=[];
+  cart_items:shopping_cart[]=null;
   user_password:string;
   
   
@@ -82,6 +85,7 @@ export class SigninComponent implements OnInit {
   {
     sessionStorage.setItem("username",username);
     sessionStorage.setItem("password",password);
+    sessionStorage.setItem("cartItems",JSON.stringify(this.cart_items));
     this.router.navigate(['/home']);
     this.dialogRef.close();
   }

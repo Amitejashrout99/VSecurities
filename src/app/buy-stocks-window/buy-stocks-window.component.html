@@ -1,0 +1,85 @@
+
+
+
+<div class="container"
+        fxLayout="row"
+        fxLayout.sm="column"
+        fxLayout.xs="column"
+        fxLayoutAlign.gt-md="space-around center"
+        fxLayoutGap="10px" 
+        fxLayoutGap.xs="0">
+    
+    
+        <mat-card style="border-radius: 20px;" 
+        
+            appHighlight fxFlex>
+            <mat-card-header>
+              <div mat-card-avatar></div>
+              <mat-card-title>
+                <h3>Vshare Securities Brokerage Calculator</h3>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <h3>Turnover: {{total_brokerage_stock}} ₹</h3>
+                <h3>STT Total: {{stt_total}} ₹</h3>
+                <h3>Stamp Duty: {{stamp_duty}} ₹</h3>
+                <h3>GST: {{gst}} ₹</h3>
+                <h3>Transaction Charges: {{transaction_charges}} ₹</h3>
+            </mat-card-content>
+        </mat-card>
+    
+    
+    
+        <mat-card style="border-radius: 20px;" appHighlight fxFlex *ngIf="particular_stock">
+            <mat-card-header>
+                <div mat-card-avatar></div>
+                <mat-card-title>
+                  <h2>{{particular_stock.stock_name}}</h2>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <h3>Present Price of Stock: {{particular_stock.stock_present_price}} ₹</h3>
+                <h3>Number of Stocks Available: {{particular_stock.stock_quantity}} </h3>
+                <h3>Price/Stock: {{particular_stock.stock_value}} ₹</h3>
+                <h3>Quantity:<button mat-button *ngIf="display_status" (click)="increaseCount()" mat-dialog-close style="z-index: 2;"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></button>
+                <span id="quantity" style="text-align: center;">{{initial_buy_count}}</span>
+                <button mat-button mat-dialog-close (click)="decreaseCount()" style="z-index: 2;"><i class="fa fa-minus-circle fa-lg" aria-hidden="true"></i></button></h3>
+            
+                <h3>Total Cost:{{total_price_of_stocks}}</h3>
+
+            </mat-card-content>
+            
+        </mat-card>
+
+        <mat-card  style="border-radius: 20px;" appHighlight fxFlex>
+            <mat-card-header>
+                <div mat-card-avatar></div>
+                <mat-card-title>
+                  <h2>Price Summary</h2>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <p style="font-size:150%;font-family: 'Times New Roman', Times, serif;">Total Brokerage Fees: {{total_brokerage_fees}} ₹</p>
+                <p style="font-size:150%;font-family: 'Times New Roman', Times, serif;">Final Price of Stock: {{gross_price_value}} ₹</p>
+            </mat-card-content>
+            <mat-card-actions>
+                <button class="pay_button" (click)="directPayAction()" mat-button><i class="fa fa-inr fa-lg" aria-hidden="true"></i>
+                    <span class="pay_button_text"> Buy Now</span></button>
+                        
+
+                    <button class="add_to_cart_button" (click)="addToCartAction()" mat-button><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i>
+                        <span class="add_to_cart_button_text"> Add to Cart</span></button>
+            </mat-card-actions>
+        </mat-card>
+    
+
+    <div fxFlex [hidden]="particular_stock || error_message">
+
+        <mat-spinner>
+            
+        </mat-spinner>
+        <h4>Loading ...... Please Wait...</h4>
+
+    </div> 
+</div>

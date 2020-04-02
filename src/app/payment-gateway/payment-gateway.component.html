@@ -1,0 +1,173 @@
+<mat-toolbar color="primary">
+    <button (click)="goBack()" mat-button><i class="fa fa-arrow-left fa-lg" aria-hidden="true"></i></button>
+    <span class="flex-spacer"></span>
+    <h2> Payment Options</h2>
+    <span class="flex-spacer"></span>
+  <button mat-button mat-dialog-close><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+</mat-toolbar>
+
+<mat-accordion style="margin-top: 20px;">
+    <mat-expansion-panel [expanded]="true">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Credit/Debit Card
+        </mat-panel-title>
+        <mat-panel-description>
+          Enter your Credit or Debit Card Details
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <ng-template matExpansionPanelContent>
+
+        <form novalidate [formGroup]="credit_debit_card_model">
+                
+            <mat-dialog-content>
+            
+                <p>
+                    <mat-form-field class="half-width">
+                        <input matInput style="width: 500px;" formControlName="card_number" placeholder="Your Card Number"
+                        type="number">
+                        <mat-error *ngIf="formErrors.card_number">
+                            {{formErrors.card_number}}
+                        </mat-error>
+                    </mat-form-field>
+                    <mat-form-field class="half-width">
+                        <input matInput style="width: 500px;" formControlName="card_holder_name" placeholder="Name of the Card Holder"
+                        type="text">
+                        <mat-error *ngIf="formErrors.card_holder_name">
+                            {{formErrors.card_holder_name}}
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="half-width">
+                        <input matInput formControlName="card_expiry_month" placeholder="MM"
+                        type="number">
+                        <mat-error *ngIf="formErrors.card_expiry_month">
+                            {{formErrors.card_expiry_month}}
+                        </mat-error>
+                    </mat-form-field>
+
+                    <mat-form-field class="half-width">
+                        <input matInput formControlName="card_expiry_year" placeholder="YY"
+                        type="number">
+                        <mat-error *ngIf="formErrors.card_expiry_year">
+                            {{formErrors.card_expiry_year}}
+                        </mat-error>
+                    </mat-form-field>
+                    <br>
+                    <mat-form-field class="half-width">
+                        <input matInput style="width: 500px;" formControlName="card_cvv" 
+                        placeholder="Enter Your CVV"
+                        type="number">
+                        <mat-error *ngIf="formErrors.card_cvv">
+                            {{formErrors.card_cvv}}
+                        </mat-error>
+                    </mat-form-field>
+    
+                </p>
+    
+                </mat-dialog-content>
+            
+    
+            </form>
+
+      </ng-template>
+
+      <mat-action-row>
+        <button (click)="payAmount()" mat-raised-button color="primary">Pay {{cost_to_be_paid}} <i class="fa fa-inr fa-lg" aria-hidden="true"></i> now</button>
+      </mat-action-row>
+
+      
+    </mat-expansion-panel>
+    
+    
+    
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Net Banking
+        </mat-panel-title>
+        <mat-panel-description>
+          Pay Through Net Banking Using One of your Preffered Banks
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <mat-form-field>
+        <mat-label>Banks</mat-label>
+        <mat-select [(value)]="selected">
+            <mat-option *ngFor="let bank of banks" [value]="bank.name">
+              {{bank.name}}
+            </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+
+      <p>Bank Selected :{{selected}}</p>
+      
+      <mat-action-row>
+        <button mat-raised-button color="primary">Continue to Bank</button>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          EMI
+        </mat-panel-title>
+        <mat-panel-description>
+               Pay Using EMI through One of your Preffered Banks
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <mat-form-field>
+        <mat-label>Banks</mat-label>
+        <mat-select [(value)]="selected">
+            <mat-option *ngFor="let bank of banks" [value]="bank.name">
+              {{bank.name}}
+            </mat-option>
+        </mat-select>
+
+      </mat-form-field>
+
+      <p>Bank Selected :{{selected}}</p>
+      
+      <mat-action-row>
+        <button mat-raised-button color="primary">Continue to Bank</button>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel (opened)="panelOpenState = true"
+                         (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          UPI
+        </mat-panel-title>
+        <mat-panel-description>
+          Pay Through UPI
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <mat-form-field>
+        <mat-label>Your UPI address</mat-label>
+        <input matInput>
+
+      </mat-form-field>
+      
+      <mat-action-row>
+        <button mat-raised-button (click)="payAmount()" color="primary">Pay {{cost_to_be_paid}} <i class="fa fa-inr fa-lg" aria-hidden="true"></i> now</button>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+
+
+
+
+
+  </mat-accordion>
+  

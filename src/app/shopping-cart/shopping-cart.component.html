@@ -1,0 +1,59 @@
+<mat-toolbar color="primary">
+    <h2>Review Your Purchase</h2>
+  <span class="flex-spacer"></span>
+  <button mat-button mat-dialog-close><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+</mat-toolbar>
+
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+  
+    <!-- Position Column -->
+    <ng-container matColumnDef="item_id">
+      <th mat-header-cell *matHeaderCellDef> Stock Id </th>
+      <td mat-cell *matCellDef="let cart_data_source"> {{cart_data_source.item_id}} </td>
+    </ng-container>
+  
+    <!-- Name Column -->
+    <ng-container matColumnDef="item_name">
+      <th mat-header-cell *matHeaderCellDef> Stock Name </th>
+      <td mat-cell *matCellDef="let cart_data_source"> {{cart_data_source.item_name}} </td>
+    </ng-container>
+  
+    <!-- Weight Column -->
+    <ng-container matColumnDef="item_count">
+      <th mat-header-cell *matHeaderCellDef> No of Stock Bought </th>
+      <td mat-cell *matCellDef="let cart_data_source"> {{cart_data_source.item_count}} </td>
+    </ng-container>
+  
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="item_price">
+      <th mat-header-cell *matHeaderCellDef> Total Price </th>
+      <td mat-cell *matCellDef="let cart_data_source"> {{cart_data_source.item_price}} </td>
+    </ng-container>
+  
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-divider></mat-divider>
+
+  <mat-toolbar
+
+    style="border-radius: 10px;
+    margin-top: 20px;"
+      
+    >
+    <h2>Amount to be paid:</h2>
+    <span class="flex-spacer"></span>
+    <p>{{total_cost_price}} <i class="fa fa-inr fa-lg" aria-hidden="true"></i></p>
+
+  
+  </mat-toolbar>
+
+  <div style="display: flex; align-items: center; justify-content: center;margin-top: 20px;">
+    <button  (click)="openPaymentGateway()" mat-raised-button color="primary">Proceed to Checkout</button>
+  </div>
+  
+  

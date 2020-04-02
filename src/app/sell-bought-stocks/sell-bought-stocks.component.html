@@ -1,0 +1,90 @@
+<mat-toolbar color="primary">
+    <span class="flex-spacer"></span>
+    <h2>Stocks eligible for sale</h2>
+    <span class="flex-spacer"></span>
+</mat-toolbar>
+
+
+<mat-accordion style="margin-top: 20px;">
+
+    <mat-expansion-panel *ngFor="let expansion_object of stock_sale_exansion_array"  (opened)="resetValues()">
+      <mat-expansion-panel-header class="right-aligned-header">
+        <mat-panel-title>
+          {{expansion_object.stock_name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          One of the many Stocks that you have bought
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      
+
+      <h2>Transaction Id (Important for further Transactions): {{expansion_object.stock_sale_id}}</h2>
+      <h2>No of Stocks that you have bought:{{expansion_object.no_of_times_bought}}</h2>
+      <h2>No of time this Stock has been sold:{{expansion_object.no_of_times_sold}}</h2>
+      <h2>Price you had bought the stock for: {{expansion_object.price_bought_for}} <i class="fa fa-inr fa-lg" aria-hidden="true"></i></h2>
+      <h2 *ngIf="!current_selling_price_message_status">{{current_selling_price_message}}</h2><h2 *ngIf="current_selling_price_message_status">Current Selling Price is: {{current_selling_price_value}}<i class="fa fa-inr fa-lg" aria-hidden="true"></i></h2>           
+      
+
+      <div *ngIf="current_selling_price_message_status"
+        class="container"
+            fxLayout="row"
+            fxLayout.sm="column"
+            fxLayout.xs="column"
+            fxLayoutAlign.gt-md="space-around center"
+            fxLayoutGap="10px" 
+            fxLayoutGap.xs="0">
+        <mat-divider></mat-divider>
+        
+        <mat-card style="border-radius: 20px;" 
+        
+            appHighlight fxFlex>
+            <mat-card-header>
+              <div mat-card-avatar></div>
+              <mat-card-title>
+                <h3>Vshare Securities Brokerage Calculator</h3>
+              </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <h3>Turnover: {{total_brokerage_stock}} ₹</h3>
+                <h3>STT Total: {{stt_total}} ₹</h3>
+                <h3>Stamp Duty: {{stamp_duty}} ₹</h3>
+                <h3>GST: {{gst}} ₹</h3>
+                <h3>Transaction Charges: {{transaction_charges}} ₹</h3>
+            </mat-card-content>
+        </mat-card>
+
+        <mat-card style="border-radius: 20px;" appHighlight fxFlex *ngIf="expansion_object">
+            <mat-card-header>
+                <div mat-card-avatar></div>
+                <mat-card-title>
+                  <h2>{{expansion_object.stock_name}}</h2>
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+
+                <h3>No of Shares you want to sale:<button mat-button *ngIf="display_status" (click)="increaseCount()" mat-dialog-close style="z-index: 2;"><i class="fa fa-plus-circle fa-lg" aria-hidden="true"></i></button>
+                <span id="quantity" style="text-align: center;">{{initial_sell_count}}</span>
+                <button mat-button mat-dialog-close *ngIf="display_status_minus" (click)="decreaseCount()" style="z-index: 2;"><i class="fa fa-minus-circle fa-lg" aria-hidden="true"></i></button></h3>
+            
+                <h3>Total Cost:{{selling_price_of_stocks}} <i class="fa fa-inr fa-lg" aria-hidden="true"></i></h3>
+
+            </mat-card-content>
+            
+        </mat-card>
+
+
+      </div>
+      
+      
+      <mat-action-row>
+        <button mat-raised-button (click)="showSellDiv(expansion_object.no_of_times_bought,expansion_object.no_of_times_sold,expansion_object.price_bought_for,expansion_object.stock_value)" color="primary">Show Selling Price</button>  
+        <button mat-raised-button (click)="sellStock(current_selling_price_value,expansion_object.stock_sale_id,initial_sell_count)" color="primary"> Sell for {{current_selling_price_value}} <i class="fa fa-inr fa-lg" aria-hidden="true"></i></button>
+      </mat-action-row>
+
+    </mat-expansion-panel>
+
+
+
+
+</mat-accordion>

@@ -1,0 +1,106 @@
+<mat-toolbar color="primary">
+    <span class="flex-spacer"></span>
+    <h2>Records of All Stocks Bought</h2>
+    <span class="flex-spacer"></span>
+</mat-toolbar>
+
+
+<div *ngIf="all_bought_stocks_expansion_array">
+
+
+    <mat-accordion style="margin-top: 20px;">
+
+        <mat-expansion-panel *ngFor="let expansion_object of all_bought_stocks_expansion_array" (opened)="initializeValue(expansion_object)"
+            (closed)="resetValues()" >
+          <mat-expansion-panel-header class="right-aligned-header">
+            <mat-panel-title>
+              {{expansion_object.stock_name}}
+            </mat-panel-title>
+            <mat-panel-description>
+              One of the many Stocks that you have bought
+            </mat-panel-description>
+          </mat-expansion-panel-header>
+          
+          
+          <div class="container"
+                fxLayout="row"
+                fxLayout.sm="column"
+                fxLayout.xs="column"
+                fxLayoutAlign.gt-md="space-around center"
+                fxLayoutGap="10px" 
+                fxLayoutGap.xs="0">
+            
+            
+                <mat-card appHighlight class="example-card">
+                    <mat-card-content>
+                        <h3 style="text-align: center;">Your Transaction ID:</h3>
+                        <p style="text-align: center;font-size:300%;">{{expansion_object.stock_sale_id}}</p>
+                    </mat-card-content>
+                </mat-card>
+    
+                <mat-card appHighlight class="example-card">
+                    <mat-card-content>
+                        <h3 style="text-align: center;">Number of times you have bought this stock</h3>
+                        <p style="text-align: center;font-size:300%;">{{expansion_object.no_of_times_bought}}</p>
+                        <h3 style="text-align: center;">Number of times you have sold this stock</h3>
+                        <p style="text-align: center;font-size:300%;">{{expansion_object.no_of_times_sold}}</p>
+                    </mat-card-content>
+                </mat-card>
+    
+                <mat-card appHighlight class="example-card">
+                    <mat-card-content>
+                        <h3 style="text-align: center;">Price you bought the Stocks for</h3>
+                        <p style="text-align: center;font-size:300%;">{{expansion_object.price_bought_for}}<i class="fa fa-inr" aria-hidden="true"></i></p>
+                        <h3 style="text-align: center;">Price you sold the stocks for</h3>
+                        <p style="text-align: center;font-size:300%;">{{expansion_object.price_sold_for}}<i class="fa fa-inr" aria-hidden="true"></i></p>
+                    </mat-card-content>
+                </mat-card>
+    
+                <mat-card appHighlight class="example-card" *ngIf="!isStockSold">
+                    <mat-card-content>
+                        <h3 style="text-align: center;">Profit you earned</h3>
+                        <p style="text-align: center;font-size:300%;">{{profit_earned_card_value}}<i class="fa fa-inr" aria-hidden="true"></i></p>
+                        <h3 style="text-align: center;">Profit %</h3>
+                        <p style="text-align: center;font-size:300%;">{{profit_percent_earned}}<i class="fa fa-percent" aria-hidden="true"></i></p>
+                    </mat-card-content>
+                </mat-card>
+    
+                <mat-card  appHighlight  class="example-card">
+                    <mat-card-content>
+                        <h3 style="text-align: center;">Stock Bought On:</h3>
+                        <p style="text-align: center;font-size:300%;">{{expansion_object.stock_bought_on}}</p>
+                        <h3 style="text-align: center;">Stock Sold On</h3>
+                        <p style="text-align: center;font-size:300%;">{{expansion_object.stock_sold_on}}</p>
+                    </mat-card-content>
+                </mat-card>
+            
+            
+            
+            </div>
+          
+          <mat-action-row>
+            <button mat-raised-button  color="primary">Show Selling Price</button>  
+            <button mat-raised-button  color="primary"> Sell for 0 <i class="fa fa-inr fa-lg" aria-hidden="true"></i></button>
+          </mat-action-row>
+    
+        </mat-expansion-panel>
+    
+    
+    </mat-accordion>
+
+
+</div>
+
+<div fxFlex *ngIf="!all_bought_stocks_expansion_array">
+
+        <mat-spinner>
+            
+        </mat-spinner>
+        <h4>Loading ...... Please Wait...</h4>
+
+</div> 
+
+
+
+
+

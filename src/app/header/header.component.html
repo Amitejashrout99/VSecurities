@@ -8,14 +8,14 @@ fxLayoutAlign.gt-sm="center center"
 fxLayoutGap="10px">
   <mat-toolbar color="primary">  
     <span><img src="/assets/images/logo.jpg" height=30 width=41></span>
-    <a mat-button routerLink='/home' routerLinkActive='active'><span class="fa fa-shopping-cart fa-lg"></span> Buy and Sell</a>
+    <a mat-button routerLink='/dashboard' routerLinkActive='active'><span class="fa fa-shopping-cart fa-lg"></span> Buy and Sell</a>
     <a mat-button routerLink='/aboutus' routerLinkActive='active'><span class="fa fa-search fa-lg"></span> Stock watch</a>
     <a mat-button routerLink='/menu' routerLinkActive='active'><span class="fa fa-forumbee fa-lg"></span> Forum</a>
     
-    <a mat-button routerLink='/contactus' routerLinkActive='active'><span class="fa fa-line-chart fa-lg"></span> Stock Library</a>
+    <a mat-button routerLink='/stockLibrary' routerLinkActive='active'><span class="fa fa-line-chart fa-lg"></span> Stock Library</a>
     <a mat-button routerLink='/contactus' routerLinkActive='active'><span class="fa fa-user-circle fa-lg"></span> Your Account</a>
+    <a mat-button  (click)="openShoppingCartDialog()"    ><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Your Cart {{no_of_items}}</a>
     <span class="flex-spacer"></span>
-
     <h3 id="banner_message">Hello Guest</h3>
 
     <!--<a mat-button (click)='openLogInForm()'><span class="fa fa-sign-in fa-lg"></span> Log-In</a>-->

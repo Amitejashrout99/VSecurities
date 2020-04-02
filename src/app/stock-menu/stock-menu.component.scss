@@ -1,0 +1,18 @@
+$lt-gray: #ddd;
+$background-dark: #512DA8;
+$background-light: #9575CD;
+$background-pale: #D1C4E9;
+$background-moredark: #4527A0;
+$banner-text:#fcdb03;
+
+.buy_button_class
+{
+    background-color: $background-dark;
+    color: white;
+}
+
+.watchlist_button_class
+{
+    background-color: $lt-gray;
+    color: black;
+}
