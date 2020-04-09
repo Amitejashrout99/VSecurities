@@ -18,6 +18,8 @@ export class HeaderComponent implements OnInit
   various_stocks:shopping_cart[];
   stock_items_in_cart:shopping_cart[];
   no_of_items:number=0;
+  company_name_display_status:boolean=false;
+  company_name:string="Vshare Securities";
   
   
   constructor(private route_service:ActivatedRoute, 

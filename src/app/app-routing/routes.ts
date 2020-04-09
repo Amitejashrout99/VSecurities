@@ -14,6 +14,7 @@ import {SellBoughtStocksComponent} from '../sell-bought-stocks/sell-bought-stock
 import {AllBoughtStocksComponent} from '../all-bought-stocks/all-bought-stocks.component';
 import {AllSoldStocksComponent} from '../all-sold-stocks/all-sold-stocks.component';
 import {AllReviewsBoughtStocksComponent } from '../all-reviews-bought-stocks/all-reviews-bought-stocks.component';
+import {SubmitReviewComponent} from '../submit-review/submit-review.component';
 
 export const various_routes:Routes=[
 
@@ -34,7 +35,8 @@ export const various_routes:Routes=[
             {path:'banner',component:StockLibraryBannerComponent,outlet:'side'},
             {path:'allBoughtStocks',component:AllBoughtStocksComponent,outlet:'side'},
             {path:'allSoldStocks',component:AllSoldStocksComponent,outlet:'side'},
-            {path:'allReviews',component:AllReviewsBoughtStocksComponent,outlet:'side'}
+            {path:'allReviews',component:AllReviewsBoughtStocksComponent,outlet:'side'},
+            {path:'submitReview',component:SubmitReviewComponent,outlet:'side'}
         ]}
 
 ];

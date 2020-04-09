@@ -99,6 +99,7 @@ export class AllBoughtStocksComponent implements OnInit {
   initializeValue(selected_object:all_bought_stocks_expansion)
   {
     
+    
     if(selected_object.price_sold_for==0)
     {
       this.isStockSold=true;

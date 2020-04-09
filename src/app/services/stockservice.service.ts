@@ -1,12 +1,18 @@
 import { Injectable } from '@angular/core';
 import {HttpClient,HttpHeaders} from '@angular/common/http';
 import {base_url} from '../shared/baseurl';
+
+
 import {stock} from '../shared/stock';
 import {stock_sales} from '../shared/stock_sales';
+import {stock_reviews} from '../shared/stock_reviews';
+import {stock_watchlist} from '../shared/stock_watchlist';
+import {user_pending_reviews_track} from '../shared/userPendingReviewTrack';
+
 import {Observable} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 import {ProcessHTTPerrorService} from '../services/process-httperror.service';
-import {stock_watchlist} from '../shared/stock_watchlist';
+
 
 
 @Injectable({
@@ -82,10 +88,36 @@ export class StockserviceService
     .pipe(catchError(this.error_management_service.handle_error_faced)).toPromise();
   }
 
+  getAllBoughtStocksId(user_id:number):Observable<number[]|any>
+  {
+    return this.http_service_stock.get<stock_sales[]>(base_url+"getAllBoughtStocks/"+user_id)
+    .pipe(map(stocks=>stocks.map(stock=>stock.stock_id))).pipe(catchError(this.error_management_service.handle_error_faced));
+  }
+
+  getAllBoughtStocksReviews(bought_stocks_ids:number[]):Observable<stock_reviews[]>
+  {
+    return this.http_service_stock.get<stock_reviews[]>(base_url+"BoughtStockReviews/"+bought_stocks_ids)
+    .pipe(catchError(this.error_management_service.handle_error_faced));
+  }
+
+  getPendingReviewsStockIds(bought_stock_ids:number[],user_id:number):Observable<number[]>
+  {
+    return this.http_service_stock.get<number[]>(base_url+"getPendingReviewsForUser/"+user_id+"/"+bought_stock_ids)
+    .pipe(catchError(this.error_management_service.handle_error_faced));
+    
+  }
+
+  postBoughtStockPeronalReview(bought_stock_review:stock_reviews):Observable<stock_reviews>
+  {
+    return this.http_service_stock.post<stock_reviews>(base_url+"submitStockReview",bought_stock_review)
+    .pipe(catchError(this.error_management_service.handle_error_faced));
+  }
+
+  postUserReviewTrack(user_review_data:user_pending_reviews_track):Observable<user_pending_reviews_track>
+  {
+    return this.http_service_stock.post<user_pending_reviews_track>(base_url+"insertStockReviewTrackData",user_review_data)
+    .pipe(catchError(this.error_management_service.handle_error_faced));
+  }
   
-
-
-
-
   
 }

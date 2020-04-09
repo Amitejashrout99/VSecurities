@@ -1,1 +1,14 @@
 <p>trading works!</p>
+
+{{current_user_id}}
+
+{{bought_stocks}}
+
+{{bought_price_array}}
+
+
+{{selling_price_array}}
+
+<div *ngIf="chart">
+    <canvas id="canvas">{{ chart }}</canvas>
+</div>

@@ -1,1 +1,144 @@
-<p>submit-review works!</p>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+<mat-toolbar color="primary">
+    <span class="flex-spacer"></span>
+    <h2>Submit Reviews for the Stocks you have/had purchased</h2>
+    <span class="flex-spacer"></span>
+</mat-toolbar>
+
+<!--<div *ngFor="let object of pending_review_stocks">
+
+    
+
+</div>-->
+
+<mat-accordion style="margin-top: 20px;">
+    <mat-expansion-panel *ngFor="let object of pending_review_stocks">
+      <mat-expansion-panel-header class="right-aligned-header">
+        <mat-panel-title>
+          {{object.stock_name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Enjoying the turnovers, Help others to acheive the same.
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+
+      <!--   For Desktop Version    -->
+
+        <mat-horizontal-stepper [linear]="isLinear" #stepper  fxShow="true" fxHide.lt-md="true">
+          
+          <mat-step [stepControl]="name_form_group" errorMessage="Name is required.">
+            <form [formGroup]="name_form_group">
+              <ng-template matStepLabel>Enter your user name</ng-template>
+              <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Your username" formControlName="name" required>
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" [disabled]='!name_form_group.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          
+          <mat-step [stepControl]="stock_review_form_group" errorMessage="Review is required">
+            <form [formGroup]="stock_review_form_group">
+              <ng-template matStepLabel>Enter your Review of the Stock</ng-template>
+              <mat-form-field>
+                <mat-label>Review:</mat-label>
+                <input matInput formControlName="review" placeholder="Excellent Stock.., Best Performing..."
+                       required>
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!stock_review_form_group.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          
+          <mat-step [stepControl]="rating_form_group" errorMessage="Rating is required.">
+            <form [formGroup]="rating_form_group">
+              <ng-template matStepLabel>Give a rating to the particular stock</ng-template>
+              <mat-label>Rating:</mat-label>
+              <mat-slider formControlName="rating" thumbLabel min="1" max="5" step="1" tickInterval="1"></mat-slider>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!rating_form_group.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div>
+              <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+              <button mat-raised-button color="primary" (click)="submitReview(object)">Submit Review</button>
+            </div>
+          </mat-step>
+        </mat-horizontal-stepper>
+
+      <!-- ******************************************************************** -->
+      <!--                    *****For mobile version******                     -->
+
+        <mat-vertical-stepper [linear]="isLinear" #stepper fxShow="true"   fxHide.gt-sm>
+          
+          <mat-step [stepControl]="name_form_group" errorMessage="Name is required.">
+            <form [formGroup]="name_form_group">
+              <ng-template matStepLabel>Enter your user name</ng-template>
+              <mat-form-field>
+                <mat-label>Name</mat-label>
+                <input matInput placeholder="Your username" formControlName="name" required>
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" [disabled]='!name_form_group.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          
+          <mat-step [stepControl]="stock_review_form_group" errorMessage="Review is required.">
+            <form [formGroup]="stock_review_form_group">
+              <ng-template matStepLabel>Enter your Review of the Stock</ng-template>
+              <mat-form-field>
+                <mat-label>Review:</mat-label>
+                <input matInput formControlName="review" placeholder="Excellent Stock.., Best Performing..."
+                       required>
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!stock_review_form_group.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+
+          <mat-step [stepControl]="rating_form_group" errorMessage="Rating is required.">
+            <form [formGroup]="rating_form_group">
+              <ng-template matStepLabel>Give a rating to the particular stock</ng-template>
+              <mat-label>Rating:</mat-label>
+              <mat-slider formControlName="rating" thumbLabel min="1" max="5" step="1" tickInterval="1"></mat-slider>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" matStepperNext>Next</button>
+              </div>
+            </form>
+          </mat-step>
+          
+          <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div>
+              <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+              <button mat-raised-button color="primary" (click)="submitReview(object)">Submit Review</button>
+            </div>
+          </mat-step>
+        </mat-vertical-stepper>
+
+    </mat-expansion-panel>
+</mat-accordion>
+
+
+
+{{error_message_faced}}

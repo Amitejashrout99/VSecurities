@@ -1,4 +1,3 @@
-  
 <div fxLayout="row"
 fxLayout.sm="column" 
 fxLayout.xs="column" 
@@ -6,33 +5,69 @@ fxLayoutAlign.xs="start center"
 fxLayoutAlign.sm="start center" 
 fxLayoutAlign.gt-sm="center center" 
 fxLayoutGap="10px">
-  <mat-toolbar color="primary">  
-    <span><img src="/assets/images/logo.jpg" height=30 width=41></span>
-    <a mat-button routerLink='/dashboard' routerLinkActive='active'><span class="fa fa-shopping-cart fa-lg"></span> Buy and Sell</a>
-    <a mat-button routerLink='/aboutus' routerLinkActive='active'><span class="fa fa-search fa-lg"></span> Stock watch</a>
-    <a mat-button routerLink='/menu' routerLinkActive='active'><span class="fa fa-forumbee fa-lg"></span> Forum</a>
-    
-    <a mat-button routerLink='/stockLibrary' routerLinkActive='active'><span class="fa fa-line-chart fa-lg"></span> Stock Library</a>
-    <a mat-button routerLink='/contactus' routerLinkActive='active'><span class="fa fa-user-circle fa-lg"></span> Your Account</a>
-    <a mat-button  (click)="openShoppingCartDialog()"    ><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Your Cart {{no_of_items}}</a>
-    <span class="flex-spacer"></span>
-    <h3 id="banner_message">Hello Guest</h3>
-
-    <!--<a mat-button (click)='openLogInForm()'><span class="fa fa-sign-in fa-lg"></span> Log-In</a>-->
-  </mat-toolbar>
-</div>  
-  <div class="container jumbotron"
-      fxLayout="row"
-      fxLayout.sm="column" 
-      fxLayout.xs="column" 
-      fxLayoutAlign.xs="start center"
-      fxLayoutAlign.sm="start center" 
-      fxLayoutAlign.gt-sm="center center" 
-      fxLayoutGap="10px">
-    <div class="header_text" fxFlex fxFlex.gt-sm="50%">
-      <h1>Vshare Securities</h1>
-      <p>We take inspiration from the World's best stock market traders, and create a unique stock market experience for all our cutomers.Our state of
-        technology and the best minds at work will certainly help you make the correct decision</p>
+  <mat-toolbar color="primary">
+    <div fxShow="true"   fxHide.gt-sm>
+      <button mat-icon-button (click)="sidenav.toggle()" >
+        <i class="fa fa-bars fa-lg" aria-hidden="true"></i>
+      </button>
+      
     </div>
-    <div fxFlex></div>
-  </div>
+      
+    <h2 fxShow="true"   fxHide.gt-sm>{{company_name}}</h2>
+    <span fxShow="true" fxHide.lt-md="true"><img src="/assets/images/logo.jpg" height=30 width=41></span>
+    <div fxShow="true" fxHide.lt-md="true">
+      
+      <a mat-button routerLink='/dashboard' routerLinkActive='active'><span class="fa fa-shopping-cart fa-lg"></span> Buy and Sell</a>
+      <a mat-button routerLink='/aboutus' routerLinkActive='active'><span class="fa fa-search fa-lg"></span> Stock watch</a>
+      <a mat-button routerLink='/menu' routerLinkActive='active'><span class="fa fa-forumbee fa-lg"></span> Forum</a>
+      
+      <a mat-button routerLink='/stockLibrary' routerLinkActive='active'><span class="fa fa-line-chart fa-lg"></span> Stock Library</a>
+      <a mat-button routerLink='/contactus' routerLinkActive='active'><span class="fa fa-user-circle fa-lg"></span> Your Account</a>
+      <a mat-button  (click)="openShoppingCartDialog()"    ><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Your Cart {{no_of_items}}</a>
+      
+    </div>
+      <span class="flex-spacer"></span>
+      <h3 id="banner_message">Hello Guest</h3>
+  </mat-toolbar>
+  
+</div> 
+
+<mat-sidenav-container fxFlexFill>
+  <mat-sidenav #sidenav>
+    <mat-nav-list>
+      <a mat-button routerLink='/dashboard' routerLinkActive='active'><span class="fa fa-shopping-cart fa-lg"></span> Buy and Sell</a>
+      <mat-divider></mat-divider>
+      <a mat-button routerLink='/aboutus' routerLinkActive='active'><span class="fa fa-search fa-lg"></span> Stock watch</a>
+      <mat-divider></mat-divider>
+      <a mat-button routerLink='/menu' routerLinkActive='active'><span class="fa fa-forumbee fa-lg"></span> Forum</a>
+      <mat-divider></mat-divider>
+      <a mat-button routerLink='/stockLibrary' routerLinkActive='active'><span class="fa fa-line-chart fa-lg"></span> Stock Library</a>
+      <mat-divider></mat-divider>
+      <a mat-button routerLink='/contactus' routerLinkActive='active'><span class="fa fa-user-circle fa-lg"></span> Your Account</a>
+      <mat-divider></mat-divider>
+      <a mat-button  (click)="openShoppingCartDialog()"    ><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Your Cart {{no_of_items}}</a>
+    </mat-nav-list>
+  </mat-sidenav>
+  
+  <mat-sidenav-content fxFlexFill>
+    <div class="container jumbotron"
+        fxLayout="row"
+        fxLayout.sm="column" 
+        fxLayout.xs="column" 
+        fxLayoutAlign.xs="start center"
+        fxLayoutAlign.sm="start center" 
+        fxLayoutAlign.gt-sm="center center" 
+        fxLayoutGap="10px">
+      <div class="header_text" fxFlex fxFlex.gt-sm="50%">
+        <h1>Vshare Securities</h1>
+        <p>We take inspiration from the World's best stock market traders, and create a unique stock market experience for all our cutomers.Our state of
+          technology and the best minds at work will certainly help you make the correct decision</p>
+      </div>
+      <div fxFlex></div>
+    </div>
+  </mat-sidenav-content>
+  
+
+
+
+</mat-sidenav-container>

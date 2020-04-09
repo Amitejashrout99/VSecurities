@@ -42,4 +42,20 @@ export class UserloginserviceService
     .pipe(catchError(this.error_management_service.handle_error_faced)).toPromise();
   }
 
+  public getAllUsers():Observable<user[]>
+  {
+    return this.http_service.get<user[]>(base_url+"getAllUsers")
+    .pipe(catchError(this.error_management_service.handle_error_faced));
+  }
+
+  getAllUserIds():Observable<number[]|any>
+  {
+    return this.getAllUsers().pipe(map(users=>users.map(user=>user.id))).pipe(catchError(this.error_management_service.handle_error_faced));
+  }
+
+  getUserById(user_id:number):Observable<user>
+  {
+    return this.http_service.get<user>(base_url+"getUserById/"+user_id);
+  }
+
 }

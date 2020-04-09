@@ -68,6 +68,20 @@ $divider-color:        #BDBDBD;
     justify-content: space-between;
 }
 
+.right-aligned-header
+{
+  color: black;
+  font-size: 120%;
+  font-family: 'Times New Roman', Times, serif;
+
+}
+
+.right-aligned-header:hover
+{
+  height:200px;
+}
+
 .mat-content > mat-panel-title, .mat-content > mat-panel-description {
   flex: 0 0 auto;
 }
+

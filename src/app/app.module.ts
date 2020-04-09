@@ -27,15 +27,21 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MatTableModule} from '@angular/material/table';
 import {MatExpansionModule} from '@angular/material/expansion';
 import {MatSelectModule} from '@angular/material/select';
+import {MatIconModule} from '@angular/material/icon';
+import {MatStepperModule} from '@angular/material/stepper';
+import {MatSliderModule} from '@angular/material/slider';
+import { NgMarqueeModule } from 'ng-marquee';
+import { RatingModule } from 'ng-starrating';
 
+import 'hammerjs'
 
-import 'hammerjs' 
 
 
 import {AlienServiceService} from './services/alien-service.service';
 import {UserloginserviceService} from './services/userloginservice.service';
 import {StockserviceService} from './services/stockservice.service';
 import {ShoppingCartServiceService} from './services/shopping-cart-service.service';
+import {TradingDashboardServiceService} from './services/trading-dashboard-service.service';
 
 
 import { LoginComponent } from './login/login.component';
@@ -116,13 +122,21 @@ import { SubmitReviewComponent } from './submit-review/submit-review.component';
     MatSnackBarModule,
     MatTableModule,
     MatExpansionModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule,
+    NgMarqueeModule,
+    RatingModule,
+    MatStepperModule,
+    MatSliderModule
     
   ],
+  
   providers: [AlienServiceService,
     UserloginserviceService,
     StockserviceService,
-    ShoppingCartServiceService],
+    ShoppingCartServiceService,
+  TradingDashboardServiceService],
+  
   bootstrap: [AppComponent]
 })
 export class AppModule { }
