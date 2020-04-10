@@ -13,8 +13,9 @@
 
 </div>-->
 
+
 <mat-accordion style="margin-top: 20px;">
-    <mat-expansion-panel *ngFor="let object of pending_review_stocks">
+    <mat-expansion-panel *ngFor="let object of pending_review_stocks" (opened)="stepper.reset()">
       <mat-expansion-panel-header class="right-aligned-header">
         <mat-panel-title>
           {{object.stock_name}}
