@@ -3,7 +3,7 @@ import {HttpClient,HttpHeaders} from '@angular/common/http';
 import {base_url} from '../shared/baseurl';
 import {users} from '../shared/users';
 import {user} from '../shared/user';
-import {Observable} from 'rxjs';
+import {Observable, BehaviorSubject} from 'rxjs';
 import {map, catchError} from 'rxjs/operators';
 import {ProcessHTTPerrorService} from '../services/process-httperror.service';
 
@@ -22,10 +22,12 @@ export class UserloginserviceService
 
   }
 
-  public verifyUser(user_name:string):Observable<users>
+  userdata= new BehaviorSubject("");
+
+  async verifyUser(user_name:string):Promise<users>
   {
       return this.http_service.get<users>(base_url+"verify_user/"+user_name)
-      .pipe(catchError(this.error_management_service.handle_error_faced));
+      .pipe(catchError(this.error_management_service.handle_error_faced)).toPromise();
   }
 
   public getUserId(user_name:string):Observable<user>

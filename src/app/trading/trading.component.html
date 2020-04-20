@@ -1,14 +1,46 @@
-<p>trading works!</p>
-
-{{current_user_id}}
-
-{{bought_stocks}}
-
-{{bought_price_array}}
+<!--<div>
+    <canvas style="width: 300px;height:200px;" id="lineChart"></canvas>
+</div>-->
 
 
-{{selling_price_array}}
+<mat-card class="example-card">
+    <mat-card-content>
+        <canvas height="300"
+        width="300"  id="lineChartCP"></canvas>
+    </mat-card-content>
+</mat-card>
 
-<div *ngIf="chart">
-    <canvas id="canvas">{{ chart }}</canvas>
-</div>
+<mat-card class="example-card">
+    <mat-card-content>
+        <canvas height="300"
+        width="300" id="lineChartSP"></canvas>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="example-card">
+    <mat-card-content>
+        <canvas height="300"
+        width="300" id="lineChartCompareCPSP"></canvas>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="example-card">
+    <mat-card-content>
+        <canvas height="300"
+        width="300" id="lineChartComparePriceStock"></canvas>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="example-card">
+    <mat-card-content>
+        <canvas height="300"
+        width="300" id="barChartPerStock"></canvas>
+    </mat-card-content>
+</mat-card>
+
+<mat-card class="example-card">
+    <mat-card-content>
+        <canvas height="300"
+        width="300" id="pieChartInvestment"></canvas>
+    </mat-card-content>
+</mat-card>

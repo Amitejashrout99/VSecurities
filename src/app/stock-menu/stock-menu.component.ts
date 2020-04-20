@@ -41,22 +41,33 @@ export class StockMenuComponent implements OnInit {
   async addToWatchList(particular_stock_id:number)
   {
     //alert(particular_stock_id +" "+ this.current_user_object.id);
-    this.stock_to_be_added_to_watchlist= await this.stock_service_available.getParticularStockPromise(particular_stock_id);
 
-    this.stock_watchlist_object=
+    let watchlist_stock_obj= await this.stock_service_available.checkWatchlistStatus(particular_stock_id);
+
+    if(watchlist_stock_obj==null)
     {
-      "watchlist_id":Math.random()*100,
-      "stock_id":this.stock_to_be_added_to_watchlist.stock_id,
-      "stock_name":this.stock_to_be_added_to_watchlist.stock_name,
-      "stock_quantity":this.stock_to_be_added_to_watchlist.stock_quantity,
-      "stock_value":this.stock_to_be_added_to_watchlist.stock_value,
-      "stock_present_price":this.stock_to_be_added_to_watchlist.stock_present_price,
-      "id":this.current_user_object.id
-    };
+      this.stock_to_be_added_to_watchlist= await this.stock_service_available.getParticularStockPromise(particular_stock_id);
 
-    this.stock_service_available.addStockToWatchlist(this.stock_watchlist_object).subscribe(
-      (data)=>this.snack_bar.open("Item Added to Watchlist",'Close', {
-        duration: 5000}))
+      this.stock_watchlist_object=
+      {
+        "watchlist_id":Math.random()*100,
+        "stock_id":this.stock_to_be_added_to_watchlist.stock_id,
+        "stock_name":this.stock_to_be_added_to_watchlist.stock_name,
+        "stock_quantity":this.stock_to_be_added_to_watchlist.stock_quantity,
+        "stock_value":this.stock_to_be_added_to_watchlist.stock_value,
+        "stock_present_price":this.stock_to_be_added_to_watchlist.stock_present_price,
+        "id":this.current_user_object.id
+      };
+
+      this.stock_service_available.addStockToWatchlist(this.stock_watchlist_object).subscribe(
+        (data)=>this.snack_bar.open("Item Added to Watchlist",'Close', {
+          duration: 5000}))
+      }
+    else
+    {
+      this.snack_bar.open("Stock is already present in your waitlist",'Close', {
+        duration: 5000});
+    }
 
   }
 

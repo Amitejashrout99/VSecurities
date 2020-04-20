@@ -4,6 +4,7 @@
   <span class="flex-spacer"></span>
   <button mat-button mat-dialog-close><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
 </mat-toolbar>
+        
 
         <div id="login-div">
             <form novalidate [formGroup]="user_login_form">
@@ -50,5 +51,6 @@
         </div>    
         <div>
             <p style="text-align: center;margin-top: 60px;">© Copyright 2020 VshareSecurities Organization</p>
+            <p *ngIf="error_message_faced">{{error_message_faced}}</p>
         </div>
             

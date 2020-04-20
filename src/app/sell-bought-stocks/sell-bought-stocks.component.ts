@@ -268,8 +268,6 @@ export class SellBoughtStocksComponent implements OnInit {
     .subscribe((data)=>this.snack_bar.open("Stock Sold for"+" "+data.price_sold_for,'Close', {
       duration: 5000}),(err_msg)=>this.error_message_faced=err_msg);
 
-
-    window.location.reload();
   
   }
 

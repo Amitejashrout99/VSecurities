@@ -15,6 +15,11 @@ import {AllBoughtStocksComponent} from '../all-bought-stocks/all-bought-stocks.c
 import {AllSoldStocksComponent} from '../all-sold-stocks/all-sold-stocks.component';
 import {AllReviewsBoughtStocksComponent } from '../all-reviews-bought-stocks/all-reviews-bought-stocks.component';
 import {SubmitReviewComponent} from '../submit-review/submit-review.component';
+import {ForumBannerComponent} from '../forum-banner/forum-banner.component';
+import {ForumComponent} from '../forum/forum.component';
+import {FaqComponent} from '../faq/faq.component';
+import {ForumDashboardComponent} from '../forum-dashboard/forum-dashboard.component';
+import {ContactUsComponent} from '../contact-us/contact-us.component';
 
 export const various_routes:Routes=[
 
@@ -37,6 +42,14 @@ export const various_routes:Routes=[
             {path:'allSoldStocks',component:AllSoldStocksComponent,outlet:'side'},
             {path:'allReviews',component:AllReviewsBoughtStocksComponent,outlet:'side'},
             {path:'submitReview',component:SubmitReviewComponent,outlet:'side'}
-        ]}
+        ]},
+    {path:'stockForum',component:ForumComponent,
+        children:[
+            {path:'banner',component:ForumBannerComponent,outlet:'side'},
+            {path:'faq',component:FaqComponent,outlet:'side'},
+            {path:'forumDashboard',component:ForumDashboardComponent,outlet:'side'}
+        ]},
+    {path:'contact',component:ContactUsComponent}
+    
 
 ];

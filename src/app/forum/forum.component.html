@@ -1,0 +1,29 @@
+<mat-drawer-container class="example-container">
+    <mat-drawer #maindrawer mode="side">
+        <mat-list>
+            
+            <div class="profile-card">
+                <div class="header">
+                    <h2>{{welcome_message}}</h2>
+                    <h4>example@email.com</h4>
+                </div>
+                <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+            </div>
+            <mat-divider></mat-divider>
+
+            <h2 matSubheader>Forum</h2>
+            <mat-divider></mat-divider>
+            
+            <a mat-list-item [routerLink]="['/stockForum', {outlets: {'side': ['forumDashboard']}}]"  routerLinkActive='active'>Stock Forum</a>
+            
+            <a mat-list-item [routerLink]="['/stockForum', {outlets: {'side': ['faq']}}]" routerLinkActive='active'>Frequently Asked Questions</a>
+        </mat-list>
+
+    </mat-drawer>
+    <mat-drawer-content>
+        <button mat-button mat-dialog-close style="z-index: 2;" (click)='maindrawer.toggle()' (click)="checkOpenClose()"><i class="fa fa-bars fa-lg" *ngIf="!open_state" aria-hidden="true"></i><i class="fa fa-times fa-lg" *ngIf="open_state" aria-hidden="true"></i></button>
+        
+        <router-outlet name="side"></router-outlet>
+    </mat-drawer-content>
+</mat-drawer-container>
+

@@ -30,6 +30,10 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSliderModule} from '@angular/material/slider';
+import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatTabsModule} from '@angular/material/tabs';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import { NgMarqueeModule } from 'ng-marquee';
 import { RatingModule } from 'ng-starrating';
 
@@ -42,6 +46,7 @@ import {UserloginserviceService} from './services/userloginservice.service';
 import {StockserviceService} from './services/stockservice.service';
 import {ShoppingCartServiceService} from './services/shopping-cart-service.service';
 import {TradingDashboardServiceService} from './services/trading-dashboard-service.service';
+import {ForumServiceService} from './services/forum-service.service';
 
 
 import { LoginComponent } from './login/login.component';
@@ -69,6 +74,11 @@ import { AllBoughtStocksComponent } from './all-bought-stocks/all-bought-stocks.
 import { AllSoldStocksComponent } from './all-sold-stocks/all-sold-stocks.component';
 import { AllReviewsBoughtStocksComponent } from './all-reviews-bought-stocks/all-reviews-bought-stocks.component';
 import { SubmitReviewComponent } from './submit-review/submit-review.component';
+import { ForumBannerComponent } from './forum-banner/forum-banner.component';
+import { ForumComponent } from './forum/forum.component';
+import { FaqComponent } from './faq/faq.component';
+import { ForumDashboardComponent } from './forum-dashboard/forum-dashboard.component';
+import { ContactUsComponent } from './contact-us/contact-us.component';
 
 @NgModule({
   declarations: [
@@ -97,7 +107,12 @@ import { SubmitReviewComponent } from './submit-review/submit-review.component';
     AllBoughtStocksComponent,
     AllSoldStocksComponent,
     AllReviewsBoughtStocksComponent,
-    SubmitReviewComponent
+    SubmitReviewComponent,
+    ForumBannerComponent,
+    ForumComponent,
+    FaqComponent,
+    ForumDashboardComponent,
+    ContactUsComponent
   ],
   imports: [
     BrowserModule,
@@ -127,7 +142,11 @@ import { SubmitReviewComponent } from './submit-review/submit-review.component';
     NgMarqueeModule,
     RatingModule,
     MatStepperModule,
-    MatSliderModule
+    MatSliderModule,
+    MatBottomSheetModule,
+    MatTabsModule,
+    MatChipsModule,
+    MatAutocompleteModule
     
   ],
   
@@ -135,7 +154,8 @@ import { SubmitReviewComponent } from './submit-review/submit-review.component';
     UserloginserviceService,
     StockserviceService,
     ShoppingCartServiceService,
-  TradingDashboardServiceService],
+    TradingDashboardServiceService,
+    ForumServiceService],
   
   bootstrap: [AppComponent]
 })

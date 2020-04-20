@@ -1,0 +1,155 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+<mat-toolbar color="primary">
+    <span fxShow="true" fxHide.lt-md="true" class="flex-spacer"></span>
+    <h2>Contact Us</h2>
+    <span class="flex-spacer"></span>
+    <button fxShow="true"   fxHide.gt-sm mat-button (click)="closeContactForm()" mat-dialog-close><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+</mat-toolbar>
+
+
+<!--For Desktop Version-->
+
+<mat-horizontal-stepper [linear]="isLinear" #stepper  fxShow="true" fxHide.lt-md="true">
+          
+    <mat-step [stepControl]="name_form_group" errorMessage="Name is required.">
+      <form [formGroup]="name_form_group">
+        <ng-template matStepLabel>Enter your Name</ng-template>
+        <mat-form-field>
+          <mat-label>Name</mat-label>
+          <input matInput placeholder="Your username" formControlName="name" required>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" [disabled]='!name_form_group.valid' matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    
+    <mat-step [stepControl]="number_form_group" errorMessage="Contact Number is required">
+      <form [formGroup]="number_form_group">
+        <ng-template matStepLabel>Enter your Contact Number</ng-template>
+        <mat-form-field>
+          <mat-label>Contact Number:</mat-label>
+          <input matInput formControlName="number" placeholder="Your Contact Number"
+                 required>
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" [disabled]='!number_form_group.valid' matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="email_form_group" errorMessage="Email is required">
+        <form [formGroup]="email_form_group">
+          <ng-template matStepLabel>Enter your Email</ng-template>
+          <mat-form-field>
+            <mat-label>Email:</mat-label>
+            <input matInput formControlName="email" placeholder="Please enter your Email"
+                   required>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" [disabled]='!email_form_group.valid' matStepperNext>Next</button>
+          </div>
+        </form>
+    </mat-step>
+    
+    <mat-step [stepControl]="message_form_group" errorMessage="Please Enter your Doubt">
+      <form [formGroup]="message_form_group">
+        <ng-template matStepLabel>Your Query</ng-template>
+        <mat-label>Message</mat-label>
+        <input matInput style="height: 100px;" formControlName="message" placeholder="Please enter your Query"
+                   required>
+        <div>
+          <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" [disabled]='!message_form_group.valid' matStepperNext>Next</button>
+        </div>
+      </form>
+    </mat-step>
+    
+    <mat-step>
+      <ng-template matStepLabel>Done</ng-template>
+      <p>You are now done.</p>
+      <div>
+        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+        <button mat-raised-button color="primary" (click)="submitContactForm()">Send Message</button>
+      </div>
+    </mat-step>
+  </mat-horizontal-stepper>
+
+<!--  ****************************************  -->
+<!-- For Mobile Version-->
+
+<mat-vertical-stepper [linear]="isLinear" #stepper fxShow="true"   fxHide.gt-sm>
+
+
+    <mat-step [stepControl]="name_form_group" errorMessage="Name is required.">
+        <form [formGroup]="name_form_group">
+          <ng-template matStepLabel>Enter your Name</ng-template>
+          <mat-form-field>
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Your username" formControlName="name" required>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button color="primary" [disabled]='!name_form_group.valid' matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      
+      <mat-step [stepControl]="number_form_group" errorMessage="Contact Number is required">
+        <form [formGroup]="number_form_group">
+          <ng-template matStepLabel>Enter your Contact Number</ng-template>
+          <mat-form-field>
+            <mat-label>Contact Number:</mat-label>
+            <input matInput formControlName="number" placeholder="Your Contact Number"
+                   required>
+          </mat-form-field>
+          <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" [disabled]='!number_form_group.valid' matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+  
+      <mat-step [stepControl]="email_form_group" errorMessage="Email is required">
+          <form [formGroup]="email_form_group">
+            <ng-template matStepLabel>Enter your Email</ng-template>
+            <mat-form-field>
+              <mat-label>Email:</mat-label>
+              <input matInput formControlName="email" placeholder="Please enter your Email"
+                     required>
+            </mat-form-field>
+            <div>
+              <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+              <button mat-raised-button color="primary" [disabled]='!email_form_group.valid' matStepperNext>Next</button>
+            </div>
+          </form>
+      </mat-step>
+      
+      <mat-step [stepControl]="message_form_group" errorMessage="Please Enter your Doubt">
+        <form [formGroup]="message_form_group">
+          <ng-template matStepLabel>Your Query</ng-template>
+          <mat-label>Your Query</mat-label>
+          <input matInput style="height: 100px;" formControlName="message" placeholder="Please enter your Query"
+                     required>
+          <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" [disabled]='!message_form_group.valid' matStepperNext>Next</button>
+          </div>
+        </form>
+      </mat-step>
+      
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+          <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+          <button mat-raised-button color="primary" (click)="submitContactForm()">Send Message</button>
+        </div>
+      </mat-step>
+
+
+</mat-vertical-stepper>

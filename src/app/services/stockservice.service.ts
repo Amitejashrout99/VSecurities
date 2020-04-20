@@ -58,6 +58,19 @@ export class StockserviceService
     .pipe(catchError(this.error_management_service.handle_error_faced));
   }
 
+  async checkWatchlistStatus(stock_id:number):Promise<stock_watchlist>
+  {
+    return this.http_service_stock.get<stock_watchlist>(base_url+"checkWatchListStatus/"+stock_id)
+    .pipe(catchError(this.error_management_service.handle_error_faced)).toPromise();
+  }
+
+  removeStockFromWatchlist(watchlist_id:number):Observable<string>
+  {
+    return this.http_service_stock.delete<string>(base_url+"deleteWatchlistedStock/"+watchlist_id)
+    .pipe(catchError(this.error_management_service.handle_error_faced));
+  }
+
+
   getBoughtButNotSoldStocks(user_id:number):Observable<stock_sales[]>
   {
     return this.http_service_stock.get<stock_sales[]>(base_url+"getBoughtStocks/"+user_id)

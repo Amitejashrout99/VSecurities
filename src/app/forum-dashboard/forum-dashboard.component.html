@@ -1,0 +1,310 @@
+<mat-toolbar color="primary">
+    <span class="flex-spacer"></span>
+    <h2>Forum Dashboard</h2>
+    <span class="flex-spacer"></span>
+</mat-toolbar>
+
+<mat-tab-group  mat-align-tabs="center">
+    <mat-tab label="Search">
+        <ng-template matTabContent>
+            <mat-form-field class="example-chip-list">
+                
+                <mat-label>Please selects the tag to search</mat-label>
+                
+                <mat-chip-list #chipList aria-label="Fruit selection">
+                <mat-chip
+                    *ngFor="let tag of tags"
+                    [selectable]="selectable"
+                    [removable]="removable"
+                    (removed)="remove(tag)">
+                    {{tag}}
+                    <i matChipRemove *ngIf="removable" class="fa fa-times fa-lg" aria-hidden="true"></i>
+                </mat-chip>
+                <input
+                    placeholder="New tag..."
+                    #fruitInput
+                    [formControl]="tagCtrl"
+                    [matAutocomplete]="auto"
+                    [matChipInputFor]="chipList"
+                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                    (matChipInputTokenEnd)="add($event)">
+                </mat-chip-list>
+                <mat-autocomplete #auto="matAutocomplete" (optionSelected)="selected($event)">
+                    <mat-option *ngFor="let tag of filteredTags | async" [value]="tag">
+                        {{tag}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+            <button (click)="displaySearchResult(tags)" mat-raised-button color="primary">Search <i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
+            
+            <mat-card *ngIf="!display_result_div">
+
+                <mat-card-header style="background-color:#512DA8;color: white;z-index: 2;">
+                    <mat-card-title>
+                      <h2>Search Results</h2>
+                    </mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+
+
+                <mat-accordion style="margin-top: 20px;">
+
+                    <mat-expansion-panel *ngFor="let question of all_search_results" (opened)="getQuestionDetails(question)">
+                      <mat-expansion-panel-header class="right-aligned-header">
+                        <mat-panel-title>
+                          <div>{{question.forum_qstn}}</div>
+                        </mat-panel-title>
+                        <mat-panel-description fxShow="true" fxHide.lt-md="true">
+                          Asked on {{question.qstn_askd_on}}
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+
+                      <h2 fxShow="true"   fxHide.gt-sm>Asked on {{question.qstn_askd_on}}</h2>
+                      <h2>Forum ID of Question is: {{question.qstn_id}}</h2>
+                      <h2>Query Submitted By:{{question_asked_by}}</h2>
+                      <h2>{{question.times_answered}} replies till now</h2>
+                        
+                        <div class="container"
+                            fxLayout="row"
+                            fxLayout.sm="column"
+                            fxLayout.xs="column"
+                            fxLayoutAlign.gt-md="space-around center"
+                            fxLayoutGap="10px" 
+                            fxLayoutGap.xs="0">
+                        
+                        
+
+
+                            <!--<mat-card style="border-radius: 20px;" fxFlex>
+                                <mat-card-header>
+                                    <mat-card-title>
+                                      <h2>Replies</h2>
+                                    </mat-card-title>
+                                </mat-card-header>
+                                <mat-card-content>
+                                    <form class="example-form" [formGroup]="comment_form_group">
+                                        <mat-form-field class="example-full-width">
+                                          <mat-label>Your Reply:</mat-label>
+                                          <input matInput formControlName="comment" placeholder="Something you think would be relevant">
+                                        </mat-form-field>
+                                    </form>
+                                </mat-card-content>-->
+                                
+                                <!-- ******************All Replies Section Start*******************  -->
+
+
+                                <mat-card *ngIf="comment_display_card_status" style="border-radius: 20px;" fxFlex>
+                                    <mat-card-header style="background-color:#512DA8;color: white;z-index: 2;">
+                                        <mat-card-title>
+                                          <h2>All Replies</h2>
+                                        </mat-card-title>
+                                    </mat-card-header>
+                                    
+                                    <!-- ****************If no Comment Exists, Then Display This****************   -->
+
+                                    <mat-card-content *ngIf="first_reply_display_status">
+                                        <h3>No Reply to this post yet,Be the first one to give response</h3>
+                                        <form class="example-form" [formGroup]="comment_form_group">
+                                            <mat-form-field class="example-full-width">
+                                            <mat-label>Your Reply:</mat-label>
+                                            <input matInput formControlName="comment" placeholder="Something you think would be relevant">
+                                            </mat-form-field>
+                                            <button (click)="submitFirstComment(question.qstn_id,question)" [disabled]='!comment_form_group.valid' mat-raised-button color="primary">Submit your comment</button>
+                                        </form>
+                                        {{error_message_faced}}
+                                    </mat-card-content>
+
+                                    
+
+                                    <!--   **********************************************************************************  -->
+                                    
+                                    <!-- **********If Comments Exists, Then display this*********-->
+
+
+                                    <mat-card-content *ngIf="!first_reply_display_status">
+                                        
+                                        <mat-accordion style="margin-top: 20px;">
+
+                                            <mat-expansion-panel *ngFor="let comment of all_comments_per_question" (opened)="displayCommentDetails(comment.answer_user_id)" >
+                                              <mat-expansion-panel-header class="right-aligned-header">
+                                                <mat-panel-title fxShow="true" fxHide.lt-md="true">
+                                                  {{comment.forum_answer}}
+                                                </mat-panel-title>
+                                                <mat-panel-description fxShow="true" fxHide.lt-md="true">
+                                                  Replied on {{comment.answr_given_on}}
+                                                </mat-panel-description>
+                                                
+                                                <mat-panel-title fxShow="true"   fxHide.gt-sm>
+                                                    Expand to view the Comment
+                                                </mat-panel-title>
+
+
+                                              </mat-expansion-panel-header>
+                                                <h2 fxShow="true" fxHide.lt-md="true">Answer Given By: {{this.answer_given_by}}({{this.answer_given_by_user_age}})</h2>
+                                                
+                                                <h2 fxShow="true"   fxHide.gt-sm>Reply: {{comment.forum_answer}}</h2>
+                                                <h2 fxShow="true"   fxHide.gt-sm>Replied on: {{comment.answr_given_on}}</h2>
+                                                <h2 fxShow="true"   fxHide.gt-sm>Answer Given By: {{this.answer_given_by}} </h2>
+                                                <h2 fxShow="true"   fxHide.gt-sm>Age: {{this.answer_given_by_user_age}}</h2>
+                                            
+                                            </mat-expansion-panel>
+                                        
+                                        </mat-accordion>
+
+
+                                    </mat-card-content>
+
+                                    <!-- ********************************************************  -->
+                                </mat-card> 
+                                
+                                <!--  ****************All Replies Section Ends****************  -->
+
+                                <!-- *****************Your Reply Section Starts********************-->
+
+                                <mat-card *ngIf="normal_reply_display_status" style="border-radius: 20px;" fxFlex>
+
+                                    <mat-card-header style="background-color:#512DA8;color: white;z-index: 2;">
+                                        <mat-card-title>
+                                          <h2>Your Reply</h2>
+                                        </mat-card-title>
+                                    </mat-card-header>
+
+                                    <mat-card-content>
+
+                                        <form class="example-form" [formGroup]="comment_form_group">
+                                            <mat-form-field class="example-full-width">
+                                            <mat-label>Your Reply:</mat-label>
+                                            <input matInput formControlName="comment" placeholder="Something you think would be relevant">
+                                            </mat-form-field>
+                                            <button (click)="submitNormalComment(question.qstn_id,question)" [disabled]='!comment_form_group.valid' mat-raised-button color="primary">Submit your comment</button>
+                                        </form>
+
+
+                                    </mat-card-content>
+
+                                    
+                                </mat-card>
+
+                                <!--*********************Your Reply Section Ends******************-->
+                        
+                        </div>
+                    
+
+
+
+                      <mat-action-row>
+                        <button mat-raised-button (click)="showComments(question.qstn_id)" color="primary">Show All Comments</button>  
+                        <button mat-raised-button (click)="displayCommentBox()" *ngIf="!first_reply_display_status" color="primary">Submit your comment</button>
+                      </mat-action-row>
+
+                    </mat-expansion-panel>  
+                
+                </mat-accordion>
+                
+                </mat-card-content>
+                
+            </mat-card>
+
+        </ng-template>
+        
+    </mat-tab>
+
+
+    <!--********************************  Discussion Tab design Starts  ************************************-->
+
+
+    <mat-tab label="Discussions">
+        <mat-card style="border-radius: 20px;" fxFlex>
+
+            <mat-card-header style="background-color:#512DA8;color: white;z-index: 2;">
+                <mat-card-title>
+                  <h2>All Threads</h2>
+                </mat-card-title>
+            </mat-card-header>
+
+            <mat-card-content>
+
+                <mat-accordion style="margin-top: 20px;">
+
+                    <mat-expansion-panel *ngFor="let post of all_posts" (opened)="getPostDetails(post)">
+                      <mat-expansion-panel-header class="right-aligned-header">
+                        <mat-panel-title>
+                          <div>{{post.forum_qstn}}</div>
+                        </mat-panel-title>
+                        <mat-panel-description fxShow="true" fxHide.lt-md="true">
+                          Asked on {{post.qstn_askd_on}}
+                        </mat-panel-description>
+                      </mat-expansion-panel-header>
+
+                      <h2 fxShow="true"   fxHide.gt-sm>Asked on {{post.qstn_askd_on}}</h2>
+                      <h2>Forum ID of Question is: {{post.qstn_id}}</h2>
+                      <h2>Query Submitted By:{{question_asked_by}}</h2>
+                      <h2>{{post.times_answered}} replies till now</h2>
+
+
+                      <mat-card>
+                        <mat-card-header style="background-color:yellow;color: black;z-index: 2;line-height: 1.3;">
+                            <mat-card-title>
+                            <h2>Discussions on this topic</h2>
+                            </mat-card-title>
+                        </mat-card-header>
+                        <mat-card-content>
+                            
+
+                            <mat-accordion style="margin-top: 20px;">
+
+                                <mat-expansion-panel *ngFor="let comment of all_comments_per_question" (opened)="displayCommentDetails(comment.answer_user_id)" >
+                                  <mat-expansion-panel-header class="right-aligned-header">
+                                    <mat-panel-title fxShow="true" fxHide.lt-md="true">
+                                      {{comment.forum_answer}}
+                                    </mat-panel-title>
+                                    <mat-panel-description fxShow="true" fxHide.lt-md="true">
+                                      Replied on {{comment.answr_given_on}}
+                                    </mat-panel-description>
+                                    
+                                    <mat-panel-title fxShow="true"   fxHide.gt-sm>
+                                        Expand to view the Comment
+                                    </mat-panel-title>
+
+
+                                  </mat-expansion-panel-header>
+                                    <h2 fxShow="true" fxHide.lt-md="true">Answer Given By: {{this.answer_given_by}}({{this.answer_given_by_user_age}})</h2>
+                                    
+                                    <h2 fxShow="true"   fxHide.gt-sm>Reply: {{comment.forum_answer}}</h2>
+                                    <h2 fxShow="true"   fxHide.gt-sm>Replied on: {{comment.answr_given_on}}</h2>
+                                    <h2 fxShow="true"   fxHide.gt-sm>Answer Given By: {{this.answer_given_by}} </h2>
+                                    <h2 fxShow="true"   fxHide.gt-sm>Age: {{this.answer_given_by_user_age}}</h2>
+                                
+                                </mat-expansion-panel>
+                            
+                            </mat-accordion>
+
+                            <form class="example-form" [formGroup]="thread_comment_form_group">
+                                <mat-form-field class="example-full-width">
+                                    <mat-label>Your Reply:</mat-label>
+                                        <input matInput formControlName="thread_comment" placeholder="Something you think would be helpful">
+                                </mat-form-field>
+                                    <button (click)="submitDiscussionComment(post.qstn_id,post)" [disabled]='!thread_comment_form_group.valid' mat-raised-button color="primary">Submit your comment</button>
+                            </form>
+                            
+
+                        </mat-card-content>
+
+                     </mat-card>  
+
+                    </mat-expansion-panel>
+                
+                </mat-accordion>
+
+            </mat-card-content>
+            
+        </mat-card>
+    </mat-tab>
+    <!--             *******************Discussion Design Ends***********************              -->
+    
+    
+    <mat-tab label="Overview">
+        Content 3 
+    </mat-tab>
+</mat-tab-group>

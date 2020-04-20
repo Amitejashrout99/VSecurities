@@ -19,7 +19,7 @@ fxLayoutGap="10px">
       
       <a mat-button routerLink='/dashboard' routerLinkActive='active'><span class="fa fa-shopping-cart fa-lg"></span> Buy and Sell</a>
       <a mat-button routerLink='/aboutus' routerLinkActive='active'><span class="fa fa-search fa-lg"></span> Stock watch</a>
-      <a mat-button routerLink='/menu' routerLinkActive='active'><span class="fa fa-forumbee fa-lg"></span> Forum</a>
+      <a mat-button routerLink='/stockForum' routerLinkActive='active'><span class="fa fa-forumbee fa-lg"></span> Forum</a>
       
       <a mat-button routerLink='/stockLibrary' routerLinkActive='active'><span class="fa fa-line-chart fa-lg"></span> Stock Library</a>
       <a mat-button routerLink='/contactus' routerLinkActive='active'><span class="fa fa-user-circle fa-lg"></span> Your Account</a>
@@ -27,23 +27,25 @@ fxLayoutGap="10px">
       
     </div>
       <span class="flex-spacer"></span>
-      <h3 id="banner_message">Hello Guest</h3>
+      <button class="username_button" (click)="displaySignOut()" mat-raised-button><h3 *ngIf="username">Hello {{username}}</h3></button>
+
+      
   </mat-toolbar>
   
 </div> 
 
-<mat-sidenav-container fxFlexFill>
-  <mat-sidenav #sidenav>
+<mat-sidenav-container  fxFlexFill>
+  <mat-sidenav class="sideBar" #sidenav>
     <mat-nav-list>
-      <a mat-button routerLink='/dashboard' routerLinkActive='active'><span class="fa fa-shopping-cart fa-lg"></span> Buy and Sell</a>
+      <a mat-button (click)="sidenav.toggle()" routerLink='/dashboard' routerLinkActive='active'><span class="fa fa-shopping-cart fa-lg"></span> Buy and Sell</a>
       <mat-divider></mat-divider>
-      <a mat-button routerLink='/aboutus' routerLinkActive='active'><span class="fa fa-search fa-lg"></span> Stock watch</a>
+      <a mat-button (click)="sidenav.toggle()" routerLink='/aboutus' routerLinkActive='active'><span class="fa fa-search fa-lg"></span> Stock watch</a>
       <mat-divider></mat-divider>
-      <a mat-button routerLink='/menu' routerLinkActive='active'><span class="fa fa-forumbee fa-lg"></span> Forum</a>
+      <a mat-button (click)="sidenav.toggle()" routerLink='/stockForum' routerLinkActive='active'><span class="fa fa-forumbee fa-lg"></span> Forum</a>
       <mat-divider></mat-divider>
-      <a mat-button routerLink='/stockLibrary' routerLinkActive='active'><span class="fa fa-line-chart fa-lg"></span> Stock Library</a>
+      <a mat-button (click)="sidenav.toggle()" routerLink='/stockLibrary' routerLinkActive='active'><span class="fa fa-line-chart fa-lg"></span> Stock Library</a>
       <mat-divider></mat-divider>
-      <a mat-button routerLink='/contactus' routerLinkActive='active'><span class="fa fa-user-circle fa-lg"></span> Your Account</a>
+      <a mat-button (click)="sidenav.toggle()" routerLink='/contactus' routerLinkActive='active'><span class="fa fa-user-circle fa-lg"></span> Your Account</a>
       <mat-divider></mat-divider>
       <a mat-button  (click)="openShoppingCartDialog()"    ><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Your Cart {{no_of_items}}</a>
     </mat-nav-list>

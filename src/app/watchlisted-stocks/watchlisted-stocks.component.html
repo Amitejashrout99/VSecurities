@@ -22,8 +22,8 @@
       <h2>Buying Price of Stock now: {{watchlisted_stock.stock_value}} <i class="fa fa-inr fa-lg" aria-hidden="true"></i></h2>
       <h2>Selling price of stock_now :{{watchlisted_stock.stock_present_price}} <i class="fa fa-inr fa-lg" aria-hidden="true"></i></h2>           
       <mat-action-row>
-        <button mat-raised-button color="primary"><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Buy Now</button>
-        <button mat-raised-button color="primary">Remove from Watchlist</button>
+        <button [routerLink]="['/BuyStock', watchlisted_stock.stock_id]" mat-raised-button color="primary"><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Buy Now</button>
+        <button (click)="removeFromWatchlist(watchlisted_stock)" mat-raised-button color="primary">Remove from Watchlist</button>
       </mat-action-row>
 
     </mat-expansion-panel>

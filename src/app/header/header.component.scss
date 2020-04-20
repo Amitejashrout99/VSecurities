@@ -35,3 +35,26 @@ p
 .active {
     background: $background-moredark;
 }
+
+.sideBar
+{
+    width:inherit;
+    background-color: transparent;
+    z-index: 1.5;
+}
+
+.sideBar a{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    z-index: 2;
+}
+
+.username_button
+{
+    border: 3px yellow;
+    background-color: transparent;
+    color: white;
+}
+

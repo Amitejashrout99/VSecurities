@@ -23,6 +23,8 @@ export class SigninComponent implements OnInit {
   public data:any=[];
   cart_items:shopping_cart[]=null;
   user_password:string;
+  error_message_faced:string;
+  current_users_object:users;
   
   
   formErrors={          //error java type object
@@ -59,17 +61,20 @@ export class SigninComponent implements OnInit {
   }
 
 
-  onAttemptingToLogIn()
+  async onAttemptingToLogIn()
   {
       this.user_attempting_to_login=this.user_login_form.value;
       this.user_name=this.user_attempting_to_login.username;
       this.user_password=this.user_attempting_to_login.password;
      
-      this.user_login_service.verifyUser(this.user_name).subscribe((data)=> 
-      this.user_data_received=data);
+      //alert(this.user_name);
+      
+      this.current_users_object = await this.user_login_service.verifyUser(this.user_name);
+
+      
       
 
-      if((this.user_data_received["username"]===this.user_name) && (this.user_data_received["password"]===this.user_password))
+      if((this.current_users_object.username===this.user_name) && (this.current_users_object.password===this.user_password))
       {
         this.onSuccessfullLogIn(this.user_name,this.user_password);
       }
@@ -86,13 +91,16 @@ export class SigninComponent implements OnInit {
     sessionStorage.setItem("username",username);
     sessionStorage.setItem("password",password);
     sessionStorage.setItem("cartItems",JSON.stringify(this.cart_items));
+
+    this.user_login_service.userdata.next(username);
+
     this.router.navigate(['/home']);
     this.dialogRef.close();
   }
 
   onUnsuccessfullLogIn()
   {
-      document.getElementById("welcome_banner").innerHTML="Please Enter Correct Credentials";
+      alert("Please enter correct credentials");
   }
 
   openNewUserForm()
