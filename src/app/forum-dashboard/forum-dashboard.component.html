@@ -1,3 +1,5 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
 <mat-toolbar color="primary">
     <span class="flex-spacer"></span>
     <h2>Forum Dashboard</h2>
@@ -219,7 +221,7 @@
 
             <mat-card-header style="background-color:#512DA8;color: white;z-index: 2;">
                 <mat-card-title>
-                  <h2>All Threads</h2>
+                  <h3>All Threads</h3>
                 </mat-card-title>
             </mat-card-header>
 
@@ -269,7 +271,7 @@
 
 
                                   </mat-expansion-panel-header>
-                                    <h2 fxShow="true" fxHide.lt-md="true">Answer Given By: {{this.answer_given_by}}({{this.answer_given_by_user_age}})</h2>
+                                    <h2 fxShow="true" fxHide.lt-md="true">Reply Given By: {{this.answer_given_by}}({{this.answer_given_by_user_age}})</h2>
                                     
                                     <h2 fxShow="true"   fxHide.gt-sm>Reply: {{comment.forum_answer}}</h2>
                                     <h2 fxShow="true"   fxHide.gt-sm>Replied on: {{comment.answr_given_on}}</h2>
@@ -300,11 +302,199 @@
             </mat-card-content>
             
         </mat-card>
+
+        <mat-card style="border-radius: 20px;" fxFlex>
+          <mat-card-header style="background-color:#512DA8;color: white;z-index: 2;">
+            <mat-card-title>
+              <h3>Your Question</h3>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            
+            <!-- ****************************Submit Question For Desktop Version**********************************-->
+            
+            
+            <mat-horizontal-stepper [linear]="isLinear" #stepper  fxShow="true" fxHide.lt-md="true">
+          
+              <mat-step [stepControl]="question_form_group" errorMessage="Question is required.">
+                <form [formGroup]="question_form_group">
+                  <ng-template matStepLabel>Enter your Doubt</ng-template>
+                  <mat-form-field>
+                    <mat-label>Your Query:</mat-label>
+                    <input matInput placeholder="Stuff that bugs you" formControlName="question" required>
+                  </mat-form-field>
+                  <div>
+                    <button mat-raised-button color="primary" [disabled]='!question_form_group.valid' matStepperNext>Next</button>
+                  </div>
+                </form>
+              </mat-step>
+
+              <mat-step [stepControl]="tag_form_group" errorMessage="Assigning a Tag is Required">
+                <form [formGroup]="tag_form_group">
+                  <ng-template matStepLabel>Assign a Tag which is suitable for your Query</ng-template>
+                  <h4>Tag must be single words like Revenue,Jio,Profit,Loss</h4>
+                  <mat-form-field>
+                    <mat-label>Tag Assigned:</mat-label>
+                    <input matInput formControlName="tag" placeholder="Single Word Like Revenue,Jio,Profit..."
+                           required>
+                  </mat-form-field>
+                  <div>
+                    <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" [disabled]='!tag_form_group.valid' matStepperNext>Next</button>
+                  </div>
+                </form>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                <p>You are now done.</p>
+                <div>
+                  <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                  <button mat-raised-button (click)="submitQuestion()" color="primary">Submit Query</button>
+                </div>
+              </mat-step>
+
+            </mat-horizontal-stepper>
+            
+            <!--Submit Question for Mobile Version-->
+
+            <mat-vertical-stepper [linear]="isLinear" #stepper fxShow="true"   fxHide.gt-sm>
+          
+              <mat-step [stepControl]="question_form_group" errorMessage="Question is required.">
+                <form [formGroup]="question_form_group">
+                  <ng-template matStepLabel>Enter your Doubt</ng-template>
+                  <mat-form-field>
+                    <mat-label>Your Query:</mat-label>
+                    <input matInput placeholder="Stuff that bugs you" formControlName="question" required>
+                  </mat-form-field>
+                  <div>
+                    <button mat-raised-button color="primary" [disabled]='!question_form_group.valid' matStepperNext>Next</button>
+                  </div>
+                </form>
+              </mat-step>
+
+              <mat-step [stepControl]="tag_form_group" errorMessage="Assigning a Tag is Required">
+                <form [formGroup]="tag_form_group">
+                  <ng-template matStepLabel>Assign a Tag which is suitable for your Query</ng-template>
+                  <h4>Tag must be single words like Revenue,Jio,Profit,Loss</h4>
+                  <mat-form-field>
+                    <mat-label>Tag Assigned:</mat-label>
+                    <input matInput formControlName="tag" placeholder="Single Word Like Revenue,Jio,Profit..."
+                           required>
+                  </mat-form-field>
+                  <div>
+                    <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" [disabled]='!tag_form_group.valid' matStepperNext>Next</button>
+                  </div>
+                </form>
+              </mat-step>
+
+              <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                <p>You are now done.</p>
+                <div>
+                  <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                  <button mat-raised-button (click)="submitQuestion()" color="primary">Submit Query</button>
+                </div>
+              </mat-step>
+
+            </mat-vertical-stepper>
+            
+            <!--**************************Submit Question Design Ends**************************************-->
+          
+          </mat-card-content>
+        </mat-card>
     </mat-tab>
     <!--             *******************Discussion Design Ends***********************              -->
     
     
     <mat-tab label="Overview">
-        Content 3 
+      <mat-card style="border-radius: 20px;" fxFlex>
+
+        <mat-card-header style="background-color:#512DA8;color: white;z-index: 2;">
+            <mat-card-title>
+              <h2>{{current_user_name}}'s forum profile</h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+
+          <div class="container"
+                            fxLayout="row"
+                            fxLayout.sm="column"
+                            fxLayout.xs="column"
+                            fxLayoutAlign.gt-md="space-around center"
+                            fxLayoutGap="10px" 
+                            fxLayoutGap.xs="0">
+          
+                  <mat-card style="border-radius: 20px;" fxFlex class="stats-card">
+
+                      <mat-card-header style="background-color:#512DA8;color: white;z-index: 2;">
+                          <mat-card-title>
+                                <h3>{{current_user_name}}'s Stats</h3>
+                          </mat-card-title>
+                      </mat-card-header>
+                      <mat-card-content>
+                        <h3 style="text-align: center;">Questions Posted</h3>
+                        <p style="text-align: center;font-size:150%;">{{user_forum_data.no_of_questions_posted}}</p>
+                        <h3 style="text-align: center;">Replies/Answers</h3>
+                        <p style="text-align: center;font-size:150%;">{{user_forum_data.no_of_questions_answered}}</p>
+                      </mat-card-content>
+                  
+                  </mat-card>
+                  <mat-card style="border-radius: 20px;" fxFlex>
+
+                    <mat-card-header style="background-color:#512DA8;color: white;z-index: 2;">
+                        <mat-card-title>
+                          <h3>{{current_user_name}}'s Questions</h3>
+                        </mat-card-title>
+                    </mat-card-header>
+
+                    <mat-card-content>
+                      <mat-accordion style="margin-top: 20px;">
+
+                        <mat-expansion-panel *ngFor="let question of user_forum_data.all_questions_posted">
+                          <mat-expansion-panel-header class="right-aligned-header">
+                            <mat-panel-title>
+                              <div>{{question.forum_qstn}}</div>
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <p>Asked on {{question.qstn_askd_on}}</p>
+
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                    </mat-card-content>
+                  
+                  </mat-card>
+
+                  <mat-card style="border-radius: 20px;" fxFlex>
+
+                    <mat-card-header style="background-color:#512DA8;color: white;z-index: 2;">
+                        <mat-card-title>
+                          <h3>{{current_user_name}}'s Answers</h3>
+                        </mat-card-title>
+                    </mat-card-header>
+
+                    <mat-card-content>
+                      <mat-accordion style="margin-top: 20px;">
+
+                        <mat-expansion-panel *ngFor="let reply of user_forum_data.all_answers_posted">
+                          <mat-expansion-panel-header class="right-aligned-header">
+                            <mat-panel-title>
+                              <div>{{reply.forum_answer}}</div>
+                            </mat-panel-title>
+                          </mat-expansion-panel-header>
+                          <p>Replied on {{reply.answr_given_on}}</p>
+                        </mat-expansion-panel>
+                      </mat-accordion>
+                    </mat-card-content>
+                  
+                  </mat-card>
+          
+          </div>
+          
+
+        </mat-card-content>
+      
+      </mat-card>
     </mat-tab>
 </mat-tab-group>

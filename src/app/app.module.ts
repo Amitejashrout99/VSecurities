@@ -31,6 +31,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatStepperModule} from '@angular/material/stepper';
 import {MatSliderModule} from '@angular/material/slider';
 import {MatBottomSheetModule} from '@angular/material/bottom-sheet';
+import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatTabsModule} from '@angular/material/tabs';
 import {MatChipsModule} from '@angular/material/chips';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
@@ -47,6 +48,7 @@ import {StockserviceService} from './services/stockservice.service';
 import {ShoppingCartServiceService} from './services/shopping-cart-service.service';
 import {TradingDashboardServiceService} from './services/trading-dashboard-service.service';
 import {ForumServiceService} from './services/forum-service.service';
+import {StockWatchServiceService} from './services/stock-watch-service.service';
 
 
 import { LoginComponent } from './login/login.component';
@@ -79,6 +81,13 @@ import { ForumComponent } from './forum/forum.component';
 import { FaqComponent } from './faq/faq.component';
 import { ForumDashboardComponent } from './forum-dashboard/forum-dashboard.component';
 import { ContactUsComponent } from './contact-us/contact-us.component';
+import { StockWatchComponent } from './stock-watch/stock-watch.component';
+import { StockWatchBannerComponent } from './stock-watch-banner/stock-watch-banner.component';
+import { StockWatchDashboardComponent } from './stock-watch-dashboard/stock-watch-dashboard.component';
+import { StockRecommendationsComponent } from './stock-recommendations/stock-recommendations.component';
+import { StockResearchDetailsComponent } from './stock-research-details/stock-research-details.component';
+import { AccountDetailsDashBoardComponent } from './account-details-dash-board/account-details-dash-board.component';
+import { KycDetailsFormComponent } from './kyc-details-form/kyc-details-form.component';
 
 @NgModule({
   declarations: [
@@ -112,7 +121,14 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     ForumComponent,
     FaqComponent,
     ForumDashboardComponent,
-    ContactUsComponent
+    ContactUsComponent,
+    StockWatchComponent,
+    StockWatchBannerComponent,
+    StockWatchDashboardComponent,
+    StockRecommendationsComponent,
+    StockResearchDetailsComponent,
+    AccountDetailsDashBoardComponent,
+    KycDetailsFormComponent
   ],
   imports: [
     BrowserModule,
@@ -146,7 +162,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     MatBottomSheetModule,
     MatTabsModule,
     MatChipsModule,
-    MatAutocompleteModule
+    MatAutocompleteModule,
+    MatDatepickerModule
     
   ],
   
@@ -155,7 +172,8 @@ import { ContactUsComponent } from './contact-us/contact-us.component';
     StockserviceService,
     ShoppingCartServiceService,
     TradingDashboardServiceService,
-    ForumServiceService],
+    ForumServiceService,
+    StockWatchServiceService],
   
   bootstrap: [AppComponent]
 })

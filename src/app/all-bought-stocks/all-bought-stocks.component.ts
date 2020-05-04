@@ -98,17 +98,17 @@ export class AllBoughtStocksComponent implements OnInit {
 
   initializeValue(selected_object:all_bought_stocks_expansion)
   {
-    
-    
-    if(selected_object.price_sold_for==0)
-    {
-      this.isStockSold=true;
-    }
-    
+  
     
     this.profit_earned_card_value=selected_object.price_sold_for-selected_object.price_bought_for;
     this.profit_percent_earned=(this.profit_earned_card_value/selected_object.price_bought_for)*100;
     this.profit_percent_earned=+(this.profit_percent_earned.toFixed(2));
+
+    if(selected_object.price_sold_for==0 || this.profit_earned_card_value<0)
+    {
+      this.isStockSold=true;
+    }
+
   }
 
   resetValues()

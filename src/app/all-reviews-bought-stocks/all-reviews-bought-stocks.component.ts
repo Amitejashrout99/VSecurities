@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { StarRatingComponent } from 'ng-starrating';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 import {user} from '../shared/user';
 import {stock} from '../shared/stock'
@@ -24,7 +25,7 @@ export class AllReviewsBoughtStocksComponent implements OnInit {
   current_user_object:user;
   current_user_id:number;
   current_stock_name:string;
-  bought_stocks_id:number[];
+  bought_stocks_id:number[]=[];
   available_reviews_bought_stocks_id:number[];
   //bought_stock_object:stock;
   //bought_stocks_details:stock[]=[];
@@ -33,10 +34,12 @@ export class AllReviewsBoughtStocksComponent implements OnInit {
   all_bought_stock_reviews:stock_review_custom_class[]=[];
   bought_stock_review:stock_review_custom_class;
   error_message_faced:string;
+  display_review_status:boolean=true;
 
   
   constructor(private stock_service_provider:StockserviceService,
-    private user_service_provider:UserloginserviceService)
+    private user_service_provider:UserloginserviceService,
+    private snack_bar:MatSnackBar)
   { 
 
   }
@@ -52,8 +55,16 @@ export class AllReviewsBoughtStocksComponent implements OnInit {
       switchMap(()=>this.stock_service_provider.getAllBoughtStocksId(this.current_user_id)
       .pipe(catchError((err_msg)=>this.error_message_faced=err_msg))),
       
-      tap(data=>this.bought_stocks_id=data),
+      tap(data=>{this.bought_stocks_id=data
+        if(this.bought_stocks_id.length==0)
+        {
+          this.display_review_status=false;
+          this.bought_stocks_id.push(-1);
+        }
+      }),
+
       
+
       switchMap(()=>this.stock_service_provider.getAllBoughtStocksReviews(this.bought_stocks_id)
       .pipe(catchError((err_msg)=>this.error_message_faced=err_msg))),
 

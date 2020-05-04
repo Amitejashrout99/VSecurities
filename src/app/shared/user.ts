@@ -6,4 +6,5 @@ export class user
     address:string;
     gender:string;
     nationality:string;
+    kyc_status:string;
 }

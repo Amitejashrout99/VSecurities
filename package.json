@@ -29,6 +29,7 @@
     "hammerjs": "^2.0.8",
     "ng-marquee": "^9.5.0",
     "ng-starrating": "^1.0.20",
+    "ng2-carouselamos": "^4.1.0",
     "ngx-restangular": "^5.0.0",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",

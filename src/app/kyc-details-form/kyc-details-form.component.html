@@ -1,0 +1,690 @@
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+<mat-toolbar color="primary">
+    <span fxShow="true" fxHide.lt-md="true" class="flex-spacer"></span>
+    <h2>Vshare Securities KYC Form</h2>
+    <span class="flex-spacer"></span>
+    <button fxShow="true"   fxHide.gt-sm mat-button (click)="closeContactForm()" mat-dialog-close><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+</mat-toolbar>
+
+
+<mat-accordion class="example-headers-align">
+    <mat-expansion-panel [expanded]="step === 0" (opened)="setStep(0)" (opened)="personal_details_form()" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Personal data
+        </mat-panel-title>
+        <mat-panel-description>
+          Provide Your Personal Information
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <!--   ******************Desktop Version for Personal Details********************    -->
+
+      <mat-horizontal-stepper [linear]="isLinear" #stepper  fxShow="true" fxHide.lt-md="true">
+          
+        <mat-step [stepControl]="father_name_form_group" errorMessage="Father Name is required.">
+          <form [formGroup]="father_name_form_group">
+            <ng-template matStepLabel>Enter your Father's Name</ng-template>
+            <mat-form-field>
+              <mat-label>Name of Father</mat-label>
+              <input matInput placeholder="Your Father's Name" formControlName="father_name" required>
+            </mat-form-field>
+            <div>
+              <button mat-raised-button color="primary" [disabled]='!father_name_form_group.valid' matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="mother_name_form_group" errorMessage="Mother Name is Required">
+            <form [formGroup]="mother_name_form_group">
+              <ng-template matStepLabel>Enter your Mother's Name</ng-template>
+              <mat-form-field>
+                
+                <mat-label>Name of Mother</mat-label>
+                <input matInput formControlName="mother_name" placeholder="Please enter your Mother's name"
+                         required>
+              
+              </mat-form-field>
+              
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!mother_name_form_group.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="date_of_birth" errorMessage="Date Of Birth is Required">
+            <form [formGroup]="date_of_birth">
+              <ng-template matStepLabel>Your Date Of Birth</ng-template>
+              <mat-form-field>
+
+                <mat-label>Click on the Calendar Icon to select your DOB</mat-label>
+                <input matInput formControlName="dob" placeholder="Please enter your DOB"
+                            required>
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!date_of_birth.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="occupation" errorMessage="Occupation is Required">
+            <form [formGroup]="occupation">
+              <ng-template matStepLabel>Your Occupation</ng-template>
+              <mat-form-field>
+
+                <mat-label>Please Enter Your Occupation</mat-label>
+                <input matInput formControlName="occupation" placeholder="Please enter your Occupation"
+                         required>
+              
+
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!occupation.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
+
+        
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+
+
+      </mat-horizontal-stepper>
+
+      <!-- *********Desktop version Design for Personal Data Ends**************************** -->
+      
+      <!-- **********Mobile Version Design for Personal Data Form Starts**********************************  -->
+
+      <mat-vertical-stepper [linear]="isLinear" #stepper  fxShow="true" fxHide.gt-sm>
+          
+        <mat-step [stepControl]="father_name_form_group" errorMessage="Father Name is required.">
+          <form [formGroup]="father_name_form_group">
+            <ng-template matStepLabel>Enter your Father's Name</ng-template>
+            <mat-form-field>
+              <mat-label>Name of Father</mat-label>
+              <input matInput placeholder="Your Father's Name" formControlName="father_name" required>
+            </mat-form-field>
+            <div>
+              <button mat-raised-button color="primary" [disabled]='!father_name_form_group.valid' matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="mother_name_form_group" errorMessage="Mother Name is Required">
+            <form [formGroup]="mother_name_form_group">
+              <ng-template matStepLabel>Enter your Mother's Name</ng-template>
+              <mat-form-field>
+                
+                <mat-label>Name of Mother</mat-label>
+                <input matInput formControlName="mother_name" placeholder="Please enter your Mother's name"
+                         required>
+              
+              </mat-form-field>
+              
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!mother_name_form_group.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="date_of_birth" errorMessage="Date Of Birth is Required">
+            <form [formGroup]="date_of_birth">
+              <ng-template matStepLabel>Your Date Of Birth</ng-template>
+              <mat-form-field>
+
+                <mat-label>Click on the Calendar Icon to select your DOB</mat-label>
+                <input matInput formControlName="dob" placeholder="Please enter your DOB"
+                            required>
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!date_of_birth.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="occupation" errorMessage="Occupation is Required">
+            <form [formGroup]="occupation">
+              <ng-template matStepLabel>Your Occupation</ng-template>
+              <mat-form-field>
+
+                <mat-label>Please Enter Your Occupation</mat-label>
+                <input matInput formControlName="occupation" placeholder="Please enter your Occupation"
+                         required>
+              
+
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!occupation.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
+
+        
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+
+
+      </mat-vertical-stepper>
+
+      <!--  Mobile Version Design Ends   -->
+
+      <mat-action-row>
+        <button mat-button color="primary" (click)="nextStep()" (click)="savePersonalFormData()" >Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    
+    <!--  Design for Personal Identification Data starts  -->
+
+    <!-- Design for Personal identification starts-->
+
+    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" (opened)="personal_identification_form()" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Proof Of Identity
+        </mat-panel-title>
+        <mat-panel-description>
+          Please provide the data which helps to identify you
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <!-- Design for desktop version of Personal information -->
+
+      <ng-template matExpansionPanelContent>
+
+      <mat-horizontal-stepper [linear]="isLinear" #stepper fxShow="true" fxHide.lt-md="true">
+          
+        <mat-step [stepControl]="passport_number" errorMessage="Passport number is required.">
+          <form [formGroup]="passport_number">
+            <ng-template matStepLabel>Enter your Passport Number</ng-template>
+            <mat-form-field>
+              <mat-label>Passport Number</mat-label>
+              <input matInput placeholder="Your Passport number" formControlName="passport_number" required>
+            </mat-form-field>
+            <div>
+              <button mat-raised-button color="primary" [disabled]='!passport_number.valid'  matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="passport_expiry_date" errorMessage="Passport Expiry Date is required">
+            <form [formGroup]="passport_expiry_date">
+              <ng-template matStepLabel>Enter your Passport's expiry Date</ng-template>
+              <mat-form-field>
+                
+                <mat-label>Passport Expiry Date</mat-label>
+                <input type="date" matInput formControlName="expiry_date" placeholder="Please enter your Mother's name"
+                   required>
+              
+              </mat-form-field>
+              
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!passport_expiry_date.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="aadhar_card_number" errorMessage="Aadhar number is Required">
+            <form [formGroup]="aadhar_card_number">
+              <ng-template matStepLabel>Your Aadhar Card Number</ng-template>
+              <mat-form-field>
+
+                <mat-label>Enter Your Aadhar Card Number</mat-label>
+                <input matInput formControlName="aadhar_card_number" placeholder="Please enter your Aadhar Card Number"
+                            required>
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!aadhar_card_number.valid'  matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="pan_card_number" errorMessage="Pan Card number is required">
+            <form [formGroup]="pan_card_number">
+              <ng-template matStepLabel>Your Pan Card Number</ng-template>
+              <mat-form-field>
+
+                <mat-label>Please Enter Your Occupation</mat-label>
+                <input  matInput formControlName="pan_card_number" placeholder="Please enter your Pan Card Number"
+                         required>
+              
+
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!pan_card_number.valid'  matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
+
+        
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+
+
+      </mat-horizontal-stepper>
+      
+
+      <!--Design for personal identification data desktop version ends-->
+      <!--Design for identification data mobile version starts-->
+
+
+      <mat-vertical-stepper [linear]="isLinear" #stepper fxShow="true" fxHide.gt-sm>
+          
+        <mat-step [stepControl]="passport_number" errorMessage="Passport number is required.">
+          <form [formGroup]="passport_number">
+            <ng-template matStepLabel>Enter your Passport Number</ng-template>
+            <mat-form-field>
+              <mat-label>Passport Number</mat-label>
+              <input matInput placeholder="Your Passport number" formControlName="passport_number" required>
+            </mat-form-field>
+            <div>
+              <button mat-raised-button color="primary" [disabled]='!passport_number.valid'  matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+
+        <mat-step [stepControl]="passport_expiry_date" errorMessage="Passport Expiry Date is required">
+            <form [formGroup]="passport_expiry_date">
+              <ng-template matStepLabel>Enter your Passport's expiry Date</ng-template>
+              <mat-form-field>
+                
+                <mat-label>Passport Expiry Date</mat-label>
+                <input type="date" matInput formControlName="expiry_date" placeholder="Please enter your Mother's name"
+                   required>
+              
+              </mat-form-field>
+              
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!passport_expiry_date.valid' matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="aadhar_card_number" errorMessage="Aadhar number is Required">
+            <form [formGroup]="aadhar_card_number">
+              <ng-template matStepLabel>Your Aadhar Card Number</ng-template>
+              <mat-form-field>
+
+                <mat-label>Enter Your Aadhar Card Number</mat-label>
+                <input matInput formControlName="aadhar_card_number" placeholder="Please enter your Aadhar Card Number"
+                            required>
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!aadhar_card_number.valid'  matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
+
+        <mat-step [stepControl]="pan_card_number" errorMessage="Pan Card number is required">
+            <form [formGroup]="pan_card_number">
+              <ng-template matStepLabel>Your Pan Card Number</ng-template>
+              <mat-form-field>
+
+                <mat-label>Please Enter Your Occupation</mat-label>
+                <input  matInput formControlName="pan_card_number" placeholder="Please enter your Pan Card Number"
+                         required>
+              
+
+              </mat-form-field>
+              <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" [disabled]='!pan_card_number.valid'  matStepperNext>Next</button>
+              </div>
+            </form>
+        </mat-step>
+
+        
+        <mat-step>
+            <ng-template matStepLabel>Done</ng-template>
+            <p>You are now done.</p>
+            <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+            </div>
+        </mat-step>
+
+
+        </mat-vertical-stepper>  
+
+
+
+      </ng-template>
+
+      
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+    
+
+    <!--**************Personal Information ends**************-->
+
+    <!--****Contact Information Starts*************-->
+
+    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" (opened)="contact_details_form()" hideToggle>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Contact Detail
+        </mat-panel-title>
+        <mat-panel-description>
+          Please submit your Contact Information
+          <mat-icon>date_range</mat-icon>
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+      
+      <ng-template matExpansionPanelContent>
+      
+        <!--      \\ \\\\\\\Contact Information Desktop Design Starts\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\         -->
+
+        <mat-horizontal-stepper [linear]="isLinear" #stepper fxShow="true" fxHide.lt-md="true">
+          
+            <mat-step [stepControl]="email" errorMessage="Email Id is required.">
+              <form [formGroup]="email">
+                <ng-template matStepLabel>Enter your Email Id</ng-template>
+                <mat-form-field>
+                  <mat-label>Email id</mat-label>
+                  <input matInput placeholder="Your Email Id" formControlName="email_id" required>
+                </mat-form-field>
+                <div>
+                  <button mat-raised-button color="primary" [disabled]='!email.valid'  matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+
+            <mat-step [stepControl]="mobile_number" errorMessage="Mobile number is Required">
+                <form [formGroup]="mobile_number">
+                  <ng-template matStepLabel>Your Mobile Number</ng-template>
+                  <mat-form-field>
+    
+                    <mat-label>Enter Your Mobile Card Number</mat-label>
+                    <input matInput formControlName="mobile_number" placeholder="Please enter your Mobile Number"
+                                required>
+                  </mat-form-field>
+                  <div>
+                    <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" [disabled]='!mobile_number.valid'  matStepperNext>Next</button>
+                  </div>
+                </form>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                <p>You are now done.</p>
+                <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+                </div>
+            </mat-step>
+    
+
+
+        </mat-horizontal-stepper>
+
+        <!-- \\\\\\\\\\\\\\\\\Contact information form Desktop design ends\\\\\\\\\\\\\\\\\\\\\\\\\\\-->
+        <!-- \\\\\\\\\\\\\\\\\Contact information form mobile design starts\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\  -->
+        
+        <mat-vertical-stepper [linear]="isLinear" #stepper fxShow="true" fxHide.gt-sm>
+          
+            <mat-step [stepControl]="email" errorMessage="Email Id is required.">
+              <form [formGroup]="email">
+                <ng-template matStepLabel>Enter your Email Id</ng-template>
+                <mat-form-field>
+                  <mat-label>Email id</mat-label>
+                  <input matInput placeholder="Your Email Id" formControlName="email_id" required>
+                </mat-form-field>
+                <div>
+                  <button mat-raised-button color="primary" [disabled]='!email.valid'  matStepperNext>Next</button>
+                </div>
+              </form>
+            </mat-step>
+
+            <mat-step [stepControl]="mobile_number" errorMessage="Mobile number is Required">
+                <form [formGroup]="mobile_number">
+                  <ng-template matStepLabel>Your Mobile Number</ng-template>
+                  <mat-form-field>
+    
+                    <mat-label>Enter Your Mobile Card Number</mat-label>
+                    <input matInput formControlName="mobile_number" placeholder="Please enter your Mobile Number"
+                                required>
+                  </mat-form-field>
+                  <div>
+                    <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" [disabled]='!mobile_number.valid'  matStepperNext>Next</button>
+                  </div>
+                </form>
+            </mat-step>
+
+            <mat-step>
+                <ng-template matStepLabel>Done</ng-template>
+                <p>You are now done.</p>
+                <div>
+                <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+                </div>
+            </mat-step>
+    
+
+
+        </mat-vertical-stepper>
+
+    
+    
+      </ng-template>
+
+      
+      <mat-action-row>
+        <button mat-button color="warn" (click)="prevStep()">Previous</button>
+        <button mat-button color="primary" (click)="nextStep()">Next</button>
+      </mat-action-row>
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" (opened)="address_details_form()" hideToggle>
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            Your Address Detail
+          </mat-panel-title>
+          <mat-panel-description>
+            Please submit your Address Information
+            <mat-icon>home</mat-icon>
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+
+        <ng-template matExpansionPanelContent>
+
+            <mat-horizontal-stepper [linear]="isLinear" #stepper fxShow="true" fxHide.lt-md="true">
+          
+                <mat-step [stepControl]="city_name" errorMessage="City Name is required.">
+                  <form [formGroup]="city_name">
+                    <ng-template matStepLabel>Submit your City Name</ng-template>
+                    <mat-form-field>
+                      <mat-label>Name Of the city</mat-label>
+                      <input matInput placeholder="Your City Name" formControlName="city_name" required>
+                    </mat-form-field>
+                    <div>
+                      <button mat-raised-button color="primary" [disabled]='!city_name.valid'  matStepperNext>Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+    
+                <mat-step [stepControl]="state_name" errorMessage="State Name is Required">
+                    <form [formGroup]="state_name">
+                      <ng-template matStepLabel>Submit your State Name</ng-template>
+                      <mat-form-field>
+        
+                        <mat-label>Enter Your State Name</mat-label>
+                        <input matInput formControlName="state_name" placeholder="Please enter your State Name"
+                                    required>
+                      </mat-form-field>
+                      <div>
+                        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" [disabled]='!state_name.valid'  matStepperNext>Next</button>
+                      </div>
+                    </form>
+                </mat-step>
+
+                <mat-step [stepControl]="country_name" errorMessage="Country Name is Required">
+                    <form [formGroup]="country_name">
+                      <ng-template matStepLabel>Submit your country Name</ng-template>
+                      <mat-form-field>
+        
+                        <mat-label>Enter Your Country Name</mat-label>
+                        <input matInput formControlName="country_name" placeholder="Please enter your Country Name"
+                                    required>
+                      </mat-form-field>
+                      <div>
+                        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" [disabled]='!country_name.valid'  matStepperNext>Next</button>
+                      </div>
+                    </form>
+                </mat-step>
+
+                <mat-step [stepControl]="pin_code" errorMessage="Pin Code is Required">
+                    <form [formGroup]="pin_code">
+                      <ng-template matStepLabel>Submit Your District Pin-code/Zip-Code</ng-template>
+                      <mat-form-field>
+        
+                        <mat-label>Enter Your Pin Code</mat-label>
+                        <input matInput formControlName="pin_code" placeholder="Please enter your Pin Code"
+                                    required>
+                      </mat-form-field>
+                      <div>
+                        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" [disabled]='!pin_code.valid'  matStepperNext>Next</button>
+                      </div>
+                    </form>
+                </mat-step>
+    
+                <mat-step>
+                    <ng-template matStepLabel>Done</ng-template>
+                    <p>You are now done.</p>
+                    <div>
+                    <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+                    </div>
+                </mat-step>
+        
+    
+    
+            </mat-horizontal-stepper>
+
+
+            <!--    \\\\\\\\\\\\\ Address Form Desktop Version Ends \\\\\\\\\\\\\\\\\      -->
+            <!--    \\\\\\\\\\\\\\Address Form Mobile Version Begins\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\  -->
+        
+            <mat-vertical-stepper [linear]="isLinear" #stepper fxShow="true" fxHide.gt-sm>
+          
+                <mat-step [stepControl]="city_name" errorMessage="City Name is required.">
+                  <form [formGroup]="city_name">
+                    <ng-template matStepLabel>Submit your City Name</ng-template>
+                    <mat-form-field>
+                      <mat-label>Name Of the city</mat-label>
+                      <input matInput placeholder="Your City Name" formControlName="city_name" required>
+                    </mat-form-field>
+                    <div>
+                      <button mat-raised-button color="primary" [disabled]='!city_name.valid'  matStepperNext>Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+    
+                <mat-step [stepControl]="state_name" errorMessage="State Name is Required">
+                    <form [formGroup]="state_name">
+                      <ng-template matStepLabel>Submit your State Name</ng-template>
+                      <mat-form-field>
+        
+                        <mat-label>Enter Your State Name</mat-label>
+                        <input matInput formControlName="state_name" placeholder="Please enter your State Name"
+                                    required>
+                      </mat-form-field>
+                      <div>
+                        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" [disabled]='!state_name.valid'  matStepperNext>Next</button>
+                      </div>
+                    </form>
+                </mat-step>
+
+                <mat-step [stepControl]="country_name" errorMessage="Country Name is Required">
+                    <form [formGroup]="country_name">
+                      <ng-template matStepLabel>Submit your country Name</ng-template>
+                      <mat-form-field>
+        
+                        <mat-label>Enter Your Country Name</mat-label>
+                        <input matInput formControlName="country_name" placeholder="Please enter your Country Name"
+                                    required>
+                      </mat-form-field>
+                      <div>
+                        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" [disabled]='!country_name.valid'  matStepperNext>Next</button>
+                      </div>
+                    </form>
+                </mat-step>
+
+                <mat-step [stepControl]="pin_code" errorMessage="Pin Code is Required">
+                    <form [formGroup]="pin_code">
+                      <ng-template matStepLabel>Submit Your District Pin-code/Zip-Code</ng-template>
+                      <mat-form-field>
+        
+                        <mat-label>Enter Your Pin Code</mat-label>
+                        <input matInput formControlName="pin_code" placeholder="Please enter your Pin Code"
+                                    required>
+                      </mat-form-field>
+                      <div>
+                        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                        <button mat-raised-button color="primary" [disabled]='!pin_code.valid'  matStepperNext>Next</button>
+                      </div>
+                    </form>
+                </mat-step>
+    
+                <mat-step>
+                    <ng-template matStepLabel>Done</ng-template>
+                    <p>You are now done.</p>
+                    <div>
+                    <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+                    <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+                    </div>
+                </mat-step>
+        
+    
+    
+            </mat-vertical-stepper>
+        
+        </ng-template>
+
+        <mat-action-row>
+            <button mat-button color="warn" (click)="prevStep()">Previous</button>
+            <button mat-button color="primary">Submit KYC Form</button>
+        </mat-action-row>
+
+    </mat-expansion-panel>
+  
+  </mat-accordion>

@@ -4,12 +4,14 @@
     <span class="flex-spacer"></span>
 </mat-toolbar>
 
-<ng-marquee speed="normal" [stopOnHover]="true">
+<ng-marquee *ngIf="display_review_status" speed="normal" [stopOnHover]="true">
     <mark><h2>Reviews of few of the stocks are not available currently,It will become available as soon as clients submit review of the stock</h2></mark>
 </ng-marquee>
 
 
-<mat-accordion style="margin-top: 20px;">
+<div *ngIf="display_review_status">
+
+  <mat-accordion *ngIf="all_bought_stock_reviews" style="margin-top: 20px;">
     <mat-expansion-panel *ngFor="let object of all_bought_stock_reviews" (opened)="getStockName(object)">
       <mat-expansion-panel-header class="right-aligned-header">
         <mat-panel-title>
@@ -73,3 +75,13 @@
       
     
   </mat-accordion>
+
+</div>
+<div id="item_not_found_banner" *ngIf="!display_review_status">
+  <h2 style="color: white;text-align: center;padding-top: 20px;padding-bottom: 20px;font-size: 200%;">404</h2>
+  <h3 style="color: white;text-align: center;">Reviews Not Found</h3>
+  <p style="color: white;text-align: center;padding-top: 20px;padding-bottom: 20px;"  >No Reviews are available since you have'nt Bought any Stocks up till now.</p>
+</div>
+
+
+  

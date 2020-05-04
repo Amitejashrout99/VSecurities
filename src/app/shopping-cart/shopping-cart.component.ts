@@ -40,7 +40,7 @@ export class ShoppingCartComponent implements OnInit {
         
         //alert(this.single_cart_item.item_count);
 
-        this.total_cost_price+=this.single_cart_item.item_count*this.single_cart_item.item_price;
+        this.total_cost_price+=this.single_cart_item.item_price;
         //alert(this.cart_data_source);
         
         this.dataSource = new Array(this.cart_data_source);
@@ -60,7 +60,7 @@ export class ShoppingCartComponent implements OnInit {
             this.single_cart_item=this.cart_data_source[i];
 
             //alert(this.single_cart_item.item_count);
-            this.total_cost_price+=this.single_cart_item.item_count*this.single_cart_item.item_price;
+            this.total_cost_price+=this.single_cart_item.item_price;
         }
 
         this.dataSource=this.cart_data_source;

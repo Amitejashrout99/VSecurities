@@ -1,0 +1,78 @@
+
+<mat-toolbar style="margin-top: 10px;height:auto" color="primary">
+    <img fxShow="true" fxHide.lt-md="true" src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+    <span class="flex-spacer"></span>
+    <h1 fxShow="true" fxHide.lt-md="true" >Welcome to your Account Dashboard {{current_user_name}}</h1>
+    <span fxShow="true" fxHide.lt-md="true" class="flex-spacer"></span>
+    <div fxShow="true"   fxHide.gt-sm class="profile-card">
+        
+        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+        <div style="display: flex;align-items: center;justify-content: center;" class="header">
+            <h3>Welcome to your Account Dashboard {{current_user_name}}</h3>
+        </div>
+    </div>
+    <span class="flex-spacer" fxShow="true"   fxHide.gt-sm></span>
+</mat-toolbar>
+
+<div class="container"
+    fxLayout="row"
+    fxLayout.sm="column"
+    fxLayout.xs="column"
+    fxLayoutAlign.gt-md="space-around center"
+    fxLayoutGap="10px" 
+    fxLayoutGap.xs="10px">
+
+
+    <mat-card style="border-radius: 20px;" fxFlex>
+        <mat-card-header style="background-color:#512DA8;color: white;z-index: 2;">
+            <mat-card-title>
+            <h2>Your Account Information</h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="container" 
+                fxLayout="column"
+                fxLayoutGap="10px">
+
+                <div fxFlex>
+                    <div>
+                        <h2>Your Basic Account Details are:</h2>
+                        <hr>
+                        <h3>Current Age: {{current_user_object.age}}</h3>
+                        <h3>Address Submitted: {{current_user_object.address}}</h3>
+                        <h3>Gender: {{current_user_object.gender}}</h3>
+                        <h3>Nationality: {{current_user_object.nationality}}</h3>
+                    </div>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+    <mat-card style="border-radius: 20px;" fxFlex>
+        <mat-card-header style="background-color:#512DA8;color: white;z-index: 2;">
+            <mat-card-title>
+            <h2 *ngIf="kyc_data_status">Your KYC Information</h2>
+            <h2 *ngIf="!kyc_data_status">Your KYC Status</h2>
+            </mat-card-title>
+        </mat-card-header>
+        <mat-card-content>
+            <div class="container" 
+                fxLayout="column"
+                fxLayoutGap="10px">
+
+                <div fxFlex *ngIf="!kyc_data_status">
+                    <div>
+                        <h2>You have'nt filled up your KYC Information</h2>
+                        <hr>
+                        <button (click)="open_kyc_form(current_user_object.id)" mat-raised-button color="primary">Fill up the KYC Form</button>
+                    </div>
+                </div>
+            </div>
+
+        </mat-card-content>
+    </mat-card>
+
+
+
+</div>

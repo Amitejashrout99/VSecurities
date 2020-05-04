@@ -106,7 +106,7 @@ export class SellBoughtStocksComponent implements OnInit {
         //this.bought_stock_objects.push(this.bought_stock_object);
 
         this.stock_sale_expansion={
-            "id":this.bought_stock_object.id,
+            "id":this.bought_stocks_session_array[i].id,
             "price_bought_for":this.bought_stocks_session_array[i].price_bought_for,
             "stock_bought_on":this.bought_stocks_session_array[i].stock_bought_on,
             "stock_buy_status":this.bought_stocks_session_array[i].stock_buy_status,

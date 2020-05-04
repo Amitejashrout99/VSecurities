@@ -20,6 +20,11 @@ import {ForumComponent} from '../forum/forum.component';
 import {FaqComponent} from '../faq/faq.component';
 import {ForumDashboardComponent} from '../forum-dashboard/forum-dashboard.component';
 import {ContactUsComponent} from '../contact-us/contact-us.component';
+import {StockWatchComponent} from '../stock-watch/stock-watch.component';
+import {StockWatchBannerComponent} from '../stock-watch-banner/stock-watch-banner.component';
+import {StockWatchDashboardComponent} from '../stock-watch-dashboard/stock-watch-dashboard.component';
+import {StockRecommendationsComponent} from '../stock-recommendations/stock-recommendations.component';
+import {AccountDetailsDashBoardComponent} from '../account-details-dash-board/account-details-dash-board.component';
 
 export const various_routes:Routes=[
 
@@ -49,7 +54,14 @@ export const various_routes:Routes=[
             {path:'faq',component:FaqComponent,outlet:'side'},
             {path:'forumDashboard',component:ForumDashboardComponent,outlet:'side'}
         ]},
-    {path:'contact',component:ContactUsComponent}
+    {path:'contact',component:ContactUsComponent},
+    {path:'stockWatch',component:StockWatchComponent,
+        children:[
+            {path:'banner',component:StockWatchBannerComponent,outlet:'side'},
+            {path:'stockResearch',component:StockWatchDashboardComponent,outlet:'side'},
+            {path:'stockRecommends',component:StockRecommendationsComponent,outlet:'side'}   
+        ]},
+    {path:'account',component:AccountDetailsDashBoardComponent}
     
 
 ];

@@ -1,0 +1,84 @@
+<mat-toolbar color="primary">
+    <span class="flex-spacer"></span>
+    <h2>Stock Recommendations</h2>
+    <span class="flex-spacer"></span>
+</mat-toolbar>
+
+        <div class="container" 
+        fxLayout="column"
+        fxLayoutGap="10px">
+
+            <div fxFlex *ngIf="bought_stocks_id_available_status">
+                <div>
+                    <h3>We have filtered stock recommendations for each particlular stock for your convinience</h3>
+                    <hr>
+                </div>
+            </div>
+            <div fxFlex *ngIf="!bought_stocks_id_available_status">
+                <div>
+                    <h3>You have'nt bought any stocks till now, therefore we recommend you to try any of our stocks present XD</h3>
+                    <hr>
+                </div>
+            </div>
+
+        </div>
+
+<mat-accordion *ngIf="bought_stocks_id_available_status" style="margin-top: 20px;">
+    <mat-expansion-panel *ngFor="let stock of all_stocks_available" (opened)="getRecommendations(stock.stock_id)">
+      <mat-expansion-panel-header class="right-aligned-header">
+        <mat-panel-title>
+          {{stock.stock_name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Open the panel to view similar stock Recommendations
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+        
+        <div class="container" 
+            fxLayout="column"
+            fxLayoutGap="10px">
+      
+            <div fxFlex>
+                <div>
+                    <h3>User's who bought this stock also bought</h3>
+                    <hr>
+                </div>
+            </div>
+
+        </div>
+
+        <mat-list>
+
+     
+            <mat-list-item *ngFor="let data of all_stock_recommendations">
+                <img matListAvatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+                <div mat-line>Stock Name: {{data.stock_name}}</div>
+                <div mat-line>Times Purchased: {{data.times_purchased}} </div>
+                <mat-divider></mat-divider>
+            </mat-list-item>
+           
+        
+        </mat-list>
+
+
+
+    </mat-expansion-panel>
+</mat-accordion>
+
+<mat-list *ngIf="!bought_stocks_id_available_status">
+
+     
+    <mat-list-item *ngFor="let stock of all_stocks_available">
+        <img matListAvatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+        <div mat-line>{{stock.stock_name}}</div>
+        <div mat-line>Stock Id: {{stock.stock_id}} </div>
+        <div mat-line>Quantity Of Stocks Present:{{stock.stock_quantity}}</div>
+        <button style="margin-right: 10px;" mat-raised-button color="primary"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+   
+
+</mat-list>
+    
+
+

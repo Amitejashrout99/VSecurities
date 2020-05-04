@@ -1,0 +1,29 @@
+<mat-toolbar color="primary">
+    <span class="flex-spacer"></span>
+    <h2>Stock Research Dashboard</h2>
+    <span class="flex-spacer"></span>
+</mat-toolbar>
+
+<div class="container" 
+    fxLayout="column"
+    fxLayoutGap="10px">
+
+    <div fxFlex>
+        <div>
+            <h3>All Stocks Available</h3>
+            <hr>
+        </div>
+    </div>
+
+</div>
+
+<mat-list>
+    <mat-list-item *ngFor="let stock of all_stocks_available">
+        <img matListAvatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+        <div mat-line>{{stock.stock_name}}</div>
+        <div mat-line>Stock Id: {{stock.stock_id}} </div>
+        <div mat-line>Quantity Of Stocks Present:{{stock.stock_quantity}}</div>
+        <button style="margin-right: 10px;" (click)="displayResearchData(stock.stock_id,stock.stock_name)" mat-raised-button color="primary"><i class="fa fa-search fa-lg" aria-hidden="true"></i></button>
+        <mat-divider></mat-divider>
+    </mat-list-item>
+</mat-list>

@@ -1,0 +1,80 @@
+<mat-toolbar color="primary">
+    <span fxShow="true" fxHide.lt-md="true" class="flex-spacer"></span>
+    <h2>{{stock_name_selected}}</h2>
+    <span class="flex-spacer"></span>
+    <button fxShow="true"   fxHide.gt-sm mat-button (click)="closeContactForm()" mat-dialog-close><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+</mat-toolbar>
+
+<mat-card class="example-card">
+    <mat-card-header>
+      <mat-card-title>Stock Research Details</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <h3>Total Investments Made on the Stock till now: {{stock_research_data.total_investment_made}} <i class="fa fa-inr" aria-hidden="true"></i></h3>
+      <h3>Total Returns on this stock till now:{{stock_research_data.total_returns_of_stock}} <i class="fa fa-inr" aria-hidden="true"></i></h3>
+      <h3><i class="fa fa-arrow-up fa-lg" *ngIf="growth_icon_status" aria-hidden="true"> {{stock_research_data.profit_margin}} <i class="fa fa-inr" aria-hidden="true"></i> </i><i class="fa fa-arrow-down fa-lg" *ngIf="decline_icon_status" aria-hidden="true"> {{stock_research_data.profit_margin}} <i class="fa fa-inr" aria-hidden="true"></i></i></h3>
+    
+      <hr>
+
+        <div class="container" 
+        fxLayout="column"
+        fxLayoutGap="10px">
+
+            <div fxFlex>
+                <div>
+                    <h3>Users who bought this stock...</h3>
+                    <hr>
+                </div>
+            </div>
+        </div>
+        
+        <p style="font-size: large;font-family: 'Times New Roman', Times, serif;" *ngIf="!customer_data_available_status">Sorry for the Inconvenience,No user has purchased this stock thereby causing the unavailability of data</p>
+
+        <mat-list *ngIf="customer_data_available_status">
+            <mat-list-item *ngFor="let customer of customers_data">
+                <img matListAvatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+                <div mat-line>{{customer.name}}</div>
+                <div mat-line>User Id: {{customer.id}} </div>
+                <div mat-line>Age: {{customer.age}}</div>
+                <mat-divider></mat-divider>
+            </mat-list-item>
+        </mat-list>
+
+        <hr>
+
+
+        <div class="container" 
+        fxLayout="column"
+        fxLayoutGap="10px">
+
+            <div fxFlex>
+                <div>
+                    <h3>User's Reviews available for this particular stock...</h3>
+                    <hr>
+                </div>
+            </div>
+        </div>
+
+        <p style="font-size: large;font-family: 'Times New Roman', Times, serif;" *ngIf="!reviews_data_available_status">Sorry for the Inconvenience,We can't find any reviews submitted for this stock.</p>
+
+        <mat-list *ngIf="reviews_data_available_status">
+            <mat-list-item *ngFor="let review of stock_research_data.all_reviews_available">
+                <img matListAvatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+                <div mat-line>{{review.stock_review}}</div>
+                <div mat-line>Rating Provided: {{review.rating}} </div>
+                <div mat-line>Submitted On: {{review.submitted_on}}</div>
+                <mat-divider></mat-divider>
+            </mat-list-item>
+        </mat-list>
+
+
+
+
+      
+
+
+    
+    
+    </mat-card-content>
+    
+</mat-card>
