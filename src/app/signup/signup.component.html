@@ -1,1 +1,179 @@
-<p>signup works!</p>
+
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons"rel="stylesheet">
+
+<mat-toolbar style="border-radius: 10px;"color="primary">
+    <h2>Sign Up</h2>
+    <span class="flex-spacer"></span>
+    <button mat-button mat-dialog-close><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+</mat-toolbar>
+
+<mat-vertical-stepper [linear]="isLinear" #stepper>
+          
+    <mat-step [stepControl]="name_form_group" errorMessage="User Name is required.">
+      <form [formGroup]="name_form_group">
+        <ng-template matStepLabel>Enter your User Name</ng-template>
+        <mat-form-field>
+          <mat-label>Name of User</mat-label>
+          <input matInput placeholder="Your User Name" formControlName="user_name" required>
+        </mat-form-field>
+        <span class="flex-spacer"></span>
+        
+        <div>
+          <button mat-raised-button color="primary" [disabled]='!name_form_group.valid' matStepperNext>Next</button>
+          <button mat-raised-button  (click)="checkAvailabilityStatus()"  [disabled]='!name_form_group.valid' color="primary">Check Availability</button>
+        </div>
+      </form>
+    </mat-step>
+
+    <mat-step [stepControl]="password_form_group" errorMessage="Password is required.">
+        <form [formGroup]="password_form_group">
+          <ng-template matStepLabel>Enter your Password</ng-template>
+          <mat-form-field>
+            <mat-label>Your Password</mat-label>
+            <input matInput type="password" placeholder="Password" formControlName="user_password" required>
+          </mat-form-field>
+          
+          <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" [disabled]='!password_form_group.valid' matStepperNext>Next</button> 
+          </div>
+        </form>
+    </mat-step>
+
+    <mat-step [stepControl]="age_form_group" errorMessage="Age is Required" >
+        <form [formGroup]="age_form_group">
+          <ng-template matStepLabel>Enter your Age</ng-template>
+          <mat-form-field>
+            
+            <mat-label>Your age:</mat-label>
+            <input matInput formControlName="user_age" placeholder="Please enter your age"
+                     required>
+            
+          </mat-form-field>
+          
+          <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" [disabled]='!age_form_group.valid' matStepperNext>Next</button>
+          </div>
+        </form>
+    </mat-step>
+
+    <mat-step [stepControl]="address_form_group" errorMessage="Address is Required">
+        <form [formGroup]="address_form_group">
+          <ng-template matStepLabel>Enter your Address</ng-template>
+          <mat-form-field>
+            
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="user_address" placeholder="Please enter your Address"
+                     required>
+            
+          </mat-form-field>
+          
+          <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" [disabled]='!address_form_group.valid' matStepperNext>Next</button>
+          </div>
+        </form>
+    </mat-step>
+
+    <mat-step [stepControl]="gender_form_group" errorMessage="Gender is Required">
+        <form [formGroup]="gender_form_group">
+          <ng-template matStepLabel>Please Select Your Gender</ng-template>
+          <mat-form-field>
+            
+            <mat-label>Your Gender</mat-label>
+            <mat-select formControlName="user_gender" required>
+                <mat-option *ngFor="let gender of genders" [value]="gender">
+                  {{gender}}
+                </mat-option>
+            </mat-select>
+            
+          </mat-form-field>
+          
+          <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" [disabled]='!gender_form_group.valid' matStepperNext>Next</button>
+          </div>
+        </form>
+    </mat-step>
+
+    <mat-step [stepControl]="nationality_form_group" errorMessage="Country Name is Required">
+        <form [formGroup]="nationality_form_group">
+          <ng-template matStepLabel>Please Select Your Nationality</ng-template>
+          <mat-form-field>
+            
+            <mat-label>Your Country Name</mat-label>
+            <mat-select formControlName="user_nationality" required>
+                <mat-option *ngFor="let nation of nations" [value]="nation">
+                  {{nation}}
+                </mat-option>
+            </mat-select>
+            
+          </mat-form-field>
+          
+          <div>
+            <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+            <button mat-raised-button color="primary" [disabled]='!nationality_form_group.valid' matStepperNext>Next</button>
+          </div>
+        </form>
+    </mat-step>
+
+    <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+        <button mat-raised-button color="primary" matStepperPrevious>Back</button>
+        <button mat-raised-button color="primary" (click)="stepper.reset()">Reset</button>
+        </div>
+    </mat-step>
+
+
+</mat-vertical-stepper>
+
+<mat-divider></mat-divider>
+
+<div style="display:flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 20px;">
+
+    <button mat-raised-button color="primary" [disabled]='!name_form_group.valid || !age_form_group.valid
+    || !address_form_group.valid || !gender_form_group.valid || !nationality_form_group.valid' (click)="signUpUser()" >
+        Sign Up</button>
+
+</div>
+
+<div style="display:flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 10px;">
+
+        <p style="text-align: center;">Follow Us On:</p>
+
+</div>
+
+<div style="display:flex;
+            justify-content: center;
+            align-items: center;">
+    
+    <div style="text-align:center">
+      <a mat-icon-button class="btn-google-plus" href="http://google.com/+"><i class="fa fa-google-plus fa-lg"></i></a>
+      <a mat-icon-button class="btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook fa-lg"></i></a>
+      <a mat-icon-button class="btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin fa-lg"></i></a>
+      <a mat-icon-button class="btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter fa-lg"></i></a>
+      <a mat-icon-button class="btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube fa-lg"></i></a>
+      <!--<a mat-icon-button class="btn-mail" href="mailto:"><i class="fa fa-envelope-o fa-lg"></i></a>-->
+    </div>
+
+</div>
+
+<div style="display:flex;
+            justify-content: center;
+            align-items: center;
+            padding-top: 20px;">
+
+        <p style="text-align: center;">© Copyright 2020 VshareSecurities Organization</p>
+        <p *ngIf="error_message_faced">{{error_message_faced}}</p>
+
+</div>
+

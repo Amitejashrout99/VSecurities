@@ -85,5 +85,14 @@ $divider-color:        #BDBDBD;
   flex: 0 0 auto;
 }
 
+.username_available_snackbar
+{
+  background-color: green;
+  color:black;
+}
+.username_unavailable_snackbar {
+  background-color:red;
+  color: white;
+}
 
 

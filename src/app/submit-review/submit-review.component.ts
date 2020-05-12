@@ -28,16 +28,17 @@ export class SubmitReviewComponent implements OnInit {
   pending_review_stock_ids:number[];
   current_user_object:user;
   current_user_id:number;
-  bought_stocks_id:number[];
+  bought_stocks_id:number[]=[];
   error_message_faced:string;
   pending_review_stocks:stock[]=[];
   pending_review_stock_object:stock;
+  display_review_status:boolean=true;
   user_review_track_data:user_pending_reviews_track;
 
   name_form_group:FormGroup;
   stock_review_form_group:FormGroup;
   rating_form_group:FormGroup
-  isLinear = false;
+  isLinear = true;
 
   //review_details_data variables
   name_submitted:string;
@@ -68,7 +69,15 @@ export class SubmitReviewComponent implements OnInit {
         switchMap(()=>this.stock_service_provider.getAllBoughtStocksId(this.current_user_id)
         .pipe(catchError((err_msg)=>this.error_message_faced=err_msg))),
 
-        tap(bought_stocks_id_data=>this.bought_stocks_id=bought_stocks_id_data),
+        tap(bought_stocks_id_data=>{this.bought_stocks_id=bought_stocks_id_data
+        
+            if(this.bought_stocks_id.length==0)
+            {
+              this.bought_stocks_id.push(-1);
+              this.display_review_status=false;
+            }
+        
+        }),
 
         switchMap(()=>this.stock_service_provider.getPendingReviewsStockIds(this.bought_stocks_id,this.current_user_id)
         .pipe(catchError((err_msg)=>this.error_message_faced=err_msg))),
@@ -80,7 +89,10 @@ export class SubmitReviewComponent implements OnInit {
         switchMap(()=>this.pending_review_stock_ids.map((val)=>{
           this.stock_service_provider.getParticularStock(val).subscribe((data)=>{
             this.pending_review_stock_object=data;
-            this.pending_review_stocks.push(this.pending_review_stock_object)
+            if(this.pending_review_stock_object.stock_id!=0)
+            {
+              this.pending_review_stocks.push(this.pending_review_stock_object);
+            }
           },(err_msg)=>this.error_message_faced=err_msg)
         }))
 

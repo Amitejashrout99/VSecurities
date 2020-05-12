@@ -68,6 +68,58 @@
                         <button (click)="open_kyc_form(current_user_object.id)" mat-raised-button color="primary">Fill up the KYC Form</button>
                     </div>
                 </div>
+                <div fxFlex *ngIf="kyc_data_status">
+                    <div>
+                        <h2> View your KYC Information</h2>
+                        <hr>
+                        <button (click)="getKYCDetails(current_user_object.id)" mat-raised-button color="primary">View Your KYC Information</button>
+                    </div>
+                </div>
+                <div fxFlex *ngIf="kyc_information_card_display_status">
+                    <div>
+                        <h2>Personal Data</h2>
+                        <hr>
+                    </div>
+                    <h3>Father Name: {{kyc_data_of_user.father_name}}</h3>
+                    <h3>Mother Name: {{kyc_data_of_user.mother_name}}</h3>
+                    <h3>Date Of Birth: {{kyc_data_of_user.dob}}</h3>
+                    <h3>Occupation: {{kyc_data_of_user.occupation}}</h3>
+                </div>
+                <mat-divider></mat-divider>
+                <div fxFlex *ngIf="kyc_information_card_display_status">
+                    <div>
+                        <h2>Personal Identification Data</h2>
+                        <hr>
+                    </div>
+                    <h3>Passport Number: {{kyc_data_of_user.passport_number}}</h3>
+                    <h3>Passport Expiry Date: {{kyc_data_of_user.expiry_date}}</h3>
+                    <h3>Aadhar Card Numer: {{kyc_data_of_user.aadhar_card_number}}</h3>
+                    <h3>Pan Card Number: {{kyc_data_of_user.pan_card_number}}</h3>
+                </div>
+                <mat-divider></mat-divider>
+                <div fxFlex *ngIf="kyc_information_card_display_status">
+                    <div>
+                        <h2>Contact Details</h2>
+                        <hr>
+                    </div>
+                    <h3>Email Id: {{kyc_data_of_user.email_id}}</h3>
+                    <h3>Contact Number: {{kyc_data_of_user.mobile_number}}</h3>
+                </div>
+                <mat-divider></mat-divider>
+                <div fxFlex *ngIf="kyc_information_card_display_status">
+                    <div>
+                        <h2>Address Details</h2>
+                        <hr>
+                    </div>
+                    <h3>Pin Code:{{kyc_data_of_user.pin_code}}</h3>
+                    <h3>City: {{kyc_data_of_user.city_name}}</h3>
+                    <h3>State: {{kyc_data_of_user.mother_name}}</h3>
+                    <h3>Country: {{kyc_data_of_user.country_name}}</h3>
+                    <button (click)="toggleKYCDetailsVisibility()" mat-raised-button color="primary">Hide KYC information details</button>
+                </div>
+                
+
+
             </div>
 
         </mat-card-content>
@@ -76,3 +128,4 @@
 
 
 </div>
+

@@ -16,8 +16,9 @@ export class ShoppingCartComponent implements OnInit {
   added_items_to_cart:shopping_cart[];
   cart_data_source:shopping_cart[];
   single_cart_item:shopping_cart;
-  dataSource:any[];
+  dataSource:any[]=[];
   total_cost_price:number=0;
+  proceed_to_checkout_status:boolean=true;
   displayedColumns: string[] = ['item_id', 'item_name', 'item_count', 'item_price'];
   constructor(private shopping_cart_service_provider:ShoppingCartServiceService,
    private payment_gateway_dialog:MatDialog)
@@ -27,6 +28,12 @@ export class ShoppingCartComponent implements OnInit {
 
   ngOnInit(): void 
   {
+     
+      if(this.dataSource.length==0)
+      {
+         this.proceed_to_checkout_status=false;
+      }
+   
      let called_by= sessionStorage.getItem("triggeredBy");
      if(called_by==="directBuy")
      {
@@ -40,6 +47,8 @@ export class ShoppingCartComponent implements OnInit {
         
         //alert(this.single_cart_item.item_count);
 
+        this.proceed_to_checkout_status=true;
+
         this.total_cost_price+=this.single_cart_item.item_price;
         //alert(this.cart_data_source);
         
@@ -52,6 +61,8 @@ export class ShoppingCartComponent implements OnInit {
      {
         let items = this.shopping_cart_service_provider.get_items_from_Cart(); 
 
+        //this.proceed_to_checkout_status=true;
+         
 
         this.cart_data_source=JSON.parse(items);
 
@@ -64,6 +75,11 @@ export class ShoppingCartComponent implements OnInit {
         }
 
         this.dataSource=this.cart_data_source;
+
+         if(this.dataSource.length!=0)
+         {
+            this.proceed_to_checkout_status=true;
+         }
         sessionStorage.setItem("items_to_pay_for",JSON.stringify(this.dataSource));
         //alert(this.cart_data_source);
      }

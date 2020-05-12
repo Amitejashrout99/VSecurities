@@ -4,7 +4,7 @@
     <span fxShow="true" fxHide.lt-md="true" class="flex-spacer"></span>
     <h2>Vshare Securities KYC Form</h2>
     <span class="flex-spacer"></span>
-    <button fxShow="true"   fxHide.gt-sm mat-button (click)="closeContactForm()" mat-dialog-close><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
+    <button fxShow="true" mat-button (click)="closeContactForm()" mat-dialog-close><i class="fa fa-times fa-lg" aria-hidden="true"></i></button>
 </mat-toolbar>
 
 
@@ -44,7 +44,7 @@
                 <mat-label>Name of Mother</mat-label>
                 <input matInput formControlName="mother_name" placeholder="Please enter your Mother's name"
                          required>
-              
+                
               </mat-form-field>
               
               <div>
@@ -59,9 +59,11 @@
               <ng-template matStepLabel>Your Date Of Birth</ng-template>
               <mat-form-field>
 
-                <mat-label>Click on the Calendar Icon to select your DOB</mat-label>
-                <input matInput formControlName="dob" placeholder="Please enter your DOB"
+                <mat-label>Please provide your DOB</mat-label>
+                <input type="date" matInput formControlName="dob" placeholder="Please enter your DOB"
                             required>
+                            
+              
               </mat-form-field>
               <div>
                 <button mat-raised-button color="primary" matStepperPrevious>Back</button>
@@ -78,7 +80,7 @@
                 <mat-label>Please Enter Your Occupation</mat-label>
                 <input matInput formControlName="occupation" placeholder="Please enter your Occupation"
                          required>
-              
+                         
 
               </mat-form-field>
               <div>
@@ -113,6 +115,7 @@
             <mat-form-field>
               <mat-label>Name of Father</mat-label>
               <input matInput placeholder="Your Father's Name" formControlName="father_name" required>
+              
             </mat-form-field>
             <div>
               <button mat-raised-button color="primary" [disabled]='!father_name_form_group.valid' matStepperNext>Next</button>
@@ -128,7 +131,8 @@
                 <mat-label>Name of Mother</mat-label>
                 <input matInput formControlName="mother_name" placeholder="Please enter your Mother's name"
                          required>
-              
+                         
+
               </mat-form-field>
               
               <div>
@@ -143,9 +147,10 @@
               <ng-template matStepLabel>Your Date Of Birth</ng-template>
               <mat-form-field>
 
-                <mat-label>Click on the Calendar Icon to select your DOB</mat-label>
-                <input matInput formControlName="dob" placeholder="Please enter your DOB"
+                <mat-label>Please provide your DOB</mat-label>
+                <input type="date" matInput formControlName="dob" placeholder="Please enter your DOB"
                             required>
+                            
               </mat-form-field>
               <div>
                 <button mat-raised-button color="primary" matStepperPrevious>Back</button>
@@ -162,7 +167,7 @@
                 <mat-label>Please Enter Your Occupation</mat-label>
                 <input matInput formControlName="occupation" placeholder="Please enter your Occupation"
                          required>
-              
+                         
 
               </mat-form-field>
               <div>
@@ -188,7 +193,8 @@
       <!--  Mobile Version Design Ends   -->
 
       <mat-action-row>
-        <button mat-button color="primary" (click)="nextStep()" (click)="savePersonalFormData()" >Next</button>
+        <button mat-button color="primary" (click)="nextStep()" [disabled]='!occupation.valid || !date_of_birth.valid || !mother_name_form_group.valid || !father_name_form_group.valid' 
+        (click)="savePersonalFormData()" >Save and Continue</button>
       </mat-action-row>
     </mat-expansion-panel>
     
@@ -196,7 +202,7 @@
 
     <!-- Design for Personal identification starts-->
 
-    <mat-expansion-panel [expanded]="step === 1" (opened)="setStep(1)" (opened)="personal_identification_form()" hideToggle>
+    <mat-expansion-panel *ngIf="personal_identification_form_open_status" [expanded]="step === 1" (opened)="setStep(1)" (opened)="personal_identification_form()" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Proof Of Identity
@@ -264,7 +270,7 @@
               <ng-template matStepLabel>Your Pan Card Number</ng-template>
               <mat-form-field>
 
-                <mat-label>Please Enter Your Occupation</mat-label>
+                <mat-label>Please Enter Your Pan Card Number</mat-label>
                 <input  matInput formControlName="pan_card_number" placeholder="Please enter your Pan Card Number"
                          required>
               
@@ -349,7 +355,7 @@
               <ng-template matStepLabel>Your Pan Card Number</ng-template>
               <mat-form-field>
 
-                <mat-label>Please Enter Your Occupation</mat-label>
+                <mat-label>Please Enter Your PAN Card Number</mat-label>
                 <input  matInput formControlName="pan_card_number" placeholder="Please enter your Pan Card Number"
                          required>
               
@@ -382,7 +388,8 @@
       
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
+        <button mat-button color="primary" [disabled]='!pan_card_number.valid || !aadhar_card_number.valid || !passport_expiry_date.valid || !passport_number.valid'  
+        (click)="nextStep()" (click)="savePersonalIdentificationFormData()" >Save and Continue</button>
       </mat-action-row>
     </mat-expansion-panel>
     
@@ -391,7 +398,7 @@
 
     <!--****Contact Information Starts*************-->
 
-    <mat-expansion-panel [expanded]="step === 2" (opened)="setStep(2)" (opened)="contact_details_form()" hideToggle>
+    <mat-expansion-panel *ngIf="contact_form_open_status" [expanded]="step === 2" (opened)="setStep(2)" (opened)="contact_details_form()" hideToggle>
       <mat-expansion-panel-header>
         <mat-panel-title>
           Contact Detail
@@ -504,12 +511,12 @@
       
       <mat-action-row>
         <button mat-button color="warn" (click)="prevStep()">Previous</button>
-        <button mat-button color="primary" (click)="nextStep()">Next</button>
+        <button mat-button color="primary" [disabled]='!mobile_number.valid || !email.valid' (click)="nextStep()" (click)="saveContactDetailsFormData()">Save and Continue</button>
       </mat-action-row>
     </mat-expansion-panel>
 
 
-    <mat-expansion-panel [expanded]="step === 3" (opened)="setStep(3)" (opened)="address_details_form()" hideToggle>
+    <mat-expansion-panel *ngIf="address_form_open_status" [expanded]="step === 3" (opened)="setStep(3)" (opened)="address_details_form()" hideToggle>
         <mat-expansion-panel-header>
           <mat-panel-title>
             Your Address Detail
@@ -682,7 +689,16 @@
 
         <mat-action-row>
             <button mat-button color="warn" (click)="prevStep()">Previous</button>
-            <button mat-button color="primary">Submit KYC Form</button>
+            <button mat-button color="primary" 
+            [disabled]='!pin_code.valid || 
+            !country_name.valid || 
+            !state_name.valid || 
+            !city_name.valid ||
+            !mobile_number.valid ||
+            !email.valid ||
+            !pan_card_number.valid || !aadhar_card_number.valid || !passport_expiry_date.valid || !passport_number.valid ||
+            !occupation.valid || !date_of_birth.valid || !mother_name_form_group.valid || !father_name_form_group.valid' 
+            (click)="saveAddressFormData()" >Save and Submit the KYC Form</button>
         </mat-action-row>
 
     </mat-expansion-panel>

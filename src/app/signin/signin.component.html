@@ -6,20 +6,23 @@
 </mat-toolbar>
         
 
-        <div id="login-div">
+        <div style="display:flex;
+        justify-content: center;
+        align-items: center;
+        padding-top: 20px;">
             <form novalidate [formGroup]="user_login_form">
                 
                 <mat-dialog-content>
                 
                     <p>
-                        <mat-form-field class="half-width">
+                        <mat-form-field class="example-full-width">
                             <input matInput style="width: 500px;" formControlName="username" placeholder="Your Username" type="text">
                             <mat-error *ngIf="formErrors.username">
                                 {{formErrors.username}}
                             </mat-error>
                         </mat-form-field>
                         <br>
-                        <mat-form-field class="half-width">
+                        <mat-form-field class="example-full-width">
                             <input matInput style="width: 500px;" formControlName="password" placeholder="Your Password" type="password">
                             <mat-error *ngIf="formErrors.password">
                                 {{formErrors.password}}
@@ -38,19 +41,29 @@
 
 
             </form>
-            <div fxFlex="100" fxFlex.gt-sm="45">
-                <div style="text-align:center">
-                  <a mat-icon-button class="btn-google-plus" href="http://google.com/+"><i class="fa fa-google-plus fa-lg"></i></a>
-                  <a mat-icon-button class="btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook fa-lg"></i></a>
-                  <a mat-icon-button class="btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin fa-lg"></i></a>
-                  <a mat-icon-button class="btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter fa-lg"></i></a>
-                  <a mat-icon-button class="btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube fa-lg"></i></a>
-                  <a mat-icon-button class="btn-mail" href="mailto:"><i class="fa fa-envelope-o fa-lg"></i></a>
-                </div>
-            </div>
+            
         </div>    
-        <div>
-            <p style="text-align: center;margin-top: 60px;">© Copyright 2020 VshareSecurities Organization</p>
+        <div style="display:flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding-top: 40px;">
+            
+            <div style="text-align:center">
+              <a mat-icon-button class="btn-google-plus" href="http://google.com/+"><i class="fa fa-google-plus fa-lg"></i></a>
+              <a mat-icon-button class="btn-facebook" href="http://www.facebook.com/profile.php?id="><i class="fa fa-facebook fa-lg"></i></a>
+              <a mat-icon-button class="btn-linkedin" href="http://www.linkedin.com/in/"><i class="fa fa-linkedin fa-lg"></i></a>
+              <a mat-icon-button class="btn-twitter" href="http://twitter.com/"><i class="fa fa-twitter fa-lg"></i></a>
+              <a mat-icon-button class="btn-youtube" href="http://youtube.com/"><i class="fa fa-youtube fa-lg"></i></a>
+              <a mat-icon-button class="btn-mail" href="mailto:"><i class="fa fa-envelope-o fa-lg"></i></a>
+            </div>
+        
+        </div>
+        
+        <div  style="display:flex;
+                    justify-content: center;
+                    align-items: center;
+                    padding-top: 20px;">
+            <p style="text-align: center;">© Copyright 2020 VshareSecurities Organization</p>
             <p *ngIf="error_message_faced">{{error_message_faced}}</p>
         </div>
             

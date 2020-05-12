@@ -6,6 +6,7 @@ import {users} from '../shared/users';
 import {HttpClient,HttpHeaders} from '@angular/common/http';
 import {UserloginserviceService} from '../services/userloginservice.service';
 import {SigninComponent} from '../signin/signin.component';
+import {SignupComponent} from '../signup/signup.component';
 
 @Component({
   selector: 'app-login',
@@ -45,7 +46,8 @@ export class LoginComponent implements OnInit
 
   constructor(private user_login_service:UserloginserviceService,private fb:FormBuilder,
     private http_service:HttpClient, private route: ActivatedRoute, private router:Router,
-    public signin_dialog_box:MatDialog) 
+    public signin_dialog_box:MatDialog,
+    public signup_dialog_box:MatDialog) 
   {
 
   }
@@ -143,7 +145,8 @@ export class LoginComponent implements OnInit
 
   openSignUpForm()
   {
-    alert("Still in progress");
+    this.signup_dialog_box.open(SignupComponent,{width:'600px', height:'550px'});
+    
   }
 
 

@@ -9,6 +9,7 @@ import {all_sold_stocks_custom_class} from '../shared/allSoldStocksExpansion';
 
 import {StockserviceService} from '../services/stockservice.service';
 import {UserloginserviceService} from '../services/userloginservice.service';
+import { tap, switchMap, catchError } from 'rxjs/operators';
 
 @Component({
   selector: 'app-all-sold-stocks',
@@ -20,6 +21,7 @@ export class AllSoldStocksComponent implements OnInit {
   
   current_user_object:user;
   current_user_id:number;
+  error_message_faced:string;
 
   
   allSoldStocksArray:stock_sales[];
@@ -41,10 +43,56 @@ export class AllSoldStocksComponent implements OnInit {
   ngOnInit(): void 
   {
       let username= sessionStorage.getItem("username");
-      this.getCurrentUserId(username);      
+      //this.getCurrentUserId(username);
+      
+      this.user_service_provider.getUserId(username).pipe(
+
+        tap((data)=>this.current_user_id=data.id),
+
+        switchMap(()=>this.stock_service_provider.getAllSoldStocksObservable(this.current_user_id)
+        .pipe(catchError((err)=>this.error_message_faced=err))),
+
+        tap((data:stock_sales[])=>{
+              
+              this.allSoldStocksArray=data;
+        
+              this.allSoldStocksArray.map((val)=>this.stock_service_provider.getParticularStock(val.stock_id)
+              .subscribe((data)=>{
+
+                this.custom_sold_stocks_class_object={
+
+                  "stock_sale_id":val.stock_sale_id,
+                  "stock_buy_status":val.stock_buy_status,
+                  "stock_sell_status":val.stock_sell_status,
+                  "id":val.id,
+                  "stock_id":val.stock_id,
+                  "stock_bought_on":val.stock_bought_on,
+                  "stock_sold_on":val.stock_sold_on,
+                  "price_bought_for":val.price_bought_for,
+                  "price_sold_for":val.price_sold_for,
+                  "no_of_times_bought":val.no_of_times_bought,
+                  "no_of_times_sold":val.no_of_times_sold,
+                  "stock_name":data.stock_name,
+                  "stock_quantity":data.stock_quantity,
+                  "stock_value":data.stock_value,
+                  "stock_present_price":data.stock_present_price
+                
+                };
+
+                this.custom_sold_stocks_class_objects_array.push(this.custom_sold_stocks_class_object);
+
+              }));
+        
+        
+        }),
+
+
+        
+
+      ).subscribe();
   }
 
-  async getCurrentUserId(user_name:string)
+  /*async getCurrentUserId(user_name:string)
   {
     this.current_user_object=await this.user_service_provider.getUserIdPromise(user_name);
     this.current_user_id=this.current_user_object.id;
@@ -87,7 +135,7 @@ export class AllSoldStocksComponent implements OnInit {
       this.custom_sold_stocks_class_objects_array.push(this.custom_sold_stocks_class_object);
 
     }
-  }
+  }*/
 
   initializeValue(selected_object:all_sold_stocks_custom_class)
   {

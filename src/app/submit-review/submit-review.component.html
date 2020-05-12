@@ -140,6 +140,11 @@
     </mat-expansion-panel>
 </mat-accordion>
 
+<div id="item_not_found_banner" *ngIf="!display_review_status || error_message_faced">
+  <h2 style="color: white;text-align: center;padding-top: 20px;padding-bottom: 20px;font-size: 200%;">{{error_message_faced}}</h2>
+  <h3 style="color: white;text-align: center;">No Bought Stocks Found</h3>
+  <p style="color: white;text-align: center;padding-top: 20px;padding-bottom: 20px;"  >You can only submit reviews of the products which you have bought,You can provide review as soon as you buy one </p>
+</div>
 
 
-{{error_message_faced}}
+

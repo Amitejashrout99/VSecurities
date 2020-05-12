@@ -53,7 +53,7 @@
   </mat-toolbar>
 
   <div style="display: flex; align-items: center; justify-content: center;margin-top: 20px;">
-    <button  (click)="openPaymentGateway()" mat-raised-button color="primary">Proceed to Checkout</button>
+    <button *ngIf="proceed_to_checkout_status" (click)="openPaymentGateway()" mat-raised-button color="primary">Proceed to Checkout</button>
   </div>
   
   

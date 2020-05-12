@@ -21,7 +21,7 @@ export class SigninComponent implements OnInit {
   user_data_received:users=null;
   user_name:string;
   public data:any=[];
-  cart_items:shopping_cart[]=null;
+  cart_items:shopping_cart[]=[];
   user_password:string;
   error_message_faced:string;
   current_users_object:users;

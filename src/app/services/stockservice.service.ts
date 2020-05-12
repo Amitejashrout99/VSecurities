@@ -101,6 +101,12 @@ export class StockserviceService
     .pipe(catchError(this.error_management_service.handle_error_faced)).toPromise();
   }
 
+  getAllSoldStocksObservable(user_id:number):Observable<stock_sales[]>
+  {
+    return this.http_service_stock.get<stock_sales[]>(base_url+"getAllSoldStocks/"+user_id)
+    .pipe(catchError(this.error_management_service.handle_error_faced));
+  }
+
   getAllBoughtStocksId(user_id:number):Observable<number[]|any>
   {
     return this.http_service_stock.get<stock_sales[]>(base_url+"getAllBoughtStocks/"+user_id)

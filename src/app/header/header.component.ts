@@ -56,7 +56,15 @@ export class HeaderComponent implements OnInit
     
     this.user_service_provider.userdata.subscribe((data)=>this.username=data);
 
-    this.shopping_cart_service.shopping_cart_items.subscribe((data)=>this.no_of_items=data.length);    
+    this.shopping_cart_service.shopping_cart_items.subscribe((data)=>{
+      if(data==null)
+      {
+        this.no_of_items=0;
+      }
+      else{
+        this.no_of_items=data.length;
+      }
+    });    
   }
 
 
@@ -69,7 +77,25 @@ export class HeaderComponent implements OnInit
   displaySignOut()
   {
     this.snack_bar.open("Are you sure to Log-out",'Log-out',{
-      duration: 5000});
+      duration: 5000
+    }).onAction().subscribe(()=>{
+
+      let all_session_items= Object.keys(sessionStorage);
+      for(let i=0;i<all_session_items.length;i++)
+      {
+        sessionStorage.removeItem(all_session_items[i]);
+      }
+
+      this.user_service_provider.userdata.next("");
+
+      this.shopping_cart_service.shopping_cart_items.next(null);
+
+      this.router.navigate(['/login']);
+
+      this.snack_bar.open("You have been logged out",'Close',{
+        duration: 5000
+      });
+    });
     
     
   }
