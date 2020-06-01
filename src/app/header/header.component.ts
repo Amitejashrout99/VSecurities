@@ -5,6 +5,7 @@ import {shopping_cart} from '../shared/shoppingCart';
 
 import {ShoppingCartServiceService} from '../services/shopping-cart-service.service';
 import {UserloginserviceService} from '../services/userloginservice.service';
+import {AdminServiceService} from '../services/admin-service.service';
 
 import { async } from '@angular/core/testing';
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
@@ -23,6 +24,10 @@ export class HeaderComponent implements OnInit
   stock_items_in_cart:shopping_cart[];
   no_of_items:number=0;
   username:string=null;
+
+  admin_authorization_status:boolean=false;
+
+  admin_username:string=null;
   company_name_display_status:boolean=false;
   company_name:string="Vshare Securities";
   
@@ -32,7 +37,8 @@ export class HeaderComponent implements OnInit
     private shopping_cart_service:ShoppingCartServiceService,
     public shopping_cart_dialog: MatDialog,
     private user_service_provider:UserloginserviceService,
-    private snack_bar:MatSnackBar) 
+    private snack_bar:MatSnackBar,
+    private admin_service_provider:AdminServiceService) 
   {
       
   }
@@ -43,6 +49,7 @@ export class HeaderComponent implements OnInit
   ngOnInit(): void 
   {
     this.username= sessionStorage.getItem("username");
+    this.admin_username= sessionStorage.getItem("adminUsername");
     let password= sessionStorage.getItem("password");
     
     this.stock_items_in_cart= JSON.parse(sessionStorage.getItem("cartItems")) || [];
@@ -56,6 +63,10 @@ export class HeaderComponent implements OnInit
     
     this.user_service_provider.userdata.subscribe((data)=>this.username=data);
 
+    this.admin_service_provider.adminData.subscribe((data)=>this.admin_username=data);
+
+    this.admin_service_provider.adminMenuDisplay.subscribe((data)=>this.admin_authorization_status=data);
+
     this.shopping_cart_service.shopping_cart_items.subscribe((data)=>{
       if(data==null)
       {
@@ -64,7 +75,9 @@ export class HeaderComponent implements OnInit
       else{
         this.no_of_items=data.length;
       }
-    });    
+    });
+    
+    
   }
 
 
@@ -88,7 +101,11 @@ export class HeaderComponent implements OnInit
 
       this.user_service_provider.userdata.next("");
 
+      this.admin_service_provider.adminData.next("");
+
       this.shopping_cart_service.shopping_cart_items.next(null);
+
+      this.admin_service_provider.adminMenuDisplay.next(false);
 
       this.router.navigate(['/login']);
 

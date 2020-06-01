@@ -8,13 +8,22 @@
     <div fxLayout="row">
       <div fxFlex="40" fxFlexOffset="20px">
         <h4>Links</h4>
-        <mat-list>
+        <mat-list *ngIf="!admin_authorization_status">
           <mat-list-item><a mat-button routerLink='/dashboard' routerLinkActive='active'><span class="fa fa-shopping-cart fa-lg"></span><b style="z-index: 2;"> Buy and Sell</b></a></mat-list-item>
           <mat-list-item><a mat-button  routerLink='/stockWatch' routerLinkActive='active'><span  class="fa fa-forumbee fa-lg"></span><b style="z-index: 2;"> Stock watch</b></a></mat-list-item>
           <mat-list-item><a mat-button routerLink='/stockForum' routerLinkActive='active'><span class="fa fa-forumbee fa-lg"></span><b style="z-index: 2;"> Forum</b></a></mat-list-item>
           <mat-list-item><a mat-button routerLink='/stockLibrary' routerLinkActive='active'><span class="fa fa-line-chart fa-lg"></span><b style="z-index: 2;"> Stock Library</b></a></mat-list-item>
           <mat-list-item><a mat-button routerLink='/account' routerLinkActive='active'><span class="fa fa-user-circle fa-lg"></span><b style="z-index: 2;"> Your Account</b></a></mat-list-item>
         </mat-list>
+
+        <mat-list *ngIf="admin_authorization_status">
+          <mat-list-item><a mat-button routerLink='/allUsersDetail' routerLinkActive='active'><span class="fa fa-user fa-lg"></span><b style="z-index: 2;"> Users</b></a></mat-list-item>
+          <mat-list-item><a mat-button  routerLink='/allTransactionsDetail' routerLinkActive='active'><span  class="fa fa-exchange fa-lg"></span><b style="z-index: 2;"> Transactions</b></a></mat-list-item>
+          <mat-list-item><a mat-button routerLink='/allStats' routerLinkActive='active'><span class="fa fa-bar-chart fa-lg"></span><b style="z-index: 2;"> Statistics</b></a></mat-list-item>
+        </mat-list>
+
+
+
       </div>
       <div fxFlex="55">
         <h4>Our Address</h4>

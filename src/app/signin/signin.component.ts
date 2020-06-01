@@ -3,9 +3,15 @@ import {FormBuilder,FormGroup, Validators} from '@angular/forms';
 import {ActivatedRoute,Router} from '@angular/router';
 import {users} from '../shared/users';
 import {HttpClient,HttpHeaders} from '@angular/common/http';
+
 import {UserloginserviceService} from '../services/userloginservice.service';
+import {AdminServiceService} from '../services/admin-service.service';
+import {SignupComponent} from '../signup/signup.component';
+
 import {MatDialog, MatDialogRef} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
 import {shopping_cart} from '../shared/shoppingCart';
+import { admin_credentials } from '../shared/admin_credentials';
 
 
 @Component({
@@ -50,9 +56,14 @@ export class SigninComponent implements OnInit {
   
   
   
-  constructor(private user_login_service:UserloginserviceService,private fb:FormBuilder,
-    private http_service:HttpClient, private route: ActivatedRoute, private router:Router,
-    public dialogRef: MatDialogRef<SigninComponent>) 
+  constructor(private user_login_service:UserloginserviceService,
+    private admin_service_provider:AdminServiceService,
+    private fb:FormBuilder,
+    private snack_bar:MatSnackBar,
+    private http_service:HttpClient, 
+    private route: ActivatedRoute, private router:Router,
+    public dialogRef: MatDialogRef<SigninComponent>,
+    private sign_up_dialog_box:MatDialog) 
     {
         this.createForm();
     } 
@@ -69,38 +80,110 @@ export class SigninComponent implements OnInit {
      
       //alert(this.user_name);
       
-      this.current_users_object = await this.user_login_service.verifyUser(this.user_name);
+      await this.user_login_service.verifyUser(this.user_attempting_to_login).then((data)=>{
 
-      
-      
+            if(data.status===200)
+            {
+              sessionStorage.setItem("username",data.body.username);
+              sessionStorage.setItem("password",data.body.password);
+              sessionStorage.setItem("cartItems",JSON.stringify(this.cart_items));
 
-      if((this.current_users_object.username===this.user_name) && (this.current_users_object.password===this.user_password))
-      {
-        this.onSuccessfullLogIn(this.user_name,this.user_password);
-      }
-      else{
-        this.onUnsuccessfullLogIn();
-      }
+              this.user_login_service.userdata.next(data.body.username);
+
+              this.router.navigate(['/home']);
+              this.dialogRef.close();
+            }
+
+      }).catch((err_msg)=>{
+
+        let error_code:number=+(err_msg.split("-")[0]);
+            
+            if(error_code===404)
+            {
+              this.snack_bar.open("User Account Could'nt be found,Create a new Account ?",'Yes', {
+                duration: 3000,
+                panelClass:['username_unavailable_snackbar']
+              }).onAction().subscribe(()=>{
+
+                this.sign_up_dialog_box.open(SignupComponent,{width:'600px', height:'550px'});
+                this.dialogRef.close();
+
+              });
+            }
+
+            if(error_code===400)
+            {
+              this.snack_bar.open("Wrong Password, Please check your password",'Close', {
+                duration: 3000,
+                panelClass:['username_unavailable_snackbar']
+              });
+            }
+
+      });
+
 
       this.user_login_form.reset();      
 
   }
 
-  onSuccessfullLogIn(username:string,password:string)
+
+  adminLogIn()
   {
-    sessionStorage.setItem("username",username);
-    sessionStorage.setItem("password",password);
-    sessionStorage.setItem("cartItems",JSON.stringify(this.cart_items));
+    let user_credentials:users=this.user_login_form.value;
+    let admin_credentials:admin_credentials={
 
-    this.user_login_service.userdata.next(username);
+      "admin_username":user_credentials.username,
+      "admin_password":user_credentials.password
 
-    this.router.navigate(['/home']);
-    this.dialogRef.close();
-  }
+    }
+    this.admin_service_provider.verifyAdminStatus(user_credentials.username).subscribe((res)=>{
 
-  onUnsuccessfullLogIn()
-  {
-      alert("Please enter correct credentials");
+        if(res.status===200)
+        {
+          this.admin_service_provider.verifyAdminCredentials(admin_credentials).subscribe((data)=>{
+              
+              if(data.status===200)
+              {
+                this.snack_bar.open("Welcome "+data.body.admin_username,'Close', {
+                  duration: 3000
+                });
+                
+                sessionStorage.setItem("adminUsername",data.body.admin_username);
+                sessionStorage.setItem("cartItems",JSON.stringify(this.cart_items));
+
+                this.admin_service_provider.adminData.next(data.body.admin_username);
+                this.admin_service_provider.adminMenuDisplay.next(true);
+                
+                this.router.navigate(['/admin']);
+                this.dialogRef.close();
+
+
+              }
+            
+          },(err_msg:string)=>{
+
+            let error_code:number=+(err_msg.split("-")[0]);
+            if(error_code===401)
+            {
+              this.snack_bar.open("Please enter the correct Password",'Close', {
+                duration: 3000,
+                panelClass:['username_unavailable_snackbar']
+              });
+            }
+
+          });
+        }
+
+    },(err)=>{
+      
+      this.snack_bar.open("You don't have administrative priveleges",'Close', {
+        duration: 3000,
+        panelClass:['username_unavailable_snackbar']
+      });
+    
+    });
+
+
   }
 
   openNewUserForm()

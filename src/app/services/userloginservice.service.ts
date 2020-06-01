@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient,HttpHeaders} from '@angular/common/http';
+import {HttpClient,HttpHeaders, HttpResponse} from '@angular/common/http';
 import {base_url} from '../shared/baseurl';
 
 import {users} from '../shared/users';
@@ -28,9 +28,9 @@ export class UserloginserviceService
   userdata= new BehaviorSubject("");
   kyc_form_status_update= new BehaviorSubject("");
 
-  async verifyUser(user_name:string):Promise<users>
+  async verifyUser(user_credentials:users):Promise<HttpResponse<users>>
   {
-      return this.http_service.get<users>(base_url+"verify_user/"+user_name)
+      return this.http_service.post<users>(base_url+"verify_user",user_credentials,{observe : 'response'})
       .pipe(catchError(this.error_management_service.handle_error_faced)).toPromise();
   }
 

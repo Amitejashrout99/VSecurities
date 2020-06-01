@@ -49,6 +49,7 @@ import {ShoppingCartServiceService} from './services/shopping-cart-service.servi
 import {TradingDashboardServiceService} from './services/trading-dashboard-service.service';
 import {ForumServiceService} from './services/forum-service.service';
 import {StockWatchServiceService} from './services/stock-watch-service.service';
+import {AdminServiceService} from './services/admin-service.service';
 
 
 import { LoginComponent } from './login/login.component';
@@ -88,6 +89,10 @@ import { StockRecommendationsComponent } from './stock-recommendations/stock-rec
 import { StockResearchDetailsComponent } from './stock-research-details/stock-research-details.component';
 import { AccountDetailsDashBoardComponent } from './account-details-dash-board/account-details-dash-board.component';
 import { KycDetailsFormComponent } from './kyc-details-form/kyc-details-form.component';
+import { AdminNavComponent } from './admin-nav/admin-nav.component';
+import { AdminUserDetailsComponent } from './admin-user-details/admin-user-details.component';
+import { AdminTransactionDetailsComponent } from './admin-transaction-details/admin-transaction-details.component';
+import { AdminStatisticsDetailsComponent } from './admin-statistics-details/admin-statistics-details.component';
 
 @NgModule({
   declarations: [
@@ -128,7 +133,11 @@ import { KycDetailsFormComponent } from './kyc-details-form/kyc-details-form.com
     StockRecommendationsComponent,
     StockResearchDetailsComponent,
     AccountDetailsDashBoardComponent,
-    KycDetailsFormComponent
+    KycDetailsFormComponent,
+    AdminNavComponent,
+    AdminUserDetailsComponent,
+    AdminTransactionDetailsComponent,
+    AdminStatisticsDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -173,7 +182,8 @@ import { KycDetailsFormComponent } from './kyc-details-form/kyc-details-form.com
     ShoppingCartServiceService,
     TradingDashboardServiceService,
     ForumServiceService,
-    StockWatchServiceService],
+    StockWatchServiceService,
+    AdminServiceService],
   
   bootstrap: [AppComponent]
 })

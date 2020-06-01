@@ -1,0 +1,267 @@
+<mat-toolbar color="primary">
+    <span class="flex-spacer"></span>
+        <h2>Vshare Securities Stock Transaction Details</h2>
+    <span class="flex-spacer"></span>
+</mat-toolbar>
+<div style="display: flex;align-items: center;justify-content: center;padding-top: 20px;text-align: center;">
+    <h3>Displaying only Bought Stock's Transaction Data</h3>
+    <hr>
+    <mat-divider></mat-divider>
+</div>
+
+<mat-accordion style="margin-top: 20px;">
+    <mat-expansion-panel *ngFor="let transaction_detail of all_transactions_data">
+      <mat-expansion-panel-header class="right-aligned-header">
+        <mat-panel-title>
+          {{transaction_detail.stock_name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Open the panel to view all the details
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+    
+      
+            <div    class="container"
+                fxLayout="row"
+                fxLayout.sm="column"
+                fxLayout.xs="column"
+                fxLayoutAlign.gt-md="space-around center"
+                fxLayoutGap="10px" 
+                fxLayoutGap.xs="10px">
+
+                <mat-card style="border-radius: 20px;" fxFlex>
+
+                    <mat-card-header style="background-color:#512DA8;color: white;z-index: 2; line-height: 1.4;">
+                        <mat-card-title>
+                        <h2>{{transaction_detail.stock_name}} Stock Basic Information </h2>
+                        </mat-card-title>
+                    </mat-card-header>
+    
+                    <mat-card-content>
+                        
+                        <div class="container" 
+                        fxLayout="column"
+                        fxLayoutGap="10px">
+
+                            <div fxFlex>
+                                <div>
+                                    <h3>Basic Information</h3>
+                                    <hr>
+                                </div>
+                                <h3>Name of Stock: {{transaction_detail.stock_basic_data.stock_name}}</h3>
+                                <h3>Stock Quantity: {{transaction_detail.stock_basic_data.stock_quantity}}</h3>
+                                <h3>Stock Value: {{transaction_detail.stock_basic_data.stock_value}} <i class="fa fa-inr" aria-hidden="true"></i></h3>
+                                <h3>Stock Present Price: {{transaction_detail.stock_basic_data.stock_present_price}} <i class="fa fa-inr" aria-hidden="true"></i></h3>
+                            </div>
+                        </div>
+                    
+                    </mat-card-content>
+
+                </mat-card>
+        
+        
+            </div>
+
+            <div    class="container"
+                fxLayout="row"
+                fxLayout.sm="column"
+                fxLayout.xs="column"
+                fxLayoutAlign.gt-md="space-around center"
+                fxLayoutGap="10px" 
+                fxLayoutGap.xs="10px">
+
+            
+                <mat-card style="border-radius: 20px;" fxFlex>
+
+                    <mat-card-header style="background-color:#512DA8;color: white;z-index: 2; line-height: 1.4;">
+                        <mat-card-title>
+                        <h2>User's Information who bought this stock</h2>
+                        </mat-card-title>
+                    </mat-card-header>
+    
+                    <mat-card-content>
+                    
+                        <mat-accordion style="margin-top: 20px;">
+                            <mat-expansion-panel *ngFor="let user_details of transaction_detail.customers_basic_data" (opened)="checkForKYCStatus(user_details)">
+                              <mat-expansion-panel-header class="right-aligned-header">
+                                <mat-panel-title>
+                                  {{user_details.name}}
+                                </mat-panel-title>
+                                <mat-panel-description>
+                                  Expand the Panel
+                                </mat-panel-description>
+                              </mat-expansion-panel-header>
+
+
+                                <div  class="container" 
+                                    fxLayout="column"
+                                    fxLayoutGap="10px">
+
+                                    <div fxFlex>
+                                        <div>
+                                            <h3>Basic Information</h3>
+                                            <hr>
+                                        </div>
+                                        <h3>Age: {{user_details.age}}</h3>
+                                        <h3>Address: {{user_details.address}}</h3>
+                                        <h3>Gender: {{user_details.gender}}</h3>
+                                        <h3>Nationality: {{user_details.nationality}}</h3>
+                                        <h3>KYC Status: {{user_details.kyc_status}}</h3>
+                                    </div>
+
+                                </div>
+
+                                <div  class="container" 
+                                    fxLayout="column"
+                                    fxLayoutGap="10px">
+
+
+                                    <div fxFlex>
+                                        <div>
+                                            <h3>View User's KYC Information</h3>
+                                            <hr>
+                                            <button [disabled]="!display_kyc_button"  (click)="displayKYCDetails(user_details.id)" mat-raised-button color="primary">Display KYC Information</button>
+                                        </div>
+                                        <h3 *ngIf="!display_kyc_button">The user has'nt provided the KYC Information till now</h3>
+    
+                                    </div>
+                                    <div fxFlex *ngIf="kyc_information_card_display_status">
+                                        <div>
+                                            <h2>Personal Data</h2>
+                                            <hr>
+                                        </div>
+                                        <h3>Father Name: {{particular_user_kyc_data.father_name}}</h3>
+                                        <h3>Mother Name: {{particular_user_kyc_data.mother_name}}</h3>
+                                        <h3>Date Of Birth: {{particular_user_kyc_data.dob}}</h3>
+                                        <h3>Occupation: {{particular_user_kyc_data.occupation}}</h3>
+                                    </div>
+                                    <mat-divider></mat-divider>
+                                    <div fxFlex *ngIf="kyc_information_card_display_status">
+                                        <div>
+                                            <h2>Personal Identification Data</h2>
+                                            <hr>
+                                        </div>
+                                        <h3>Passport Number: {{particular_user_kyc_data.passport_number}}</h3>
+                                        <h3>Passport Expiry Date: {{particular_user_kyc_data.expiry_date}}</h3>
+                                        <h3>Aadhar Card Numer: {{particular_user_kyc_data.aadhar_card_number}}</h3>
+                                        <h3>Pan Card Number: {{particular_user_kyc_data.pan_card_number}}</h3>
+                                    </div>
+                                    <mat-divider></mat-divider>
+                                    <div fxFlex *ngIf="kyc_information_card_display_status">
+                                        <div>
+                                            <h2>Contact Details</h2>
+                                            <hr>
+                                        </div>
+                                        <h3>Email Id: {{particular_user_kyc_data.email_id}}</h3>
+                                        <h3>Contact Number: {{particular_user_kyc_data.mobile_number}}</h3>
+                                    </div>
+                                    <mat-divider></mat-divider>
+                                    <div fxFlex *ngIf="kyc_information_card_display_status">
+                                        <div>
+                                            <h2>Address Details</h2>
+                                            <hr>
+                                        </div>
+                                        <h3>Pin Code:{{particular_user_kyc_data.pin_code}}</h3>
+                                        <h3>City: {{particular_user_kyc_data.city_name}}</h3>
+                                        <h3>State: {{particular_user_kyc_data.mother_name}}</h3>
+                                        <h3>Country: {{particular_user_kyc_data.country_name}}</h3>
+                                        <button (click)="toggleKYCDetailsVisibility()" mat-raised-button color="primary">Hide KYC information details</button>
+                                    </div>
+                                
+                                
+                                
+                                </div>
+                                
+
+
+                            </mat-expansion-panel>
+                        
+                        </mat-accordion>
+                    
+                    </mat-card-content>
+                
+                
+                </mat-card>
+              
+            
+            </div>
+
+            <div    class="container"
+                fxLayout="row"
+                fxLayout.sm="column"
+                fxLayout.xs="column"
+                fxLayoutAlign.gt-md="space-around center"
+                fxLayoutGap="10px" 
+                fxLayoutGap.xs="10px">
+            
+                <mat-card style="border-radius: 20px;" fxFlex>
+
+                    <mat-card-header style="background-color:#512DA8;color: white;z-index: 2; line-height: 1.4;">
+                        <mat-card-title>
+                        <h2>{{transaction_detail.stock_name}} Stock Performance and Reviews</h2>
+                        </mat-card-title>
+                    </mat-card-header>
+    
+                    <mat-card-content>    
+                        
+
+                        <div  class="container" 
+                                    fxLayout="column"
+                                    fxLayoutGap="10px">
+
+                            <div fxFlex>
+                                
+                                <div>
+                                    <h3>Financial Performance</h3>
+                                    <hr>
+                                </div>
+                                <h3>Total Investment made on this stock: {{transaction_detail.total_investment_made}}</h3>
+                                <h3>Total Returns to Customer made by this stock: {{transaction_detail.total_returns_made}}</h3>
+                                <h3>Number of times bought: {{transaction_detail.no_of_times_bought}}</h3>
+                                <h3>number of times sold: {{transaction_detail.no_of_times_sold}}</h3>
+                            </div>
+                            
+                        </div>
+                        <mat-divider></mat-divider>
+
+                        <div  class="container" 
+                                    fxLayout="column"
+                                    fxLayoutGap="10px">
+
+                            <div fxFlex>
+                                
+                                <div>
+                                    <h3>{{transaction_detail.stock_name}} Stock's Reviews</h3>
+                                    <hr>
+                                </div>
+                                <mat-list>
+
+     
+                                    <mat-list-item *ngFor="let review of transaction_detail.stock_review_data">
+                                        <img matListAvatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+                                        <div mat-line fxShow="true" fxHide.lt-md="true">Review given by user: {{review.stock_review}}</div>
+                                        <div fxShow="true" fxHide.gt-sm mat-line>Review given By user:</div>
+                                        <div mat-line fxShow="true" fxHide.gt-sm>
+                                            <p>{{review.stock_review}}</p>
+                                        </div>
+                                        <div mat-line>Rating Given: {{review.rating}} </div>
+                                        <div mat-line>Review SUbmitted on: {{review.submitted_on}} </div>
+                                        <mat-divider></mat-divider>
+                                    </mat-list-item>
+                                   
+                                
+                                </mat-list>
+
+                            </div>
+                        </div>
+
+                    </mat-card-content>
+                </mat-card>
+            
+            
+            </div>
+    
+    
+    
+    </mat-expansion-panel>
+</mat-accordion>

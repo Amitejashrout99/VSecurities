@@ -1,0 +1,220 @@
+<mat-toolbar color="primary">
+    <span class="flex-spacer"></span>
+    <h2>Vshare Securities User Details</h2>
+    <span class="flex-spacer"></span>
+</mat-toolbar>
+
+<mat-accordion style="margin-top: 20px;">
+    <mat-expansion-panel *ngFor="let user_details of all_users_data" (opened)="checkForKYCStatus(user_details)">
+      <mat-expansion-panel-header class="right-aligned-header">
+        <mat-panel-title>
+          {{user_details.user_name}}
+        </mat-panel-title>
+        <mat-panel-description>
+          Open the panel to view all the details
+        </mat-panel-description>
+      </mat-expansion-panel-header>
+
+      <div  class="container"
+            fxLayout="row"
+            fxLayout.sm="column"
+            fxLayout.xs="column"
+            fxLayoutAlign.gt-md="space-around center"
+            fxLayoutGap="10px" 
+            fxLayoutGap.xs="10px">
+            
+            <mat-card style="border-radius: 20px;" fxFlex>
+
+                <mat-card-header style="background-color:#512DA8;color: white;z-index: 2; line-height: 1.4;">
+                    <mat-card-title>
+                    <h2>{{user_details.user_name}}'s Background Information</h2>
+                    </mat-card-title>
+                </mat-card-header>
+
+                <mat-card-content>
+
+                    <div class="container" 
+                        fxLayout="column"
+                        fxLayoutGap="10px">
+
+                        <div fxFlex>
+                            <div>
+                                <h3>Basic Information</h3>
+                                <hr>
+                            </div>
+                            <h3>Age: {{user_details.user_obj.age}}</h3>
+                            <h3>Address: {{user_details.user_obj.address}}</h3>
+                            <h3>Gender: {{user_details.user_obj.gender}}</h3>
+                            <h3>Nationality: {{user_details.user_obj.nationality}}</h3>
+                            <h3>KYC Status: {{user_details.user_obj.kyc_status}}</h3>
+                        </div>
+
+                        <mat-divider></mat-divider>
+
+                        <div fxFlex>
+                            <div>
+                                <h3>View User's KYC Information</h3>
+                                <hr>
+                                <button [disabled]="!display_kyc_button"  (click)="displayKYCDetails(user_details.user_obj.id)" mat-raised-button color="primary">Display KYC Information</button>
+                            </div>
+                            <h3 *ngIf="!display_kyc_button">The user has'nt provided the KYC Information till now</h3>
+
+                        </div>
+                        <div fxFlex *ngIf="kyc_information_card_display_status">
+                            <div>
+                                <h2>Personal Data</h2>
+                                <hr>
+                            </div>
+                            <h3>Father Name: {{particular_user_kyc_data.father_name}}</h3>
+                            <h3>Mother Name: {{particular_user_kyc_data.mother_name}}</h3>
+                            <h3>Date Of Birth: {{particular_user_kyc_data.dob}}</h3>
+                            <h3>Occupation: {{particular_user_kyc_data.occupation}}</h3>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div fxFlex *ngIf="kyc_information_card_display_status">
+                            <div>
+                                <h2>Personal Identification Data</h2>
+                                <hr>
+                            </div>
+                            <h3>Passport Number: {{particular_user_kyc_data.passport_number}}</h3>
+                            <h3>Passport Expiry Date: {{particular_user_kyc_data.expiry_date}}</h3>
+                            <h3>Aadhar Card Numer: {{particular_user_kyc_data.aadhar_card_number}}</h3>
+                            <h3>Pan Card Number: {{particular_user_kyc_data.pan_card_number}}</h3>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div fxFlex *ngIf="kyc_information_card_display_status">
+                            <div>
+                                <h2>Contact Details</h2>
+                                <hr>
+                            </div>
+                            <h3>Email Id: {{particular_user_kyc_data.email_id}}</h3>
+                            <h3>Contact Number: {{particular_user_kyc_data.mobile_number}}</h3>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div fxFlex *ngIf="kyc_information_card_display_status">
+                            <div>
+                                <h2>Address Details</h2>
+                                <hr>
+                            </div>
+                            <h3>Pin Code:{{particular_user_kyc_data.pin_code}}</h3>
+                            <h3>City: {{particular_user_kyc_data.city_name}}</h3>
+                            <h3>State: {{particular_user_kyc_data.mother_name}}</h3>
+                            <h3>Country: {{particular_user_kyc_data.country_name}}</h3>
+                            <button (click)="toggleKYCDetailsVisibility()" mat-raised-button color="primary">Hide KYC information details</button>
+                        </div>
+
+                    </div>
+
+
+
+                </mat-card-content>
+
+                
+                </mat-card>
+
+                
+
+        </div>
+        <div  class="container"
+            fxLayout="row"
+            fxLayout.sm="column"
+            fxLayout.xs="column"
+            fxLayoutAlign.gt-md="space-around center"
+            fxLayoutGap="10px" 
+            fxLayoutGap.xs="10px">
+        
+        
+            <mat-card style="border-radius: 20px;" fxFlex>
+
+                <mat-card-header style="background-color:#512DA8;color: white;z-index: 2; line-height: 1.4;">
+                    <mat-card-title>
+                    <h2>{{user_details.user_name}}'s Forum Information</h2>
+                    </mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+
+                    <div class="container" 
+                        fxLayout="column"
+                        fxLayoutGap="10px">
+
+                        <div fxFlex>
+                            <div>
+                                <h3>Forum Stats</h3>
+                                <hr>
+                            </div>
+                            <h3>Number of Questions Posted: {{user_details.forum_overview_dto_obj.no_of_questions_posted}}</h3>
+                            <h3>Number of Answers provided: {{user_details.forum_overview_dto_obj.no_of_questions_answered}}</h3>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div fxFlex>
+                            <div>
+                                <h3>Forum Stats</h3>
+                                <hr>
+                            </div>
+                            <h3>Number of Questions Posted: {{user_details.forum_overview_dto_obj.no_of_questions_posted}}</h3>
+                            <h3>Number of Answers to Questions Posted: {{user_details.forum_overview_dto_obj.no_of_questions_answered}}</h3>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div fxFlex>
+                            <div>
+                                <h3>All Question's Posted</h3>
+                                <hr>
+                            </div>
+                            <h4 *ngIf="no_questions_posted">The user has'nt posted a single question in forum till now</h4>
+                            <mat-list *ngIf="!no_questions_posted">
+
+     
+                                <mat-list-item *ngFor="let question of user_details.forum_overview_dto_obj.all_questions_posted">
+                                    <img matListAvatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+                                    <div mat-line fxShow="true" fxHide.lt-md="true">Question posted: {{question.forum_qstn}}</div>
+                                    <div fxShow="true" fxHide.gt-sm mat-line>Question Posted:</div>
+                                    <div mat-line fxShow="true" fxHide.gt-sm>
+                                        <p>{{question.forum_qstn}}</p>
+                                    </div>
+                                    <div mat-line>Answered On: {{question.qstn_askd_on}} </div>
+                                    <div mat-line>Tag Assigned: {{question.qstn_tag}} </div>
+                                    <mat-divider></mat-divider>
+                                </mat-list-item>
+                               
+                            
+                            </mat-list>
+                        </div>
+                        <mat-divider></mat-divider>
+                        <div fxFlex>
+                            <div>
+                                <h3>All Answer's Given to Questions Posted</h3>
+                                <hr>
+                            </div>
+                            <h4 *ngIf="no_answers_posted">The user has'nt posted answers to any question till now</h4>
+                            <mat-list *ngIf="!no_answers_posted">
+
+     
+                                <mat-list-item *ngFor="let answer of user_details.forum_overview_dto_obj.all_answers_posted">
+                                    <img matListAvatar src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
+                                    <div mat-line fxShow="true" fxHide.lt-md="true">Answer Provided: {{answer.forum_answer}}</div>
+                                    <div fxShow="true" fxHide.gt-sm mat-line>Answer Provided:</div>
+                                    <div mat-line fxShow="true" fxHide.gt-sm>
+                                        <p>{{answer.forum_answer}}</p>
+                                    </div>
+                   
+
+                                    <div mat-line>Answered On: {{answer.answr_given_on}} </div>
+                                    <mat-divider></mat-divider>
+                                </mat-list-item>
+                               
+                            
+                            </mat-list>
+                        </div>
+
+                    </div>
+
+                </mat-card-content>
+            </mat-card>
+        
+        
+        </div>
+
+        
+
+    </mat-expansion-panel>
+</mat-accordion>

@@ -25,6 +25,11 @@ import {StockWatchBannerComponent} from '../stock-watch-banner/stock-watch-banne
 import {StockWatchDashboardComponent} from '../stock-watch-dashboard/stock-watch-dashboard.component';
 import {StockRecommendationsComponent} from '../stock-recommendations/stock-recommendations.component';
 import {AccountDetailsDashBoardComponent} from '../account-details-dash-board/account-details-dash-board.component';
+import {AdminNavComponent} from '../admin-nav/admin-nav.component';
+import {AdminUserDetailsComponent} from '../admin-user-details/admin-user-details.component';
+import {AdminTransactionDetailsComponent} from '../admin-transaction-details/admin-transaction-details.component';
+import {AdminStatisticsDetailsComponent} from '../admin-statistics-details/admin-statistics-details.component';
+
 
 export const various_routes:Routes=[
 
@@ -61,7 +66,11 @@ export const various_routes:Routes=[
             {path:'stockResearch',component:StockWatchDashboardComponent,outlet:'side'},
             {path:'stockRecommends',component:StockRecommendationsComponent,outlet:'side'}   
         ]},
-    {path:'account',component:AccountDetailsDashBoardComponent}
+    {path:'account',component:AccountDetailsDashBoardComponent},
+    {path:'admin',component:AdminNavComponent},
+    {path:'allUsersDetail',component:AdminUserDetailsComponent},
+    {path:'allTransactionsDetail',component:AdminTransactionDetailsComponent},
+    {path:'allStats',component:AdminStatisticsDetailsComponent}
     
 
 ];

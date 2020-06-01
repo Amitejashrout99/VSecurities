@@ -15,7 +15,7 @@ fxLayoutGap="10px">
       
     <h2 fxShow="true"   fxHide.gt-sm>{{company_name}}</h2>
     <span fxShow="true" fxHide.lt-md="true"><img src="/assets/images/logo.jpg" height=30 width=41></span>
-    <div fxShow="true" fxHide.lt-md="true">
+    <div *ngIf="!admin_authorization_status" fxShow="true" fxHide.lt-md="true">
       
       <a mat-button routerLink='/dashboard' routerLinkActive='active'><span class="fa fa-shopping-cart fa-lg"></span> Buy and Sell</a>
       <a mat-button routerLink='/stockWatch' routerLinkActive='active'><span class="fa fa-search fa-lg"></span> Stock watch</a>
@@ -26,8 +26,16 @@ fxLayoutGap="10px">
       <a mat-button  (click)="openShoppingCartDialog()"    ><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Your Cart {{no_of_items}}</a>
       
     </div>
+    <div *ngIf="admin_authorization_status" fxShow="true" fxHide.lt-md="true">
+
+      <a mat-button routerLink='/allUsersDetail' routerLinkActive='active'><span class="fa fa-user fa-lg"></span> Users</a>
+      <a mat-button routerLink='/allTransactionsDetail' routerLinkActive='active'><span class="fa fa-exchange fa-lg"></span> Transactions</a>
+      <a mat-button routerLink='/allStats' routerLinkActive='active'><span class="fa fa-bar-chart fa-lg"></span> Statistics</a>
+
+    </div>
+
       <span class="flex-spacer"></span>
-      <button class="username_button" (click)="displaySignOut()" mat-raised-button><h3 *ngIf="username">Hello {{username}}</h3></button>
+      <button class="username_button" (click)="displaySignOut()" mat-raised-button><h3 *ngIf="username">Hello {{username}}</h3><h3 *ngIf="admin_username">Hello {{admin_username}}</h3></button>
 
       
   </mat-toolbar>
@@ -36,7 +44,7 @@ fxLayoutGap="10px">
 
 <mat-sidenav-container  fxFlexFill>
   <mat-sidenav class="sideBar" #sidenav>
-    <mat-nav-list>
+    <mat-nav-list *ngIf="!admin_authorization_status">
       <a mat-button (click)="sidenav.toggle()" routerLink='/dashboard' routerLinkActive='active'><span class="fa fa-shopping-cart fa-lg"></span> Buy and Sell</a>
       <mat-divider></mat-divider>
       <a mat-button (click)="sidenav.toggle()" routerLink='/stockWatch' routerLinkActive='active'><span class="fa fa-search fa-lg"></span> Stock watch</a>
@@ -49,6 +57,16 @@ fxLayoutGap="10px">
       <mat-divider></mat-divider>
       <a mat-button  (click)="openShoppingCartDialog()"    ><i class="fa fa-shopping-cart fa-lg" aria-hidden="true"></i> Your Cart {{no_of_items}}</a>
     </mat-nav-list>
+
+    <mat-nav-list *ngIf="admin_authorization_status"> 
+      <a mat-button (click)="sidenav.toggle()" routerLink='/allUsersDetail' routerLinkActive='active'><span class="fa fa-user fa-lg"></span> Users</a>
+      <mat-divider></mat-divider>
+      <a mat-button (click)="sidenav.toggle()" routerLink='/allTransactionsDetail' routerLinkActive='active'><span class="fa fa-exchange fa-lg"></span> Transactions</a>
+      <mat-divider></mat-divider>
+      <a mat-button (click)="sidenav.toggle()" routerLink='/allStats' routerLinkActive='active'><span class="fa fa-bar-chart fa-lg"></span> Statistics</a>
+      <mat-divider></mat-divider>
+    </mat-nav-list>
+
   </mat-sidenav>
   
   <mat-sidenav-content fxFlexFill>
