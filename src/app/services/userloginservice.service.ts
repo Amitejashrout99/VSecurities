@@ -34,6 +34,19 @@ export class UserloginserviceService
       .pipe(catchError(this.error_management_service.handle_error_faced)).toPromise();
   }
 
+
+  checkFacebookIdExistsOrNot(facebook_id:string):Observable<HttpResponse<users>>
+  {
+    return this.http_service.get<users>(base_url+"verifyFacebookCredentials/"+facebook_id,{observe : 'response'})
+    .pipe(catchError(this.error_management_service.handle_error_faced));
+  }
+
+  addNewFacebookUserCredentials(facebook_credentials:users):Observable<HttpResponse<users>>
+  {
+    return this.http_service.post<users>(base_url+"createFBUserCredentials",facebook_credentials,{observe : 'response'})
+    .pipe(catchError(this.error_management_service.handle_error_faced));
+  }
+
   checkUsernameAvailabilityStatus(username:string):Observable<boolean>
   {
     return this.http_service.get<boolean>(base_url+"checkAvailability/"+username).pipe(catchError(this.error_management_service.handle_error_faced));
