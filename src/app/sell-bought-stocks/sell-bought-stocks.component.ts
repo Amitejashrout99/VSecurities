@@ -9,6 +9,8 @@ import {stock_sale_expansion_object} from '../shared/saleStockExpansion';
 
 import {UserloginserviceService} from '../services/userloginservice.service';
 import {ProcessHTTPerrorService} from '../services/process-httperror.service';
+import { tap, switchMap, catchError } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
 
 
 
@@ -28,7 +30,9 @@ export class SellBoughtStocksComponent implements OnInit {
   stock_sale_expansion:stock_sale_expansion_object;
   particular_bought_data_object:stock_sales;
   sellingStock_object:stock_sales;
-  
+  bought_stocks_exist_status:boolean=true;
+
+
   
   error_message_faced:string;
   current_user_id:number;
@@ -62,7 +66,59 @@ export class SellBoughtStocksComponent implements OnInit {
   ngOnInit(): void 
   {
     let username= sessionStorage.getItem("username");
-    this.getCurrentUserId(username);
+    this.user_service_provider.getUserId(username).pipe(
+
+      tap((data)=>this.current_user_object=data),
+      
+      switchMap(()=>this.stock_service_provider.getBoughtButNotSoldStocks(this.current_user_object.id)
+      .pipe(catchError((err_msg)=>this.error_message_faced=err_msg))),
+
+      tap(()=>{
+
+          //alert(this.error_message_faced);
+          let error_code:number=+(this.error_message_faced.split("-")[0]);
+          //alert(error_code);
+          if(error_code===404)
+          {
+            this.bought_stocks_exist_status=false;
+          }
+          //alert(this.bought_stocks_exist_status);
+      
+      }),
+
+      tap((data:HttpResponse<stock_sales[]>)=>{
+        
+        
+        this.bought_stocks=data.body;
+        this.bought_stocks.map((val)=>{
+
+          this.stock_service_provider.getParticularStock(val.stock_id).subscribe((data)=>{
+
+            this.stock_sale_expansion={
+              "id":val.id,
+              "price_bought_for":val.price_bought_for,
+              "stock_bought_on":val.stock_bought_on,
+              "stock_buy_status":val.stock_buy_status,
+              "stock_id":val.stock_id,
+              "stock_name":data.stock_name,
+              "stock_present_price":data.stock_present_price,
+              "no_of_times_bought":val.no_of_times_bought,
+              "no_of_times_sold":val.no_of_times_sold,
+              "stock_sale_id":val.stock_sale_id,
+              "stock_value":data.stock_present_price
+            };
+
+            this.stock_sale_exansion_array.push(this.stock_sale_expansion);
+
+          },(err_msg)=>this.error_message_faced=err_msg);
+
+        });
+      
+      }),
+    
+
+
+    ).subscribe();
     
   }
 
@@ -75,55 +131,6 @@ export class SellBoughtStocksComponent implements OnInit {
     this.initial_sell_count=1;
   }
 
-  async getCurrentUserId(user_name:string)
-  {
-    this.current_user_object= await this.user_service_provider.getUserIdPromise(user_name);
-    this.current_user_id=this.current_user_object.id;
-
-    this.stock_service_provider.getBoughtButNotSoldStocks(this.current_user_id)
-    .subscribe((data)=>{
-      this.bought_stocks=data
-      sessionStorage.setItem("allBought",JSON.stringify(data));
-    },
-    (err_msg)=>this.error_message_faced=err_msg);
-
-    this.getStockItems();
-
-  }
-
-  async getStockItems()
-  {
-      let items=sessionStorage.getItem("allBought");
-
-
-      this.bought_stocks_session_array=JSON.parse(items);
-
-      //alert(this.bought_stocks_session_array);
-
-      for(let i=0;i<this.bought_stocks_session_array.length;i++)
-      {
-        this.bought_stock_object= await this.stock_service_provider.getParticularStockPromise(this.bought_stocks_session_array[i].stock_id);
-        //this.bought_stock_objects.push(this.bought_stock_object);
-
-        this.stock_sale_expansion={
-            "id":this.bought_stocks_session_array[i].id,
-            "price_bought_for":this.bought_stocks_session_array[i].price_bought_for,
-            "stock_bought_on":this.bought_stocks_session_array[i].stock_bought_on,
-            "stock_buy_status":this.bought_stocks_session_array[i].stock_buy_status,
-            "stock_id":this.bought_stock_object.stock_id,
-            "stock_name":this.bought_stock_object.stock_name,
-            "stock_present_price":this.bought_stock_object.stock_present_price,
-            "no_of_times_bought":this.bought_stocks_session_array[i].no_of_times_bought,
-            "no_of_times_sold":this.bought_stocks_session_array[i].no_of_times_sold,
-            "stock_sale_id":this.bought_stocks_session_array[i].stock_sale_id,
-            "stock_value":this.bought_stock_object.stock_present_price
-        };
-
-        this.stock_sale_exansion_array.push(this.stock_sale_expansion);
-
-      }
-
-  }
   
   
   calculateBrokerageFees(current_sp:number,cp_of_stocks:number,no_of_stock:number)
@@ -269,6 +276,7 @@ export class SellBoughtStocksComponent implements OnInit {
       duration: 5000}),(err_msg)=>this.error_message_faced=err_msg);
 
   
+
   }
 
 }

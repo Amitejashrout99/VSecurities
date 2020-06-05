@@ -28,3 +28,11 @@ $banner-text:#fcdb03;
     background-color: $lt-gray;
     color: black;
 }
+
+#item_not_found_banner
+{
+    background-image: url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/257418/andy-holmes-698828-unsplash.jpg);
+    background-size: cover;
+    width:inherit;
+    background-repeat: no-repeat;
+}

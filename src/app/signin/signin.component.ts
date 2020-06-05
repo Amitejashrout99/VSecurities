@@ -120,24 +120,26 @@ export class SigninComponent implements OnInit {
     });
   }
 
+
   //Facebook Log-In Part
   FBSignIn()
   {
-    FB.login(function(response: fb.StatusResponse) {
+      FB.login(function(response: fb.StatusResponse) {
       //console.log(response);
-      //console.log(response.status);
+      console.log(response.status);
       //console.log(response.authResponse.accessToken);
       
       FB.api('/me', 'get', { fields: ['id','name','email','gender','age_range',"hometown","location"] }, response => {
 
-        //console.log(response);
+        console.log(response);
         sessionStorage.setItem("facebook_id",response["id"]);
         sessionStorage.setItem("facebook_data",JSON.stringify(response));
 
       });
-    
-
+      
     });
+
+    
 
     this.user_facebook_id=sessionStorage.getItem("facebook_id");
 

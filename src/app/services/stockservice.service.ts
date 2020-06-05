@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient,HttpHeaders} from '@angular/common/http';
+import {HttpClient,HttpHeaders, HttpResponse} from '@angular/common/http';
 import {base_url} from '../shared/baseurl';
 
 
@@ -71,9 +71,9 @@ export class StockserviceService
   }
 
 
-  getBoughtButNotSoldStocks(user_id:number):Observable<stock_sales[]>
+  getBoughtButNotSoldStocks(user_id:number):Observable<HttpResponse<stock_sales[]>>
   {
-    return this.http_service_stock.get<stock_sales[]>(base_url+"getBoughtStocks/"+user_id)
+    return this.http_service_stock.get<stock_sales[]>(base_url+"getBoughtStocks/"+user_id,{observe:'response'})
     .pipe(catchError(this.error_management_service.handle_error_faced));
   }
 

@@ -27,6 +27,7 @@ export class UserloginserviceService
 
   userdata= new BehaviorSubject("");
   kyc_form_status_update= new BehaviorSubject("");
+  fb_login_status=new BehaviorSubject("");
 
   async verifyUser(user_credentials:users):Promise<HttpResponse<users>>
   {
@@ -40,6 +41,8 @@ export class UserloginserviceService
     return this.http_service.get<users>(base_url+"verifyFacebookCredentials/"+facebook_id,{observe : 'response'})
     .pipe(catchError(this.error_management_service.handle_error_faced));
   }
+
+  
 
   addNewFacebookUserCredentials(facebook_credentials:users):Observable<HttpResponse<users>>
   {
