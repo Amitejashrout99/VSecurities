@@ -34,7 +34,7 @@ export class SellBoughtStocksComponent implements OnInit {
 
 
   
-  error_message_faced:string;
+  error_message_faced:string="";
   current_user_id:number;
   current_selling_price_message_status:boolean=false;
   current_selling_price_message:string="Click on Calculate Selling Price to view the Selling price"
@@ -73,51 +73,51 @@ export class SellBoughtStocksComponent implements OnInit {
       switchMap(()=>this.stock_service_provider.getBoughtButNotSoldStocks(this.current_user_object.id)
       .pipe(catchError((err_msg)=>this.error_message_faced=err_msg))),
 
-      tap(()=>{
-
-          //alert(this.error_message_faced);
-          let error_code:number=+(this.error_message_faced.split("-")[0]);
-          //alert(error_code);
-          if(error_code===404)
-          {
-            this.bought_stocks_exist_status=false;
-          }
-          //alert(this.bought_stocks_exist_status);
-      
-      }),
-
       tap((data:HttpResponse<stock_sales[]>)=>{
+
+          if(this.error_message_faced==="" && data.status===200)
+          {
+            this.bought_stocks=data.body;
+            this.bought_stocks.map((val)=>{
+
+            this.stock_service_provider.getParticularStock(val.stock_id).subscribe((data)=>{
+
+              this.stock_sale_expansion={
+                "id":val.id,
+                "price_bought_for":val.price_bought_for,
+                "stock_bought_on":val.stock_bought_on,
+                "stock_buy_status":val.stock_buy_status,
+                "stock_id":val.stock_id,
+                "stock_name":data.stock_name,
+                "stock_present_price":data.stock_present_price,
+                "no_of_times_bought":val.no_of_times_bought,
+                "no_of_times_sold":val.no_of_times_sold,
+                "stock_sale_id":val.stock_sale_id,
+                "stock_value":data.stock_present_price
+              };
+
+              this.stock_sale_exansion_array.push(this.stock_sale_expansion);
+
+              },(err_msg)=>this.error_message_faced=err_msg);
+
+            });
+          }
+          else
+          {
+              //alert(this.error_message_faced);
+              let error_code:number=+(this.error_message_faced.split("-")[0]);
+              //alert(error_code);
+              if(error_code===404)
+              {
+                this.bought_stocks_exist_status=false;
+              }
+              //alert(this.bought_stocks_exist_status);
+          }
         
-        
-        this.bought_stocks=data.body;
-        this.bought_stocks.map((val)=>{
-
-          this.stock_service_provider.getParticularStock(val.stock_id).subscribe((data)=>{
-
-            this.stock_sale_expansion={
-              "id":val.id,
-              "price_bought_for":val.price_bought_for,
-              "stock_bought_on":val.stock_bought_on,
-              "stock_buy_status":val.stock_buy_status,
-              "stock_id":val.stock_id,
-              "stock_name":data.stock_name,
-              "stock_present_price":data.stock_present_price,
-              "no_of_times_bought":val.no_of_times_bought,
-              "no_of_times_sold":val.no_of_times_sold,
-              "stock_sale_id":val.stock_sale_id,
-              "stock_value":data.stock_present_price
-            };
-
-            this.stock_sale_exansion_array.push(this.stock_sale_expansion);
-
-          },(err_msg)=>this.error_message_faced=err_msg);
-
-        });
       
       }),
-    
 
-
+      
     ).subscribe();
     
   }

@@ -89,23 +89,18 @@ export class StockserviceService
     .pipe(catchError(this.error_management_service.handle_error_faced)).toPromise();
   }
 
-  getAllBoughtStocks(user_id:number):Promise<stock_sales[]>
+  getAllBoughtStocks(user_id:number):Observable<HttpResponse<stock_sales[]>>
   {
-    return this.http_service_stock.get<stock_sales[]>(base_url+"getAllBoughtStocks/"+user_id)
-    .pipe(catchError(this.error_management_service.handle_error_faced)).toPromise();
-  }
-
-  getAllSoldStocks(user_id:number):Promise<stock_sales[]>
-  {
-    return this.http_service_stock.get<stock_sales[]>(base_url+"getAllSoldStocks/"+user_id)
-    .pipe(catchError(this.error_management_service.handle_error_faced)).toPromise();
-  }
-
-  getAllSoldStocksObservable(user_id:number):Observable<stock_sales[]>
-  {
-    return this.http_service_stock.get<stock_sales[]>(base_url+"getAllSoldStocks/"+user_id)
+    return this.http_service_stock.get<stock_sales[]>(base_url+"getAllBoughtStocks/"+user_id,{observe:'response'})
     .pipe(catchError(this.error_management_service.handle_error_faced));
   }
+
+  getAllSoldStocks(user_id:number):Observable<HttpResponse<stock_sales[]>>
+  {
+    return this.http_service_stock.get<stock_sales[]>(base_url+"getAllSoldStocks/"+user_id,{observe:'response'})
+    .pipe(catchError(this.error_management_service.handle_error_faced));
+  }
+
 
   getAllBoughtStocksId(user_id:number):Observable<number[]|any>
   {

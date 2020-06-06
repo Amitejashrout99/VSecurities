@@ -6,7 +6,7 @@
 
 
 
-<mat-accordion style="margin-top: 20px;">
+<mat-accordion *ngIf="sold_stocks_exists_status" style="margin-top: 20px;">
 
     <mat-expansion-panel *ngFor="let expansion_object of custom_sold_stocks_class_objects_array" (opened)="initializeValue(expansion_object)" >
       <mat-expansion-panel-header class="right-aligned-header">
@@ -76,3 +76,10 @@
         </div>
 
     </mat-expansion-panel>
+</mat-accordion>
+
+<div id="item_not_found_banner" *ngIf="!sold_stocks_exists_status">
+    <h2 style="color: white;text-align: center;padding-top: 20px;padding-bottom: 20px;font-size: 200%;">404</h2>
+    <h3 style="color: white;text-align: center;">Zero Records Found</h3>
+    <p style="color: white;text-align: center;padding-top: 20px;padding-bottom: 20px;"  >No Sold Stock Records exists because you have'nt sold any Stocks up till now.</p>
+</div>

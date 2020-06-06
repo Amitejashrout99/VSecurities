@@ -5,7 +5,7 @@
 </mat-toolbar>
 
 
-<div *ngIf="all_bought_stocks_expansion_array">
+<div *ngIf="bought_stock_record_exists">
 
 
     <mat-accordion style="margin-top: 20px;">
@@ -91,13 +91,10 @@
 
 </div>
 
-<div fxFlex *ngIf="!all_bought_stocks_expansion_array">
-
-        <mat-spinner>
-            
-        </mat-spinner>
-        <h4>Loading ...... Please Wait...</h4>
-
+<div id="item_not_found_banner" *ngIf="!bought_stock_record_exists">
+    <h2 style="color: white;text-align: center;padding-top: 20px;padding-bottom: 20px;font-size: 200%;">404</h2>
+    <h3 style="color: white;text-align: center;">Zero Records Found</h3>
+    <p style="color: white;text-align: center;padding-top: 20px;padding-bottom: 20px;"  >No Bought Stock Records exists because you have'nt Bought any Stocks up till now.</p>
 </div> 
 
 

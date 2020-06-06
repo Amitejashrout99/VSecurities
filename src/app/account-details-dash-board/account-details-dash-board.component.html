@@ -4,13 +4,7 @@
     <span class="flex-spacer"></span>
     <h1 fxShow="true" fxHide.lt-md="true" >Welcome to your Account Dashboard {{current_user_name}}</h1>
     <span fxShow="true" fxHide.lt-md="true" class="flex-spacer"></span>
-    <div fxShow="true"   fxHide.gt-sm class="profile-card">
-        
-        <img src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Soufiane FADIL">
-        <div style="display: flex;align-items: center;justify-content: center;" class="header">
-            <h3>Welcome to your Account Dashboard {{current_user_name}}</h3>
-        </div>
-    </div>
+    <h1 fxShow="true" fxHide.gt-sm>{{current_user_name}}'s Account Dashboard</h1>
     <span class="flex-spacer" fxShow="true"   fxHide.gt-sm></span>
 </mat-toolbar>
 

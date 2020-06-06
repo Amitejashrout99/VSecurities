@@ -10,6 +10,7 @@ import {all_sold_stocks_custom_class} from '../shared/allSoldStocksExpansion';
 import {StockserviceService} from '../services/stockservice.service';
 import {UserloginserviceService} from '../services/userloginservice.service';
 import { tap, switchMap, catchError } from 'rxjs/operators';
+import { HttpResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-all-sold-stocks',
@@ -21,8 +22,9 @@ export class AllSoldStocksComponent implements OnInit {
   
   current_user_object:user;
   current_user_id:number;
-  error_message_faced:string;
+  error_message_faced:string="";
 
+  sold_stocks_exists_status:boolean=true;
   
   allSoldStocksArray:stock_sales[];
   SoldStockObject:stock;
@@ -49,12 +51,14 @@ export class AllSoldStocksComponent implements OnInit {
 
         tap((data)=>this.current_user_id=data.id),
 
-        switchMap(()=>this.stock_service_provider.getAllSoldStocksObservable(this.current_user_id)
+        switchMap(()=>this.stock_service_provider.getAllSoldStocks(this.current_user_id)
         .pipe(catchError((err)=>this.error_message_faced=err))),
 
-        tap((data:stock_sales[])=>{
-              
-              this.allSoldStocksArray=data;
+        tap((data:HttpResponse<stock_sales[]>)=>{
+
+          if(this.error_message_faced==="" && data.status===200)
+          {
+              this.allSoldStocksArray=data.body;
         
               this.allSoldStocksArray.map((val)=>this.stock_service_provider.getParticularStock(val.stock_id)
               .subscribe((data)=>{
@@ -82,11 +86,18 @@ export class AllSoldStocksComponent implements OnInit {
                 this.custom_sold_stocks_class_objects_array.push(this.custom_sold_stocks_class_object);
 
               }));
-        
-        
+          }
+          else
+          {
+            let error_code:number=+(this.error_message_faced.split("-")[0]);
+            //alert(error_code);
+            if(error_code===404)
+            {
+              this.sold_stocks_exists_status=false;
+            }
+          }
+
         }),
-
-
         
 
       ).subscribe();

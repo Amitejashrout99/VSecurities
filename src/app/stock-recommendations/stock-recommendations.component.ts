@@ -23,7 +23,7 @@ export class StockRecommendationsComponent implements OnInit {
   
   all_bought_stock_ids:number[];
   current_user_id:number;
-  error_message_faced:string;
+  error_message_faced:string="";
   bought_stocks_id_available_status:boolean=true;
 
   constructor(private stock_service_provider:StockserviceService,
@@ -45,6 +45,43 @@ export class StockRecommendationsComponent implements OnInit {
         .pipe(catchError((err_msg)=>this.error_message_faced=err_msg))),
 
         tap((data)=>{
+
+          if(this.error_message_faced==="")
+          {
+            this.all_bought_stock_ids=data
+
+            if(this.all_bought_stock_ids.length==0)
+            {
+                this.bought_stocks_id_available_status=false;
+            }
+          
+            if(this.bought_stocks_id_available_status)
+            {
+              this.all_bought_stock_ids.map((val)=>this.stock_service_provider.getParticularStock(val)
+              .subscribe((data)=>this.all_stocks_available.push(data),(err_msg)=>this.error_message_faced=err_msg));
+            }
+
+            if(!this.bought_stocks_id_available_status)
+            {
+            this.stock_service_provider.getAllStocksPresent().subscribe((data)=>this.all_stocks_available=data,(err_msg)=>this.error_message_faced=err_msg);
+            }
+          }
+          else
+          {
+            let error_code:number=+(this.error_message_faced.split("-")[0]);
+            //alert(error_code);
+            if(error_code===404)
+            {
+              this.bought_stocks_id_available_status=false;
+            }
+            //alert(this.bought_stocks_exist_status);
+          }
+          
+      
+        }),
+
+
+        /*tap((data)=>{
           this.all_bought_stock_ids=data
 
           if(this.all_bought_stock_ids.length==0)
@@ -63,7 +100,7 @@ export class StockRecommendationsComponent implements OnInit {
             this.stock_service_provider.getAllStocksPresent().subscribe((data)=>this.all_stocks_available=data,(err_msg)=>this.error_message_faced=err_msg);
           }
 
-        }),
+        }),*/
 
       ).subscribe();
 
