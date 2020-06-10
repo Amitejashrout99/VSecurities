@@ -17,11 +17,11 @@ export class AlienServiceService
 
   public getAllAliensPresent():Observable<alien[]>
   {
-     return this.http_service.get<alien[]>(base_url+'Aliens');
+     return this.http_service.get<alien[]>('Aliens');
   }
 
   public save(alien: alien) {
-    return this.http_service.post<alien>(base_url+'Aliens', alien);
+    return this.http_service.post<alien>('Aliens', alien);
   }
 
 }

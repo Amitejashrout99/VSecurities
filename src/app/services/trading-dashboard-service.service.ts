@@ -22,25 +22,25 @@ export class TradingDashboardServiceService {
 
   getAllBoughtStocks(user_id:number):Observable<stock_sales[]>
   {
-    return this.http_service_stock.get<stock_sales[]>(base_url+"getAllBoughtStocks/"+user_id)
+    return this.http_service_stock.get<stock_sales[]>("getAllBoughtStocks/"+user_id)
     .pipe(catchError(this.error_management_service.handle_error_faced));
   }
 
   getAllSoldStocks(user_id:number):Observable<stock_sales[]>
   {
-    return this.http_service_stock.get<stock_sales[]>(base_url+"getAllSoldStocks/"+user_id)
+    return this.http_service_stock.get<stock_sales[]>("getAllSoldStocks/"+user_id)
     .pipe(catchError(this.error_management_service.handle_error_faced));
   }
 
   getAllBoughtStocksId(user_id:number):Observable<number[]|any>
   {
-    return this.http_service_stock.get<stock_sales[]>(base_url+"getAllBoughtStocks/"+user_id)
+    return this.http_service_stock.get<stock_sales[]>("getAllBoughtStocks/"+user_id)
     .pipe(map(stocks=>stocks.map(stock=>stock.stock_id))).pipe(catchError(this.error_management_service.handle_error_faced));
   }
 
   getParticularStock(particular_stock_id:number):Observable<stock>
   {
-    return this.http_service_stock.get<stock>(base_url+'particularStock/'+particular_stock_id)
+    return this.http_service_stock.get<stock>('particularStock/'+particular_stock_id)
     .pipe(catchError(this.error_management_service.handle_error_faced));
   }
 }

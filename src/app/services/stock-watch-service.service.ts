@@ -26,12 +26,12 @@ export class StockWatchServiceService {
 
   getResearchDataStockWise(stock_id:number):Observable<stock_research_dto>
   {
-    return this.http_service_stock_watch.get<stock_research_dto>(base_url+"getStockResearchData/"+stock_id).pipe(catchError(this.error_management_service.handle_error_faced));
+    return this.http_service_stock_watch.get<stock_research_dto>("getStockResearchData/"+stock_id).pipe(catchError(this.error_management_service.handle_error_faced));
   }
 
   getRecommendationsData(stock_id:number):Observable<stock_recommendations_dto[]>
   {
-    return this.http_service_stock_watch.get<stock_recommendations_dto[]>(base_url+"getStockRecommendations/"+stock_id).pipe(catchError(this.error_management_service.handle_error_faced));
+    return this.http_service_stock_watch.get<stock_recommendations_dto[]>("getStockRecommendations/"+stock_id).pipe(catchError(this.error_management_service.handle_error_faced));
   }
 
 }

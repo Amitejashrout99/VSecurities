@@ -29,25 +29,25 @@ export class AdminServiceService {
 
   verifyAdminStatus(user_name:string):Observable<HttpResponse<number>>
   {
-    return this.http_service_admin.get<number>(base_url+"checkAdminStatus/"+user_name,{observe : 'response'})
+    return this.http_service_admin.get<number>("checkAdminStatus/"+user_name,{observe : 'response'})
     .pipe(catchError(this.error_management_service.handle_error_faced));
   }
 
   verifyAdminCredentials(admin_credentials_obj:admin_credentials):Observable<HttpResponse<admin_credentials>>
   {
-      return this.http_service_admin.post<admin_credentials>(base_url+"verifyAdminCredentials",admin_credentials_obj,{observe : 'response'})
+      return this.http_service_admin.post<admin_credentials>("verifyAdminCredentials",admin_credentials_obj,{observe : 'response'})
       .pipe(catchError(this.error_management_service.handle_error_faced));
 
   }
 
   getAllUserDataForAdmin():Observable<users_data_for_admin_dto[]>
   {
-    return this.http_service_admin.get<users_data_for_admin_dto[]>(base_url+"getAllUsersData").pipe(catchError(this.error_management_service.handle_error_faced));
+    return this.http_service_admin.get<users_data_for_admin_dto[]>("getAllUsersData").pipe(catchError(this.error_management_service.handle_error_faced));
   }
 
   getAllTransactionsDataForAdmin():Observable<transactions_data_for_admin[]>
   {
-    return this.http_service_admin.get<transactions_data_for_admin[]>(base_url+"getAllTransactionData").pipe(catchError(this.error_management_service.handle_error_faced));
+    return this.http_service_admin.get<transactions_data_for_admin[]>("getAllTransactionData").pipe(catchError(this.error_management_service.handle_error_faced));
   }
 
 

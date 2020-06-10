@@ -64,7 +64,7 @@ export class ShoppingCartServiceService
   addStockCartItemsToDatabase(stock_sales_object_array:stock_sales) //To add cart items to stock_sales_status
   {
      //alert(stock_sales_object_array); 
-    return this.http_service_shopping_cart.post<stock_sales>(base_url+"addStockBuy",stock_sales_object_array);
+    return this.http_service_shopping_cart.post<stock_sales>("addStockBuy",stock_sales_object_array);
   }
 
   

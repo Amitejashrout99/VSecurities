@@ -3,7 +3,7 @@ $background-dark: #512DA8;
 $background-light: #9575CD;
 $background-pale: #D1C4E9;
 $background-moredark: #4527A0;
-$banner-text:#fcdb03;
+$banner-text:white;
 
 @mixin zero-margin($pad-up-down, $pad-left-right) {
     margin: 0px auto;
@@ -12,7 +12,7 @@ $banner-text:#fcdb03;
 
 .jumbotron {
     @include zero-margin(70px,30px);
-    background-image: url(/assets/images/header_page_bg.jpg);
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),url(/assets/images/header_page_bg.jpg);
     color:$banner-text;
     height: 100%;
     background-attachment: fixed;
@@ -24,6 +24,9 @@ $banner-text:#fcdb03;
 .header_text
 {
     opacity: 1;
+    text-align: justify;
+    font-family: 'Times New Roman', Times, serif;
+    line-height: 1;
 }
 
 p
